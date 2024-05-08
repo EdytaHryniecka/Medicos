@@ -152,9 +152,10 @@ const Footer = () => {
               <Link to="/services">
                 <p>{t`footer.services`}</p>
               </Link>
-              <Link to="/news">
+              {/* Uncomment blog */}
+              {/* <Link to="/news">
                 <p>{t`footer.blog`}</p>
-              </Link>
+              </Link> */}
             </div>
             <div className="contact-con">
               <Link

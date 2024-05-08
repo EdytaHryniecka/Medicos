@@ -18,22 +18,23 @@ const Search = () => {
     ? decodeURIComponent(searchParams.get("query"))
     : ""
   const { language } = useContext(I18nextContext)
+  // Uncomment blog
+  // allContentfulArticle {
+  //   edges {
+  //     node {
+  //       title
+  //       node_locale
+  //       slug
+  //       author
+  //       createdAt
+  //       description {
+  //         raw
+  //       }
+  //     }
+  //   }
+  // }
   const data = useStaticQuery(graphql`
     query {
-      allContentfulArticle {
-        edges {
-          node {
-            title
-            node_locale
-            slug
-            author
-            createdAt
-            description {
-              raw
-            }
-          }
-        }
-      }
       allContentfulMaterials {
         edges {
           node {
@@ -146,29 +147,30 @@ const Search = () => {
   useEffect(() => {
     setSearchedData([])
 
-    const processArticles = () => {
-      const articles = getCurrentTranslations(
-        data.allContentfulArticle.edges,
-        language
-      )
-      if (
-        searchQuery &&
-        searchQuery.trim() !== "" &&
-        !isOnlyDots(searchQuery)
-      ) {
-        const filteredArticles = articles
-          .filter(article => {
-            const descriptionContent = JSON.parse(
-              article.node.description.raw
-            ).content
-            const descriptionText = getDescriptionText(descriptionContent)
-            return articleMatchesQuery(article, descriptionText)
-          })
-          .map(article => mapArticleData(article))
+    // Uncomment blog
+    // const processArticles = () => {
+    //   const articles = getCurrentTranslations(
+    //     data.allContentfulArticle.edges,
+    //     language
+    //   )
+    //   if (
+    //     searchQuery &&
+    //     searchQuery.trim() !== "" &&
+    //     !isOnlyDots(searchQuery)
+    //   ) {
+    //     const filteredArticles = articles
+    //       .filter(article => {
+    //         const descriptionContent = JSON.parse(
+    //           article.node.description.raw
+    //         ).content
+    //         const descriptionText = getDescriptionText(descriptionContent)
+    //         return articleMatchesQuery(article, descriptionText)
+    //       })
+    //       .map(article => mapArticleData(article))
 
-        setSearchedData(prevData => [...prevData, ...filteredArticles])
-      }
-    }
+    //     setSearchedData(prevData => [...prevData, ...filteredArticles])
+    //   }
+    // }
 
     const processMaterials = () => {
       const materials = getCurrentTranslations(
@@ -354,7 +356,8 @@ const Search = () => {
       }
     }
 
-    processArticles()
+    // Uncomment blog
+    // processArticles()
     processMaterials()
     processContact()
     processPrivacyPolicy()
@@ -939,7 +942,9 @@ const Search = () => {
       locale.node.ns !== "search" &&
       locale.node.ns !== "seo" &&
       locale.node.ns !== "not-found" &&
-      locale.node.ns !== "error"
+      locale.node.ns !== "error" &&
+      // Uncomment blog - delete news here if any news avaliable
+      locale.node.ns !== "news"
     )
   }
 
