@@ -391,6 +391,7 @@ const Search = () => {
     const filteredNodes = content.filter(node => {
       const firstContent = node?.content?.[0]
       return [
+        "text",
         "paragraph",
         "heading-1",
         "heading-2",
