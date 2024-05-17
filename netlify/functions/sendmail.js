@@ -21,8 +21,8 @@ exports.handler = async (event, context, callback) => {
   `
 
   const mail_to_send = {
-    to: "edyta.hryniecka@medicos.com.pl",
-    from: "edyta.hryniecka@medicos.com.pl",
+    to: "kontakt@medicos.com.pl",
+    from: "kontakt@medicos.com.pl",
     subject: subject,
     html: body,
   }
