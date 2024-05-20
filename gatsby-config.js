@@ -7,14 +7,14 @@ require("dotenv").config({
  */
 module.exports = {
   siteMetadata: {
-    title: `Medicos`,
+    title: `Medicos | Łączymy przemysł z producentami surowców chemicznych`,
     author: "Medicos",
     author: {
-      name: `Medicost`,
+      name: `Medicos`,
       summary: `Medicos`,
     },
-    description: `Medicos`,
-    siteUrl: `https://github.com/Konrad47`,
+    description: `Nasza firma oferuje surowce chemiczne i składniki aktywne z doradztwem i zabezpieczoną dostawą dla innowacyjnych rozwiązań.`,
+    siteUrl: `https://medicos.com.pl/`,
   },
   plugins: [
     {

@@ -32,7 +32,7 @@
 .home-i-container .industry-button:hover {
   background: #e9f2fb;
   color: var(--Button-secondary-hover-txt, #4d8ce5);
-  transition: all 0.2s ease-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .home-i-container .i-con .down-con {
@@ -49,8 +49,8 @@
   position: relative;
   width: 246px;
   height: 412px;
-  padding: 32px 16px;
-  background-color: gray;
+  /* padding: 32px 16px; */
+  /* background-color: gray; */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -101,14 +101,29 @@
   border-radius: 18px;
 }
 
+.home-i-container .i-con .down-con .industry .industry-shade {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 18px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(10, 34, 67, 0));
+  transition: all 0.3s ease-in-out;
+}
+
+.home-i-container .i-con .down-con .industry:hover .industry-shade {
+  background: linear-gradient(180deg, rgba(10, 34, 67, 0.6) 0%, #0a2243 100%);
+}
+
 .home-i-container .i-con .down-con .industry .register-btn {
   z-index: 2;
   opacity: 0;
   transition: all 0.3s ease-out;
+  margin: 16px;
 }
 
 .home-i-container .i-con .down-con .industry:hover .industry-con {
-  background: linear-gradient(180deg, rgba(10, 34, 67, 0.6) 0%, #0a2243 100%);
+  /* background: linear-gradient(180deg, rgba(10, 34, 67, 0.6) 0%, #0a2243 100%); */
   height: 100%;
 }
 

@@ -35,6 +35,9 @@
 }
 
 @media screen and (max-width: 568px) {
+  .search-h-container {
+    background: url(../../../images/search/header/search-header-background_mobile.webp);
+  }
   .search-h-container p {
     font-size: 16px;
     font-weight: 300;

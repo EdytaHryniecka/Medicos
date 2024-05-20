@@ -35,10 +35,12 @@ const HomeIndustries = () => {
                   </div>
                   <p className="p-style">{t`home-industries.hc-description`}</p>
                 </div>
-                <Link
-                  to="/household-chemicals"
-                  className="register-btn industry-button"
-                >{t`home-industries.material`}</Link>
+                <div className="industry-shade">
+                  <Link
+                    to="/household-chemicals"
+                    className="register-btn industry-button"
+                  >{t`home-industries.material`}</Link>
+                </div>
               </div>
               <div
                 onClick={() => Navigate("cosmetology", language)}
@@ -50,10 +52,12 @@ const HomeIndustries = () => {
                   </div>
                   <p className="p-style">{t`home-industries.c-description`}</p>
                 </div>
-                <Link
-                  to="/cosmetology"
-                  className="register-btn industry-button"
-                >{t`home-industries.material`}</Link>
+                <div className="industry-shade">
+                  <Link
+                    to="/cosmetology"
+                    className="register-btn industry-button"
+                  >{t`home-industries.material`}</Link>
+                </div>
               </div>
               <div
                 onClick={() => Navigate("pharmacy", language)}
@@ -65,10 +69,12 @@ const HomeIndustries = () => {
                   </div>
                   <p className="p-style">{t`home-industries.p-description`}</p>
                 </div>
-                <Link
-                  to="/pharmacy"
-                  className="register-btn industry-button"
-                >{t`home-industries.material`}</Link>
+                <div className="industry-shade">
+                  <Link
+                    to="/pharmacy"
+                    className="register-btn industry-button"
+                  >{t`home-industries.material`}</Link>
+                </div>
               </div>
               <div
                 onClick={() => Navigate("food-and-supplements", language)}
@@ -80,10 +86,12 @@ const HomeIndustries = () => {
                   </div>
                   <p className="p-style">{t`home-industries.f-description`}</p>
                 </div>
-                <Link
-                  to="/food"
-                  className="register-btn industry-button"
-                >{t`home-industries.material`}</Link>
+                <div className="industry-shade">
+                  <Link
+                    to="/food"
+                    className="register-btn industry-button"
+                  >{t`home-industries.material`}</Link>
+                </div>
               </div>
               <div
                 onClick={() => Navigate("other-industries", language)}
@@ -95,10 +103,12 @@ const HomeIndustries = () => {
                   </div>
                   <p className="p-style">{t`home-industries.oi-description`}</p>
                 </div>
-                <Link
-                  to="/other-industries"
-                  className="register-btn industry-button"
-                >{t`home-industries.material`}</Link>
+                <div className="industry-shade">
+                  <Link
+                    to="/other-industries"
+                    className="register-btn industry-button"
+                  >{t`home-industries.material`}</Link>
+                </div>
               </div>
             </div>
           </div>

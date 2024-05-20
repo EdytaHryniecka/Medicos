@@ -26,3 +26,9 @@
     width: 100%;
   }
 }
+
+@media screen and (max-width: 568px) {
+  .services-h-container {
+    background: url(../../../images/services/header/services-header-background_mobile.webp);
+  }
+}

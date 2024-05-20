@@ -26,3 +26,9 @@
     width: 100%;
   }
 }
+
+@media screen and (max-width: 568px) {
+  .materials-h-container {
+    background: url(../../../images/materials/header/materials-header-background_mobile.webp);
+  }
+}
