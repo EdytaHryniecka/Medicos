@@ -88,7 +88,7 @@ const HomeIndustries = () => {
                 </div>
                 <div className="industry-shade">
                   <Link
-                    to="/food"
+                    to="/food-and-supplements"
                     className="register-btn industry-button"
                   >{t`home-industries.material`}</Link>
                 </div>
