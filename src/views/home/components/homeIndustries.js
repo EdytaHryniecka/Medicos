@@ -107,11 +107,12 @@ const HomeIndustries = () => {
                     <p className="p-style">{t`home-industries.oi-description`}</p>
                   </div>
                 </div>
-                <Link
-                  to="/other-industries"
-                  className="register-btn industry-button"
-                >{t`home-industries.material`}</Link>
-                <div className="industry-shade"></div>
+                <div className="industry-shade">
+                  <Link
+                    to="/other-industries"
+                    className="register-btn industry-button"
+                  >{t`home-industries.material`}</Link>
+                </div>
               </div>
             </div>
           </div>
