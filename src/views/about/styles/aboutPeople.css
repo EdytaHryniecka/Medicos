@@ -105,6 +105,11 @@
 
 @media screen and (max-width: 568px) {
   .about-pe-container {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+
+  .about-pe-container {
     background-size: 100% auto;
   }
   .about-pe-container h2,

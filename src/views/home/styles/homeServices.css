@@ -84,6 +84,19 @@
 }
 
 @media screen and (max-width: 568px) {
+  .home-s-container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .home-s-container p {
+    margin-bottom: 32px;
+  }
+
+  .home-s-container .services-con {
+    margin-bottom: 32px;
+  }
+
   .home-s-container .services-button {
     display: flex;
     width: 100%;

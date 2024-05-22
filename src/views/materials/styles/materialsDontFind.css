@@ -32,6 +32,11 @@
 }
 
 @media screen and (max-width: 568px) {
+  .materials-df-container {
+    background: url(../../../images/materials/dont-find/dont-find-backgound_mobile.webp)
+      no-repeat fixed 50% 0;
+    padding-bottom: 200px;
+  }
   .materials-df-container .materials-dont-find-button {
     display: flex;
     width: 100%;

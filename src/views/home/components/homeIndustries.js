@@ -33,7 +33,9 @@ const HomeIndustries = () => {
                   <div className="h4-con">
                     <h4>{t`home-industries.household-chemicals`}</h4>
                   </div>
-                  <p className="p-style">{t`home-industries.hc-description`}</p>
+                  <div className="industry-desc">
+                    <p className="p-style">{t`home-industries.hc-description`}</p>
+                  </div>
                 </div>
                 <div className="industry-shade">
                   <Link
@@ -50,7 +52,9 @@ const HomeIndustries = () => {
                   <div className="h4-con">
                     <h4>{t`home-industries.cosmetology`}</h4>
                   </div>
-                  <p className="p-style">{t`home-industries.c-description`}</p>
+                  <div className="industry-desc">
+                    <p className="p-style">{t`home-industries.c-description`}</p>
+                  </div>
                 </div>
                 <div className="industry-shade">
                   <Link
@@ -64,10 +68,10 @@ const HomeIndustries = () => {
                 className="industry pharmacy"
               >
                 <div className="industry-con">
-                  <div className="h4-con">
-                    <h4>{t`home-industries.pharmacy`}</h4>
+                  <h4 className="h4-con">{t`home-industries.pharmacy`}</h4>
+                  <div className="industry-desc">
+                    <p className="p-style">{t`home-industries.p-description`}</p>
                   </div>
-                  <p className="p-style">{t`home-industries.p-description`}</p>
                 </div>
                 <div className="industry-shade">
                   <Link
@@ -81,10 +85,10 @@ const HomeIndustries = () => {
                 className="industry food"
               >
                 <div className="industry-con">
-                  <div className="h4-con">
-                    <h4>{t`home-industries.food`}</h4>
+                  <h4 className="h4-con">{t`home-industries.food`}</h4>
+                  <div className="industry-desc">
+                    <p className="p-style">{t`home-industries.f-description`}</p>
                   </div>
-                  <p className="p-style">{t`home-industries.f-description`}</p>
                 </div>
                 <div className="industry-shade">
                   <Link
@@ -98,17 +102,16 @@ const HomeIndustries = () => {
                 className="industry other-industries"
               >
                 <div className="industry-con">
-                  <div className="h4-con">
-                    <h4>{t`home-industries.other-industries`}</h4>
+                  <h4 className="h4-con">{t`home-industries.other-industries`}</h4>
+                  <div className="industry-desc">
+                    <p className="p-style">{t`home-industries.oi-description`}</p>
                   </div>
-                  <p className="p-style">{t`home-industries.oi-description`}</p>
                 </div>
-                <div className="industry-shade">
-                  <Link
-                    to="/other-industries"
-                    className="register-btn industry-button"
-                  >{t`home-industries.material`}</Link>
-                </div>
+                <Link
+                  to="/other-industries"
+                  className="register-btn industry-button"
+                >{t`home-industries.material`}</Link>
+                <div className="industry-shade"></div>
               </div>
             </div>
           </div>
