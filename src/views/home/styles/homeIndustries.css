@@ -102,16 +102,6 @@
   margin: 0;
   overflow: hidden;
   opacity: 0;
-  /* transition: all 0.6s ease-in-out; */
-}
-
-.home-i-container
-  .i-con
-  .down-con
-  .industry:hover
-  .industry-con
-  .industry-desc {
-  /* opacity: 1; */
 }
 
 .home-i-container .i-con .down-con .industry .industry-con .industry-desc p {
@@ -146,17 +136,12 @@
 
 .home-i-container .i-con .down-con .industry .register-btn {
   z-index: 2;
-  opacity: 0;
-  transition: all 0.6s ease-in-out;
+  opacity: 1;
   margin: 16px;
 }
 
 .home-i-container .i-con .down-con .industry:hover .industry-con {
   height: 100%;
-}
-
-.home-i-container .i-con .down-con .industry:hover .register-btn {
-  opacity: 1;
 }
 
 .home-i-container .i-con .down-con .industry .h4-con {
