@@ -38,6 +38,7 @@ const HomeIndustries = () => {
                   </div>
                 </div>
                 <div className="industry-shade">
+                  <p className="p-style desc-in-shade">{t`home-industries.hc-description`}</p>
                   <Link
                     to="/household-chemicals"
                     className="register-btn industry-button"
@@ -57,6 +58,7 @@ const HomeIndustries = () => {
                   </div>
                 </div>
                 <div className="industry-shade">
+                  <p className="p-style desc-in-shade">{t`home-industries.c-description`}</p>
                   <Link
                     to="/cosmetology"
                     className="register-btn industry-button"
@@ -74,6 +76,7 @@ const HomeIndustries = () => {
                   </div>
                 </div>
                 <div className="industry-shade">
+                  <p className="p-style desc-in-shade">{t`home-industries.p-description`}</p>
                   <Link
                     to="/pharmacy"
                     className="register-btn industry-button"
@@ -91,6 +94,7 @@ const HomeIndustries = () => {
                   </div>
                 </div>
                 <div className="industry-shade">
+                  <p className="p-style desc-in-shade">{t`home-industries.f-description`}</p>
                   <Link
                     to="/food-and-supplements"
                     className="register-btn industry-button"
@@ -108,6 +112,7 @@ const HomeIndustries = () => {
                   </div>
                 </div>
                 <div className="industry-shade">
+                  <p className="p-style desc-in-shade">{t`home-industries.oi-description`}</p>
                   <Link
                     to="/other-industries"
                     className="register-btn industry-button"
