@@ -206,10 +206,12 @@
   }
   .home-i-container .i-con .down-con .industry:hover .industry-shade {
     opacity: 0;
+    display: none;
   }
 
   .home-i-container .i-con .down-con .industry:hover .register-btn {
     opacity: 0;
+    display: none;
   }
   .home-i-container .i-con .down-con .industry:hover .industry-con {
     height: 115px;
