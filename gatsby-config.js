@@ -103,5 +103,6 @@ module.exports = {
         icon: `src/images/medicos-icon.png`,
       },
     },
+    "gatsby-plugin-sitemap",
   ],
 }
