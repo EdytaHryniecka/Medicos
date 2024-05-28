@@ -190,7 +190,7 @@ const ContactComponent = ({ searchQuery }) => {
     //http://localhost:8888/
     try {
       const response = await fetch(
-        "https://medicos-site.netlify.app/.netlify/functions/sendmail",
+        "https://medicos.com.pl/.netlify/functions/sendmail",
         {
           method: "POST",
           body: JSON.stringify(to_send),
