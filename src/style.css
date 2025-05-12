@@ -101,6 +101,7 @@ body {
   line-height: normal;
 }
 
+.render-content p,
 .p-style {
   font-size: 18px;
   font-style: normal;
