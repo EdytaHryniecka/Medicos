@@ -24,6 +24,22 @@ const About = () => {
             oNasOpis {
               raw
             }
+            oNasNaszaWizjaTytu
+            oNasNaszaWizjaOpis {
+              raw
+            }
+            oNasNaszaMisjaTytu
+            oNasNaszaMisjaOpis {
+              raw
+            }
+            oNasZespTytu
+            oNasZespOpis {
+              raw
+            }
+            oNasZasadyWsppracyTytu
+            oNasZasadyWsppracyOpis {
+              raw
+            }
           }
         }
       }
@@ -47,7 +63,7 @@ const About = () => {
       <Seo title={t`seo.about.title`} description={t`seo.about.description`} />
       <AboutHeader />
       {textData && <AboutFirm textData={textData} />}
-      <AboutMission />
+      {textData && <AboutMission textData={textData} />}
       <AboutPolicy />
       <AboutPeople />
       <AboutRules />
