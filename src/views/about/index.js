@@ -65,7 +65,7 @@ const About = () => {
       {textData && <AboutFirm textData={textData} />}
       {textData && <AboutMission textData={textData} />}
       <AboutPolicy />
-      <AboutPeople />
+      {textData && <AboutPeople textData={textData} />}
       <AboutRules />
     </Layout>
   )

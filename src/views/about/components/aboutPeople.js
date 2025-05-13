@@ -3,8 +3,10 @@ import { useTranslation, I18nextContext } from "gatsby-plugin-react-i18next"
 import "../styles/aboutPeople.css"
 import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../../components/contentful-translator"
+import { articleTextRenderOptions } from "../../../utils/articleRenderOption"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 
-const AboutPeople = () => {
+const AboutPeople = ({ textData }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
   const data = useStaticQuery(graphql`
@@ -57,8 +59,13 @@ const AboutPeople = () => {
       <div className="about-pe-container">
         <div className="container">
           <div className="con-up">
-            <h2 className="h2-style">{t`about-people.title`}</h2>
-            <p className="p-style">{t`about-people.description`}</p>
+            <h2 className="h2-style">{textData.node.oNasZespTytu}</h2>
+            <div className="render-content">
+              {renderRichText(
+                textData.node.oNasZespOpis,
+                articleTextRenderOptions
+              )}
+            </div>
           </div>
           <div className="team-con">{team && renderTeam(team)}</div>
         </div>
