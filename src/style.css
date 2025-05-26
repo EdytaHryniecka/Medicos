@@ -101,11 +101,16 @@ body {
   line-height: normal;
 }
 
+.render-content p,
 .p-style {
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 30.6px */
+}
+
+.render-content li p {
+  margin-bottom: 0 !important;
 }
 
 b {

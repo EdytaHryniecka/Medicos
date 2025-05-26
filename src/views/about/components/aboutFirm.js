@@ -1,20 +1,23 @@
 import React from "react"
-import { useTranslation, Link } from "gatsby-plugin-react-i18next"
 import "../styles/aboutFirm.css"
 import { StaticImage } from "gatsby-plugin-image"
+import { articleTextRenderOptions } from "../../../utils/articleRenderOption"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 
-const AboutFirm = () => {
-  const { t } = useTranslation()
-
+const AboutFirm = ({ textData }) => {
   return (
     <>
       <div className="about-f-container">
         <div className="container">
           <div className="about-grid">
             <div className="text-con">
-              <h2 className="h2-style">{t`about-firm.title`}</h2>
-              <p className="p-style">{t`about-firm.description-1`}</p>
-              <p className="p-style">{t`about-firm.description-2`}</p>
+              <h2 className="h2-style">{textData.node.oNasTytu}</h2>
+              <div className="render-content">
+                {renderRichText(
+                  textData.node.oNasOpis,
+                  articleTextRenderOptions
+                )}
+              </div>
               <div className="images">
                 <StaticImage
                   className="image"

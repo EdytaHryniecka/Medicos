@@ -6,26 +6,11 @@ import MaterialComponent from "../../components/materialComponent/materialCompon
 import { StaticImage } from "gatsby-plugin-image"
 import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { articleTextRenderOptions } from "../../utils/articleRenderOption"
 
 const Food = () => {
   const { t } = useTranslation()
-
-  const backgroundHeader = "f-background"
-  const titleHeader = `${t`food-and-supplements.header.title`}`
-  const descriptionHeader = `${t`food-and-supplements.header.description`}`
-  const imageApplication = () => (
-    <StaticImage
-      className="right-image"
-      src="../../images/food/application/material-f-application.webp"
-      alt="Right image"
-      placeholder="Right image"
-      loading="lazy"
-    />
-  )
-
-  const titleApplication = `${t`food-and-supplements.application.title`}`
-  const descriptionApplication = `${t`food-and-supplements.application.description`}`
-
   const { language } = useContext(I18nextContext)
   const data = useStaticQuery(graphql`
     query {
@@ -53,9 +38,25 @@ const Food = () => {
           }
         }
       }
+      allContentfulTextOnTheRawMaterialsPages {
+        edges {
+          node {
+            node_locale
+            foodAndSupplementsTytu1
+            foodAndSupplementsOpis1 {
+              raw
+            }
+            foodAndSupplementsTytu2
+            foodAndSupplementsOpis2 {
+              raw
+            }
+          }
+        }
+      }
     }
   `)
   const [materials, setMaterials] = useState()
+  const [textData, setTextData] = useState()
 
   useEffect(() => {
     const getData = () => {
@@ -69,9 +70,31 @@ const Food = () => {
     getData()
   }, [data.allContentfulMaterials, language])
 
+  useEffect(() => {
+    const getData = () => {
+      const getTextData = getCurrentTranslations(
+        data.allContentfulTextOnTheRawMaterialsPages.edges,
+        language
+      )
+      setTextData(getTextData[0])
+    }
+    getData()
+  }, [data.allContentfulTextOnTheRawMaterialsPages, language])
+
   const titleDiscover = `${t`food-and-supplements.discover.title`}`
   const descriptionDiscover = `${t`food-and-supplements.discover.description`}`
   const materialQuery = "food-and-supplements"
+
+  const backgroundHeader = "f-background"
+  const imageApplication = () => (
+    <StaticImage
+      className="right-image"
+      src="../../images/food/application/material-f-application.webp"
+      alt="Right image"
+      placeholder="Right image"
+      loading="lazy"
+    />
+  )
 
   return (
     <Layout>
@@ -79,19 +102,35 @@ const Food = () => {
         title={t`seo.food-and-supplements.title`}
         description={t`seo.food-and-supplements.description`}
       />
-      <MaterialComponent
-        backgroundHeader={backgroundHeader}
-        titleHeader={titleHeader}
-        descriptionHeader={descriptionHeader}
-        imageApplication={imageApplication}
-        titleApplication={titleApplication}
-        descriptionApplication={descriptionApplication}
-        materialDiscover={materials}
-        titleDiscover={titleDiscover}
-        descriptionDiscover={descriptionDiscover}
-        t={t}
-        materialQuery={materialQuery}
-      />
+      {textData && (
+        <MaterialComponent
+          backgroundHeader={backgroundHeader}
+          titleHeader={textData.node.foodAndSupplementsTytu1}
+          descriptionHeader={
+            <div className="render-content">
+              {renderRichText(
+                textData.node.foodAndSupplementsOpis1,
+                articleTextRenderOptions
+              )}
+            </div>
+          }
+          imageApplication={imageApplication}
+          titleApplication={textData.node.foodAndSupplementsTytu2}
+          descriptionApplication={
+            <div className="render-content">
+              {renderRichText(
+                textData.node.foodAndSupplementsOpis2,
+                articleTextRenderOptions
+              )}
+            </div>
+          }
+          materialDiscover={materials}
+          titleDiscover={titleDiscover}
+          descriptionDiscover={descriptionDiscover}
+          t={t}
+          materialQuery={materialQuery}
+        />
+      )}
     </Layout>
   )
 }
