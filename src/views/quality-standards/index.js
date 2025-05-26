@@ -3,6 +3,7 @@ import Seo from "../../components/seo"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 import Layout from "../../components/layout"
 import QsHeader from "./components/qsHeader"
+import Description from "./components/description"
 
 const QualityStandards = () => {
   const { t } = useTranslation()
@@ -14,6 +15,7 @@ const QualityStandards = () => {
         description={t`seo.quality-standards.description`}
       />
       <QsHeader />
+      <Description />
     </Layout>
   )
 }
