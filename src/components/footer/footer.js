@@ -146,6 +146,9 @@ const Footer = () => {
             </div>
             <div>
               <h6>{t`footer.about`}</h6>
+              <Link to="/quality-standards">
+                <p>{t`footer.quality-standards`}</p>
+              </Link>
               <Link to="/about">
                 <p>{t`footer.mission`}</p>
               </Link>
