@@ -4,6 +4,7 @@ import { useTranslation } from "gatsby-plugin-react-i18next"
 import Layout from "../../components/layout"
 import QsHeader from "./components/qsHeader"
 import Description from "./components/description"
+import QsPolicy from "./components/qsPolicy"
 
 const QualityStandards = () => {
   const { t } = useTranslation()
@@ -16,6 +17,7 @@ const QualityStandards = () => {
       />
       <QsHeader />
       <Description />
+      <QsPolicy />
     </Layout>
   )
 }
