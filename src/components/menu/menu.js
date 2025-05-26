@@ -15,6 +15,7 @@ const Menu = () => {
   const [isSearch, setIsSearch] = useState(false)
   const [search, setSearch] = useState("")
   const [showMaterials, setShowMaterials] = useState(false)
+  const [showAbout, setShowAbout] = useState(false)
 
   const [isErrorSearch, setIsErrorSearch] = useState(false)
 
@@ -230,7 +231,33 @@ const Menu = () => {
             <>
               {!isSearch ? (
                 <>
-                  <Link className="menu-link" to="/about">{t`menu.about`}</Link>
+                  <Dropdown className="rmo-dropdown menu-link">
+                    <Dropdown.Toggle>
+                      {t`menu.about`}
+                      <svg
+                        className="icon-arrow"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M5.29303 7.29301C5.48056 7.10553 5.73487 7.00022 6.00003 7.00022C6.26519 7.00022 6.5195 7.10553 6.70703 7.29301L10 10.586L13.293 7.29301C13.3853 7.19749 13.4956 7.12131 13.6176 7.0689C13.7396 7.01649 13.8709 6.98891 14.0036 6.98775C14.1364 6.9866 14.2681 7.0119 14.391 7.06218C14.5139 7.11246 14.6255 7.18672 14.7194 7.28061C14.8133 7.3745 14.8876 7.48615 14.9379 7.60905C14.9881 7.73195 15.0134 7.86363 15.0123 7.99641C15.0111 8.12919 14.9835 8.26041 14.9311 8.38241C14.8787 8.50441 14.8025 8.61476 14.707 8.707L10.707 12.707C10.5195 12.8945 10.2652 12.9998 10 12.9998C9.73487 12.9998 9.48056 12.8945 9.29303 12.707L5.29303 8.707C5.10556 8.51948 5.00024 8.26517 5.00024 8C5.00024 7.73484 5.10556 7.48053 5.29303 7.29301Z"
+                        />
+                      </svg>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Link to="/about">{t`menu.medicos`}</Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Link to="/quality-standards">{t`menu.quality-standards`}</Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                   <Link
                     className="menu-link"
                     to="/services"
@@ -658,7 +685,36 @@ const Menu = () => {
               />
             </a>
           </div>
-          <Link className="menu-link" to="/about">{t`menu.about`}</Link>
+          <span
+            onClick={() => setShowAbout(!showAbout)}
+            className="menu-link showMaterials"
+          >
+            {" "}
+            {t`menu.about`}
+            <svg
+              className="icon-arrow"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5.29303 7.29301C5.48056 7.10553 5.73487 7.00022 6.00003 7.00022C6.26519 7.00022 6.5195 7.10553 6.70703 7.29301L10 10.586L13.293 7.29301C13.3853 7.19749 13.4956 7.12131 13.6176 7.0689C13.7396 7.01649 13.8709 6.98891 14.0036 6.98775C14.1364 6.9866 14.2681 7.0119 14.391 7.06218C14.5139 7.11246 14.6255 7.18672 14.7194 7.28061C14.8133 7.3745 14.8876 7.48615 14.9379 7.60905C14.9881 7.73195 15.0134 7.86363 15.0123 7.99641C15.0111 8.12919 14.9835 8.26041 14.9311 8.38241C14.8787 8.50441 14.8025 8.61476 14.707 8.707L10.707 12.707C10.5195 12.8945 10.2652 12.9998 10 12.9998C9.73487 12.9998 9.48056 12.8945 9.29303 12.707L5.29303 8.707C5.10556 8.51948 5.00024 8.26517 5.00024 8C5.00024 7.73484 5.10556 7.48053 5.29303 7.29301Z"
+              />
+            </svg>
+          </span>
+          {showAbout && (
+            <div className="hide-menu-materials">
+              <Link className="menu-link" to="/about">{t`menu.medicos`}</Link>
+              <Link
+                className="menu-link"
+                to="/quality-standards"
+              >{t`menu.quality-standards`}</Link>
+            </div>
+          )}
           <Link className="menu-link" to="/services">{t`menu.services`}</Link>
           <span
             onClick={() => setShowMaterials(!showMaterials)}
