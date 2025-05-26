@@ -29,6 +29,6 @@
 
 @media screen and (max-width: 568px) {
   .qs-h-container {
-    /* background: url(../../../images/qs//header/qs-header-background_mobile.webp); */
+    background: url(../../../images/quality-standards/header/qs-header-background_mobile.webp);
   }
 }
