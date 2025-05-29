@@ -3,6 +3,8 @@ import { I18nextContext, useTranslation } from "gatsby-plugin-react-i18next"
 import "../styles/qsPolicy.css"
 import { graphql, useStaticQuery, withPrefix } from "gatsby"
 import getCurrentTranslations from "../../../components/contentful-translator"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { articleTextRenderOptions } from "../../../utils/articleRenderOption"
 
 const QsPolicy = () => {
   const { t } = useTranslation()
@@ -19,6 +21,12 @@ const QsPolicy = () => {
                 url
               }
             }
+            showLink
+            pageLink
+            buttonText
+            description {
+              raw
+            }
           }
         }
       }
@@ -33,7 +41,6 @@ const QsPolicy = () => {
         data.allContentfulQualityPolicyFiles.edges,
         language
       )
-
       setFiles(getFiles)
     }
     getData()
@@ -43,14 +50,23 @@ const QsPolicy = () => {
     return value.map((val, index) => (
       <a
         key={index}
-        href={withPrefix(`${val.node.file.file.url}`)}
+        href={
+          val.node.file.file.url
+            ? withPrefix(`${val.node.file.file.url}`)
+            : val.node.pageLink
+        }
         target="_blank"
-        className="policy"
+        className={val.node.showLink ? "policy" : "policy policy-disable"}
       >
         <div className="policy-up">
           <p className="h4-style">{val.node.title}</p>
+          {val.node.description && (
+            <div className="policy-desc">
+              {renderRichText(val.node.description, articleTextRenderOptions)}
+            </div>
+          )}
         </div>
-        <a>{t`qs-policy.see`}</a>
+        {val.node.showLink && <a>{val.node.buttonText}</a>}
       </a>
     ))
   }
