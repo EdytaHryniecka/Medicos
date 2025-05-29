@@ -1,0 +1,44 @@
+.certificate-qs-container {
+  text-align: center;
+  padding: 60px 24px;
+  background: #f1f1f1;
+  background: url(../../../images/materials/dont-find/dont-find-backgound.webp)
+    no-repeat fixed 50% 0;
+  overflow: hidden;
+  background-size: cover !important;
+  background-position: center;
+}
+
+.certificate-qs-container {
+  background-attachment: scroll !important;
+}
+
+.certificate-qs-container h2 {
+  color: var(--color-basics-white, #fff);
+  margin-bottom: 8px;
+}
+
+.certificate-qs-container p {
+  color: var(--color-basics-white, #fff);
+  margin-bottom: 32px;
+  max-width: 464px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.certificate-qs-container .certificate-button {
+  padding: 12px 24px;
+  border: 1px solid var(--Button-secondary-border, #d3e2f8);
+}
+
+@media screen and (max-width: 568px) {
+  .certificate-qs-container {
+    background: url(../../../images/materials/dont-find/dont-find-backgound_mobile.webp)
+      no-repeat fixed 50% 0;
+    padding-bottom: 200px;
+  }
+  .certificate-qs-container .certificate-button {
+    display: flex;
+    width: 100%;
+  }
+}

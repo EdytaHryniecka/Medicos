@@ -5,6 +5,7 @@ import Layout from "../../components/layout"
 import QsHeader from "./components/qsHeader"
 import Description from "./components/description"
 import QsPolicy from "./components/qsPolicy"
+import Certificate from "./components/certificate"
 
 const QualityStandards = () => {
   const { t } = useTranslation()
@@ -18,6 +19,7 @@ const QualityStandards = () => {
       <QsHeader />
       <Description />
       <QsPolicy />
+      <Certificate />
     </Layout>
   )
 }
