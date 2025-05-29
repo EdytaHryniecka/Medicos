@@ -7,15 +7,7 @@
 
 .qs-p-container h2 {
   color: var(--Button-primary-bg, #144487);
-  margin-bottom: 8px;
-}
-
-.qs-p-container p {
-  color: var(--main-text, #0a2243);
-  margin-bottom: 40px;
-  width: 70%;
-  margin-right: auto;
-  margin-left: auto;
+  margin-bottom: 24px;
 }
 
 .qs-p-container .policy-con {
@@ -29,7 +21,7 @@
 
 .qs-p-container .policy-con .policy {
   display: flex;
-  padding: 16px;
+  padding: 24px;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
@@ -79,15 +71,23 @@
   color: var(--Button-primary-bg, #144487);
   text-align: left;
   font-size: 16px;
-  margin-left: 84px;
   margin-top: auto;
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  height: 35px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
   transition: all 0.2s ease-out;
+  border-radius: 8px;
+  border: 1px solid var(--Button-secondary-border, #d3e2f8);
+  background: var(--light-bg, #fbfcfe);
+  box-sizing: border-box;
 }
 
 .qs-p-container .policy-con .policy:hover a {
-  text-decoration: underline;
+  background: var(--hover-bg, #e9f2fb);
   color: var(--Button-secondary-hover-txt, #4d8ce5);
 }
 
