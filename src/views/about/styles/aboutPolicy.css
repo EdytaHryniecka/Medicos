@@ -2,7 +2,7 @@
   text-align: left;
   padding: 60px 24px;
   background: #f1f1f1;
-  background: url(../../../images/materials/dont-find/dont-find-backgound.webp)
+  background: url(../../../images/about//policy/about-policy-background.webp)
     no-repeat fixed 50% 0;
   overflow: hidden;
   background-size: cover !important;
@@ -33,8 +33,8 @@
 
 @media screen and (max-width: 568px) {
   .about-p-container {
-    background: url(../../../images/materials/dont-find/dont-find-backgound_mobile.webp)
-      no-repeat fixed 50% 0;
+    /* background: url(../../../images/about//policy/about-policy-background.webp) */
+    /* no-repeat fixed 50% 0; */
     padding-bottom: 200px;
   }
   .about-p-container p {
