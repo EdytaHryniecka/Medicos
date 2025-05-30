@@ -129,6 +129,33 @@ const Search = () => {
           }
         }
       }
+      allContentfulTextOnThePage {
+        edges {
+          node {
+            node_locale
+            oNasTytu
+            oNasOpis {
+              raw
+            }
+            oNasNaszaWizjaTytu
+            oNasNaszaWizjaOpis {
+              raw
+            }
+            oNasNaszaMisjaTytu
+            oNasNaszaMisjaOpis {
+              raw
+            }
+            oNasZespTytu
+            oNasZespOpis {
+              raw
+            }
+            oNasZasadyWsppracyTytu
+            oNasZasadyWsppracyOpis {
+              raw
+            }
+          }
+        }
+      }
       allLocale {
         edges {
           node {
@@ -332,7 +359,6 @@ const Search = () => {
       ) {
         const filteredPolicyFiles = policyFiles
           .filter(con => {
-            console.log(con)
             if (con.node.description) {
               const descriptionContent = JSON.parse(
                 con.node.description.raw
@@ -345,6 +371,58 @@ const Search = () => {
           .map(con => mapFilesData(con))
 
         setSearchedData(prevData => [...prevData, ...filteredPolicyFiles])
+      }
+    }
+
+    const processTextOnThePage = () => {
+      const textOnThePage = getCurrentTranslations(
+        data.allContentfulTextOnThePage.edges,
+        language
+      )
+      if (
+        searchQuery &&
+        searchQuery.trim() !== "" &&
+        !isOnlyDots(searchQuery)
+      ) {
+        const filteredTextOnThePage = textOnThePage
+          .filter(text => {
+            const oNasOpisContent = JSON.parse(text.node.oNasOpis.raw).content
+            const oNasNaszaWizjaOpisContent = JSON.parse(
+              text.node.oNasNaszaWizjaOpis.raw
+            ).content
+            const oNasNaszaMisjaOpisContent = JSON.parse(
+              text.node.oNasNaszaMisjaOpis.raw
+            ).content
+            const oNasZespOpisContent = JSON.parse(
+              text.node.oNasZespOpis.raw
+            ).content
+            const oNasZasadyWsppracyOpisContent = JSON.parse(
+              text.node.oNasZasadyWsppracyOpis.raw
+            ).content
+
+            const oNasOpisText = getDescriptionText(oNasOpisContent)
+            const oNasNaszaWizjaOpisText = getDescriptionText(
+              oNasNaszaWizjaOpisContent
+            )
+            const oNasNaszaMisjaOpisText = getDescriptionText(
+              oNasNaszaMisjaOpisContent
+            )
+            const oNasZespOpisText = getDescriptionText(oNasZespOpisContent)
+            const oNasZasadyWsppracyOpisText = getDescriptionText(
+              oNasZasadyWsppracyOpisContent
+            )
+
+            return textOnThePageMatchesQuery(
+              text,
+              oNasOpisText,
+              oNasNaszaWizjaOpisText,
+              oNasNaszaMisjaOpisText,
+              oNasZespOpisText,
+              oNasZasadyWsppracyOpisText
+            )
+          })
+          .map(text => textOnThePageData(text))
+        setSearchedData(prevData => [...prevData, ...filteredTextOnThePage])
       }
     }
 
@@ -377,6 +455,7 @@ const Search = () => {
     processTeam()
     processRulesFiles()
     processPolicyFiles()
+    processTextOnThePage()
     processLocales()
   }, [data, language, searchQuery])
 
@@ -785,6 +864,115 @@ const Search = () => {
       description: firstSentenceContainingQuery.normalize("NFC") + "...",
       category: t("search.page"),
       slug: `/quality-standards`,
+    }
+  }
+
+  const textOnThePageMatchesQuery = (
+    text,
+    oNasOpisText,
+    oNasNaszaWizjaOpisText,
+    oNasNaszaMisjaOpisText,
+    oNasZespOpisText,
+    oNasZasadyWsppracyOpisText
+  ) => {
+    return (
+      checkMatchesQuery(text.node.oNasTytu) ||
+      checkMatchesQuery(text.node.oNasNaszaWizjaTytu) ||
+      checkMatchesQuery(text.node.oNasNaszaMisjaTytu) ||
+      checkMatchesQuery(text.node.oNasZespTytu) ||
+      checkMatchesQuery(text.node.oNasZasadyWsppracyTytu) ||
+      checkMatchesQuery(oNasOpisText) ||
+      checkMatchesQuery(oNasNaszaWizjaOpisText) ||
+      checkMatchesQuery(oNasNaszaMisjaOpisText) ||
+      checkMatchesQuery(oNasZespOpisText) ||
+      checkMatchesQuery(oNasZasadyWsppracyOpisText)
+    )
+  }
+
+  const textOnThePageData = text => {
+    let firstSentenceContainingQuery = ""
+
+    if (text.node.oNasTytu) {
+      const parsed = checkMatchesQueryAndReturnData(text.node.oNasTytu)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasNaszaWizjaTytu) {
+      const parsed = checkMatchesQueryAndReturnData(
+        text.node.oNasNaszaWizjaTytu
+      )
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasNaszaMisjaTytu) {
+      const parsed = checkMatchesQueryAndReturnData(
+        text.node.oNasNaszaMisjaTytu
+      )
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasZespTytu) {
+      const parsed = checkMatchesQueryAndReturnData(text.node.oNasZespTytu)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasZasadyWsppracyTytu) {
+      const parsed = checkMatchesQueryAndReturnData(
+        text.node.oNasZasadyWsppracyTytu
+      )
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasOpis) {
+      const parsed = parseDataRaw(text.node.oNasOpis.raw)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasNaszaWizjaOpis) {
+      const parsed = parseDataRaw(text.node.oNasNaszaWizjaOpis.raw)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasNaszaMisjaOpis) {
+      const parsed = parseDataRaw(text.node.oNasNaszaMisjaOpis.raw)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasZespOpis) {
+      const parsed = parseDataRaw(text.node.oNasZespOpis.raw)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (text.node.oNasZasadyWsppracyOpis) {
+      const parsed = parseDataRaw(text.node.oNasZasadyWsppracyOpis.raw)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    return {
+      title: firstSentenceContainingQuery.slice(0, 50).normalize("NFC"),
+      description: firstSentenceContainingQuery.normalize("NFC") + "...",
+      category: t("search.page"),
+      slug: `/about`,
     }
   }
 
