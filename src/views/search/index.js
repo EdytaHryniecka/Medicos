@@ -156,6 +156,53 @@ const Search = () => {
           }
         }
       }
+      allContentfulTextOnTheRawMaterialsPages {
+        edges {
+          node {
+            node_locale
+            householdChemicalsTytu1
+            householdChemicalsOpis1 {
+              raw
+            }
+            householdChemicalsTytu2
+            householdChemicalsOpis2 {
+              raw
+            }
+            cosmetologyTytu1
+            cosmetologyOpis1 {
+              raw
+            }
+            cosmetologyTytu2
+            cosmetologyOpis2 {
+              raw
+            }
+            pharmacyTytu1
+            pharmacyOpis1 {
+              raw
+            }
+            pharmacyTytu2
+            pharmacyOpis2 {
+              raw
+            }
+            foodAndSupplementsTytu1
+            foodAndSupplementsOpis1 {
+              raw
+            }
+            foodAndSupplementsTytu2
+            foodAndSupplementsOpis2 {
+              raw
+            }
+            otherIndustriesTytu1
+            otherIndustriesOpis1 {
+              raw
+            }
+            otherIndustriesTytu2
+            otherIndustriesOpis2 {
+              raw
+            }
+          }
+        }
+      }
       allLocale {
         edges {
           node {
@@ -426,6 +473,63 @@ const Search = () => {
       }
     }
 
+    //proces by allContentfulTextOnTheRawMaterialsPages
+    const translatedMaterialsText = getCurrentTranslations(
+      data.allContentfulTextOnTheRawMaterialsPages.edges,
+      language
+    )
+    console.log(translatedMaterialsText)
+
+    const processTextOnTheRawMaterialsPages = (
+      title1,
+      description1,
+      title2,
+      description2,
+      materialsTextslug
+    ) => {
+      if (
+        searchQuery &&
+        searchQuery.trim() !== "" &&
+        !isOnlyDots(searchQuery)
+      ) {
+        const filteredMaterialsText = translatedMaterialsText
+          .filter(materialText => {
+            const passedTitle1 = materialText.node[title1]
+            const passedDescription1Content = JSON.parse(
+              materialText.node[description1].raw
+            ).content
+            const passedDescription1Text = getDescriptionText(
+              passedDescription1Content
+            )
+            const passedTitle2 = materialText.node[title2]
+            const passedDescription2Content = JSON.parse(
+              materialText.node[description2].raw
+            ).content
+            const passedDescription2Text = getDescriptionText(
+              passedDescription2Content
+            )
+            return materialsTextMatchesQuery(
+              passedTitle1,
+              passedDescription1Text,
+              passedTitle2,
+              passedDescription2Text
+            )
+          })
+          .map(materialText =>
+            mapMaterialsTextData(
+              materialText,
+              title1,
+              description1,
+              title2,
+              description2,
+              materialsTextslug
+            )
+          )
+
+        setSearchedData(prevData => [...prevData, ...filteredMaterialsText])
+      }
+    }
+
     const processLocales = () => {
       const locales = getLocaleTranslations(data.allLocale.edges, language)
 
@@ -456,6 +560,41 @@ const Search = () => {
     processRulesFiles()
     processPolicyFiles()
     processTextOnThePage()
+    processTextOnTheRawMaterialsPages(
+      "householdChemicalsTytu1",
+      "householdChemicalsOpis1",
+      "householdChemicalsTytu2",
+      "householdChemicalsOpis2",
+      "household-chemicals"
+    )
+    processTextOnTheRawMaterialsPages(
+      "cosmetologyTytu1",
+      "cosmetologyOpis1",
+      "cosmetologyTytu2",
+      "cosmetologyOpis2",
+      "cosmetology"
+    )
+    processTextOnTheRawMaterialsPages(
+      "pharmacyTytu1",
+      "pharmacyOpis1",
+      "pharmacyTytu2",
+      "pharmacyOpis2",
+      "pharmacy"
+    )
+    processTextOnTheRawMaterialsPages(
+      "foodAndSupplementsTytu1",
+      "foodAndSupplementsOpis1",
+      "foodAndSupplementsTytu2",
+      "foodAndSupplementsOpis2",
+      "food-and-supplements"
+    )
+    processTextOnTheRawMaterialsPages(
+      "otherIndustriesTytu1",
+      "otherIndustriesOpis1",
+      "otherIndustriesTytu2",
+      "otherIndustriesOpis2",
+      "other-industries"
+    )
     processLocales()
   }, [data, language, searchQuery])
 
@@ -973,6 +1112,66 @@ const Search = () => {
       description: firstSentenceContainingQuery.normalize("NFC") + "...",
       category: t("search.page"),
       slug: `/about`,
+    }
+  }
+
+  const materialsTextMatchesQuery = (
+    passedTitle1,
+    passedDescription1Text,
+    passedTitle2,
+    passedDescription2Text
+  ) => {
+    return (
+      checkMatchesQuery(passedTitle1) ||
+      checkMatchesQuery(passedDescription1Text) ||
+      checkMatchesQuery(passedTitle2) ||
+      checkMatchesQuery(passedDescription2Text)
+    )
+  }
+
+  const mapMaterialsTextData = (
+    materialText,
+    title1,
+    description1,
+    title2,
+    description2,
+    materialsTextslug
+  ) => {
+    let firstSentenceContainingQuery = ""
+
+    if (materialText.node[title1]) {
+      const parsed = checkMatchesQueryAndReturnData(materialText.node[title1])
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (materialText.node[description1]) {
+      const parsed = parseDataRaw(materialText.node[description1].raw)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (materialText.node[title2]) {
+      const parsed = checkMatchesQueryAndReturnData(materialText.node[title2])
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    if (materialText.node[description2]) {
+      const parsed = parseDataRaw(materialText.node[description2].raw)
+      if (parsed) {
+        firstSentenceContainingQuery += parsed
+      }
+    }
+
+    return {
+      title: firstSentenceContainingQuery.slice(0, 50).normalize("NFC"),
+      description: firstSentenceContainingQuery.normalize("NFC") + "...",
+      category: t("search.page"),
+      slug: `/${materialsTextslug}`,
     }
   }
 
