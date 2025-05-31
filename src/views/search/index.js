@@ -478,7 +478,6 @@ const Search = () => {
       data.allContentfulTextOnTheRawMaterialsPages.edges,
       language
     )
-    console.log(translatedMaterialsText)
 
     const processTextOnTheRawMaterialsPages = (
       title1,
