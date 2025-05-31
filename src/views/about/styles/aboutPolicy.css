@@ -33,9 +33,9 @@
 
 @media screen and (max-width: 568px) {
   .about-p-container {
-    /* background: url(../../../images/about//policy/about-policy-background.webp) */
-    /* no-repeat fixed 50% 0; */
-    padding-bottom: 200px;
+    background: url(../../../images/about//policy/about-policy-background_mobile.webp)
+      no-repeat fixed 50% 0;
+    padding-bottom: 300px;
   }
   .about-p-container p {
     max-width: 100%;
