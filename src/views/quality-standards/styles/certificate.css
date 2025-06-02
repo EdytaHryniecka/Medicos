@@ -1,46 +1,43 @@
-.about-p-container {
-  text-align: left;
+.certificate-qs-container {
+  text-align: center;
   padding: 60px 24px;
   background: #f1f1f1;
-  background: url(../../../images/about//policy/about-policy-background.webp)
+  background: url(../../../images/materials/dont-find/dont-find-backgound.webp)
     no-repeat fixed 50% 0;
   overflow: hidden;
   background-size: cover !important;
   background-position: center;
 }
 
-.about-p-container {
+.certificate-qs-container {
   background-attachment: scroll !important;
 }
 
-.about-p-container h2 {
+.certificate-qs-container h2 {
   color: var(--color-basics-white, #fff);
   margin-bottom: 8px;
 }
 
-.about-p-container p {
+.certificate-qs-container p {
   color: var(--color-basics-white, #fff);
   margin-bottom: 32px;
-  max-width: 50%;
-  /* margin-left: auto; */
-  /* margin-right: auto; */
+  max-width: 464px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.about-p-container .about-p-button {
+.certificate-qs-container .certificate-button {
   padding: 12px 24px;
   border: 1px solid var(--Button-secondary-border, #d3e2f8);
 }
 
 @media screen and (max-width: 568px) {
-  .about-p-container {
-    background: url(../../../images/about//policy/about-policy-background_mobile.webp)
+  .certificate-qs-container {
+    background: url(../../../images/materials/dont-find/dont-find-backgound_mobile.webp)
       no-repeat fixed 50% 0;
-    padding-bottom: 300px;
+    padding-bottom: 200px;
   }
-  .about-p-container p {
-    max-width: 100%;
-  }
-  .about-p-container .about-p-button {
+  .certificate-qs-container .certificate-button {
     display: flex;
     width: 100%;
   }

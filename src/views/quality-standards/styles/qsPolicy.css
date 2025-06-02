@@ -1,0 +1,123 @@
+.qs-p-container {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  text-align: center;
+  background-color: #fbfcfe;
+}
+
+.qs-p-container h2 {
+  color: var(--Button-primary-bg, #144487);
+  margin-bottom: 24px;
+}
+
+.qs-p-container .policy-con {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.qs-p-container .policy-con .policy {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 4px 4px 25px 0px rgba(13, 45, 89, 0.2);
+  transition: all 0.2s ease-out;
+  text-decoration: none;
+}
+
+.qs-p-container .policy-con .policy-disable {
+  pointer-events: none;
+}
+
+.qs-p-container .policy-con .policy:hover {
+  background: var(--hover-bg, #e9f2fb);
+}
+
+.qs-p-container .policy-con .policy .policy-up {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.qs-p-container .policy-con .policy .policy-up svg {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--active-bg, #d4e5f7);
+}
+
+.qs-p-container .policy-con .policy .policy-up p {
+  color: var(--Button-primary-bg, #144487);
+  text-align: left;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-weight: 500;
+  line-height: 130%; /* 23.4px */
+  letter-spacing: 0.36px;
+  width: 80%;
+}
+
+.qs-p-container .policy-con .policy .policy-up .policy-desc p {
+  width: 100%;
+  color: var(--main-text, #0a2243);
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.qs-p-container .policy-con .policy a {
+  color: var(--Button-primary-bg, #144487);
+  text-align: left;
+  font-size: 16px;
+  margin-top: auto;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  height: 35px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-out;
+  border-radius: 8px;
+  border: 1px solid var(--Button-secondary-border, #d3e2f8);
+  background: var(--light-bg, #fbfcfe);
+  box-sizing: border-box;
+}
+
+.qs-p-container .policy-con .policy:hover a {
+  background: var(--hover-bg, #e9f2fb);
+  color: var(--Button-secondary-hover-txt, #4d8ce5);
+}
+
+@media screen and (max-width: 1000px) {
+  .qs-p-container .policy-con {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .qs-p-container p {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .qs-p-container {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}

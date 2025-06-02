@@ -54,12 +54,24 @@ const AboutPeople = ({ textData }) => {
     ))
   }
 
+  const title = textData.node.oNasZespTytu
+  const parts = title.split(/(MEDICOS)/g)
   return (
     <>
       <div className="about-pe-container">
         <div className="container">
           <div className="con-up">
-            <h2 className="h2-style">{textData.node.oNasZespTytu}</h2>
+            <h2 className="h2-style">
+              {parts.map((part, i) =>
+                part === "MEDICOS" ? (
+                  <span key={i} className="h2-medicos">
+                    {part}
+                  </span>
+                ) : (
+                  <span key={i}>{part}</span>
+                )
+              )}
+            </h2>
             <div className="render-content">
               {renderRichText(
                 textData.node.oNasZespOpis,
