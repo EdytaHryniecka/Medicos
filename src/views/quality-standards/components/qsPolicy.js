@@ -51,7 +51,7 @@ const QsPolicy = () => {
       <a
         key={index}
         href={
-          val.node.file.file.url
+          val.node.file
             ? withPrefix(`${val.node.file.file.url}`)
             : val.node.pageLink
         }
