@@ -90,7 +90,8 @@
   cursor: pointer;
   text-decoration: none;
   display: flex;
-  height: 35px;
+  min-height: 35px;
+  box-sizing: border-box;
   padding: 8px 16px;
   justify-content: center;
   align-items: center;
