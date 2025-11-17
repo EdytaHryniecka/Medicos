@@ -9,7 +9,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../../components/contentful-translator"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Dropdown from "react-bootstrap/Dropdown"
-
+import { navigate } from "gatsby"
 const ContactComponent = ({ searchQuery }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
@@ -196,6 +196,21 @@ const ContactComponent = ({ searchQuery }) => {
           body: JSON.stringify(to_send),
         }
       )
+      // let response
+
+      // if (process.env.NODE_ENV === "development") {
+      //   // 👉 symulowana odpowiedź
+      //   response = { ok: true }
+      // } else {
+      //   // 👉 prawdziwe wywołanie fetch
+      //   response = await fetch(
+      //     "https://medicos.com.pl/.netlify/functions/sendmail",
+      //     {
+      //       method: "POST",
+      //       body: JSON.stringify(to_send),
+      //     }
+      //   )
+      // }
 
       if (response.ok) {
         setSending(false)
@@ -210,6 +225,7 @@ const ContactComponent = ({ searchQuery }) => {
           message: "",
           personalData: false,
         })
+        navigate("/thank-you-for-your-message")
         return
       }
 
