@@ -301,8 +301,8 @@ const Menu = () => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                  {/* Uncomment blog */}
-                  {/* <Link className="menu-link" to="/news">{t`menu.blog`}</Link> */}
+                  {/* comment blog */}
+                  <Link className="menu-link" to="/news">{t`menu.blog`}</Link>
                   <svg
                     onClick={() => setIsSearch(!isSearch)}
                     className="search-icon"
@@ -765,8 +765,8 @@ const Menu = () => {
               >{t`menu.raw-other-industries`}</Link>
             </div>
           )}
-          {/* Uncomment blog */}
-          {/* <Link className="menu-link" to="/news">{t`menu.blog`}</Link> */}
+          {/* comment blog */}
+          <Link className="menu-link" to="/news">{t`menu.blog`}</Link>
           <Link
             className="register-btn menu-button-link"
             to="/contact"

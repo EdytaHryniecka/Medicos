@@ -5,51 +5,51 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
 
-// Uncomment blog
-// exports.createPages = async ({ graphql, actions, reporter }) => {
-//   const { createPage } = actions
-//   const { data } = await graphql(`
-//     query {
-//       allContentfulArticle {
-//         edges {
-//           node {
-//             node_locale
-//             author
-//             createdAt
-//             description {
-//               raw
-//               references {
-//                 ... on ContentfulAsset {
-//                   __typename
-//                   contentful_id
-//                   file {
-//                     url
-//                   }
-//                 }
-//                 title
-//               }
-//             }
-//             image {
-//               gatsbyImageData(quality: 100)
-//             }
-//             slug
-//             title
-//           }
-//         }
-//       }
-//     }
-//   `)
+// comment blog
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions
+  const { data } = await graphql(`
+    query {
+      allContentfulArticle {
+        edges {
+          node {
+            node_locale
+            author
+            createdAt
+            description {
+              raw
+              references {
+                ... on ContentfulAsset {
+                  __typename
+                  contentful_id
+                  file {
+                    url
+                  }
+                }
+                title
+              }
+            }
+            image {
+              gatsbyImageData(quality: 100)
+            }
+            slug
+            title
+          }
+        }
+      }
+    }
+  `)
 
-//   data.allContentfulArticle.edges.forEach(({ node }) => {
-//     createPage({
-//       path: `news/${node.slug}`,
-//       component: path.resolve(`./src/templates/news/index.js`),
-//       context: {
-//         article: node,
-//       },
-//     })
-//   })
-// }
+  data.allContentfulArticle.edges.forEach(({ node }) => {
+    createPage({
+      path: `news/${node.slug}`,
+      component: path.resolve(`./src/templates/news/index.js`),
+      context: {
+        article: node,
+      },
+    })
+  })
+}
 
 /**
  * @type {import('gatsby').GatsbyNode['createSchemaCustomization']}

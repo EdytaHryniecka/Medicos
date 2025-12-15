@@ -1,11 +1,8 @@
 import News from "../views/news"
 import { graphql } from "gatsby"
-import NotFound from "./404"
 
-// Uncomment blog
-// export default News
-
-export default NotFound
+// comment blog
+export default News
 
 export const query = graphql`
   query ($language: String!) {

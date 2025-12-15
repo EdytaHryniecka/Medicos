@@ -18,23 +18,24 @@ const Search = () => {
     ? decodeURIComponent(searchParams.get("query"))
     : ""
   const { language } = useContext(I18nextContext)
-  // Uncomment blog
-  // allContentfulArticle {
-  //   edges {
-  //     node {
-  //       title
-  //       node_locale
-  //       slug
-  //       author
-  //       createdAt
-  //       description {
-  //         raw
-  //       }
-  //     }
-  //   }
-  // }
+  // comment blog
+
   const data = useStaticQuery(graphql`
     query {
+      allContentfulArticle {
+        edges {
+          node {
+            title
+            node_locale
+            slug
+            author
+            createdAt
+            description {
+              raw
+            }
+          }
+        }
+      }
       allContentfulMaterials {
         edges {
           node {
@@ -225,30 +226,30 @@ const Search = () => {
   useEffect(() => {
     setSearchedData([])
 
-    // Uncomment blog
-    // const processArticles = () => {
-    //   const articles = getCurrentTranslations(
-    //     data.allContentfulArticle.edges,
-    //     language
-    //   )
-    //   if (
-    //     searchQuery &&
-    //     searchQuery.trim() !== "" &&
-    //     !isOnlyDots(searchQuery)
-    //   ) {
-    //     const filteredArticles = articles
-    //       .filter(article => {
-    //         const descriptionContent = JSON.parse(
-    //           article.node.description.raw
-    //         ).content
-    //         const descriptionText = getDescriptionText(descriptionContent)
-    //         return articleMatchesQuery(article, descriptionText)
-    //       })
-    //       .map(article => mapArticleData(article))
+    // comment blog
+    const processArticles = () => {
+      const articles = getCurrentTranslations(
+        data.allContentfulArticle.edges,
+        language
+      )
+      if (
+        searchQuery &&
+        searchQuery.trim() !== "" &&
+        !isOnlyDots(searchQuery)
+      ) {
+        const filteredArticles = articles
+          .filter(article => {
+            const descriptionContent = JSON.parse(
+              article.node.description.raw
+            ).content
+            const descriptionText = getDescriptionText(descriptionContent)
+            return articleMatchesQuery(article, descriptionText)
+          })
+          .map(article => mapArticleData(article))
 
-    //     setSearchedData(prevData => [...prevData, ...filteredArticles])
-    //   }
-    // }
+        setSearchedData(prevData => [...prevData, ...filteredArticles])
+      }
+    }
 
     const processMaterials = () => {
       const materials = getCurrentTranslations(
@@ -549,8 +550,8 @@ const Search = () => {
       }
     }
 
-    // Uncomment blog
-    // processArticles()
+    // comment blog
+    processArticles()
     processMaterials()
     processContact()
     processPrivacyPolicy()
@@ -639,78 +640,78 @@ const Search = () => {
       .join(" ")
   }
 
-  // const articleMatchesQuery = (article, descriptionText) => {
-  //   return (
-  //     article.node.title
-  //       ?.toLowerCase()
-  //       .normalize("NFC")
-  //       .includes(searchQuery?.toLowerCase().normalize("NFC")) ||
-  //     article.node.author
-  //       ?.toLowerCase()
-  //       .normalize("NFC")
-  //       .includes(searchQuery?.toLowerCase().normalize("NFC")) ||
-  //     moment(article.node.createdAt)
-  //       .format("DD/MM/YYYY HH:MM")
-  //       ?.toLowerCase()
-  //       .normalize("NFC")
-  //       .includes(searchQuery?.toLowerCase().normalize("NFC")) ||
-  //     descriptionText
-  //       ?.toLowerCase()
-  //       .normalize("NFC")
-  //       .includes(searchQuery?.toLowerCase().normalize("NFC"))
-  //   )
-  // }
+  const articleMatchesQuery = (article, descriptionText) => {
+    return (
+      article.node.title
+        ?.toLowerCase()
+        .normalize("NFC")
+        .includes(searchQuery?.toLowerCase().normalize("NFC")) ||
+      article.node.author
+        ?.toLowerCase()
+        .normalize("NFC")
+        .includes(searchQuery?.toLowerCase().normalize("NFC")) ||
+      moment(article.node.createdAt)
+        .format("DD/MM/YYYY HH:MM")
+        ?.toLowerCase()
+        .normalize("NFC")
+        .includes(searchQuery?.toLowerCase().normalize("NFC")) ||
+      descriptionText
+        ?.toLowerCase()
+        .normalize("NFC")
+        .includes(searchQuery?.toLowerCase().normalize("NFC"))
+    )
+  }
 
-  // const mapArticleData = article => {
-  //   const descriptionContent = JSON.parse(article.node.description.raw).content
-  //   const descriptionText = getDescriptionText(descriptionContent)
-  //   let firstSentenceContainingQuery = descriptionText.slice(0, 100)
-  //   let startIndex = 0
-  //   let endIndex = descriptionText.length - 1
+  const mapArticleData = article => {
+    const descriptionContent = JSON.parse(article.node.description.raw).content
+    const descriptionText = getDescriptionText(descriptionContent)
+    let firstSentenceContainingQuery = descriptionText.slice(0, 100)
+    let startIndex = 0
+    let endIndex = descriptionText.length - 1
 
-  //   const queryIndex = descriptionText
-  //     ?.toLowerCase()
-  //     .normalize("NFC")
-  //     .indexOf(searchQuery?.toLowerCase().normalize("NFC"))
-  //   if (queryIndex !== -1) {
-  //     const queryLength = searchQuery.length
-  //     startIndex = Math.max(0, queryIndex - 50)
-  //     endIndex = Math.min(
-  //       descriptionText.length - 1,
-  //       queryIndex + queryLength + 50
-  //     )
-  //     firstSentenceContainingQuery =
-  //       "..." + descriptionText.slice(startIndex, endIndex)
-  //   }
+    const queryIndex = descriptionText
+      ?.toLowerCase()
+      .normalize("NFC")
+      .indexOf(searchQuery?.toLowerCase().normalize("NFC"))
+    if (queryIndex !== -1) {
+      const queryLength = searchQuery.length
+      startIndex = Math.max(0, queryIndex - 50)
+      endIndex = Math.min(
+        descriptionText.length - 1,
+        queryIndex + queryLength + 50
+      )
+      firstSentenceContainingQuery =
+        "..." + descriptionText.slice(startIndex, endIndex)
+    }
 
-  //   if (
-  //     moment(article.node.createdAt)
-  //       .format("DD/MM/YYYY HH:MM")
-  //       ?.toLowerCase()
-  //       .normalize("NFC")
-  //       .includes(searchQuery?.toLowerCase().normalize("NFC"))
-  //   ) {
-  //     firstSentenceContainingQuery += `...${moment(
-  //       article.node.createdAt
-  //     ).format("DD/MM/YYYY HH:MM")}`
-  //   }
+    if (
+      moment(article.node.createdAt)
+        .format("DD/MM/YYYY HH:MM")
+        ?.toLowerCase()
+        .normalize("NFC")
+        .includes(searchQuery?.toLowerCase().normalize("NFC"))
+    ) {
+      firstSentenceContainingQuery += `...${moment(
+        article.node.createdAt
+      ).format("DD/MM/YYYY HH:MM")}`
+    }
 
-  //   if (
-  //     article.node.author
-  //       ?.toLowerCase()
-  //       .normalize("NFC")
-  //       .includes(searchQuery?.toLowerCase().normalize("NFC"))
-  //   ) {
-  //     firstSentenceContainingQuery += `...${article.node.author}`
-  //   }
+    if (
+      article.node.author
+        ?.toLowerCase()
+        .normalize("NFC")
+        .includes(searchQuery?.toLowerCase().normalize("NFC"))
+    ) {
+      firstSentenceContainingQuery += `...${article.node.author}`
+    }
 
-  //   return {
-  //     title: article.node.title.normalize("NFC"),
-  //     description: firstSentenceContainingQuery.normalize("NFC") + "...",
-  //     category: t("search.article"),
-  //     slug: `/news/${article.node.slug}`,
-  //   }
-  // }
+    return {
+      title: article.node.title.normalize("NFC"),
+      description: firstSentenceContainingQuery.normalize("NFC") + "...",
+      category: t("search.article"),
+      slug: `/news/${article.node.slug}`,
+    }
+  }
 
   const materialMatchesQuery = (
     material,
@@ -1198,7 +1199,7 @@ const Search = () => {
       locale.node.ns !== "seo" &&
       locale.node.ns !== "not-found" &&
       locale.node.ns !== "error" &&
-      // Uncomment blog - delete news here if any news avaliable
+      // comment blog - delete news here if any news avaliable
       locale.node.ns !== "news"
     )
   }
