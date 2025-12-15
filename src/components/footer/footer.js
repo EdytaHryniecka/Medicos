@@ -155,10 +155,10 @@ const Footer = () => {
               <Link to="/services">
                 <p>{t`footer.services`}</p>
               </Link>
-              {/* Uncomment blog */}
-              {/* <Link to="/news">
+              {/* comment blog */}
+              <Link to="/news">
                 <p>{t`footer.blog`}</p>
-              </Link> */}
+              </Link>
             </div>
             <div className="contact-con">
               <Link
