@@ -13,6 +13,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           node {
             node_locale
             author
+            authorPosition
+            authorDescription
+            authorImg {
+              gatsbyImageData(quality: 100)
+            }
             createdAt
             description {
               raw
