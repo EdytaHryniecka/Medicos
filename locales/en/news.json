@@ -1,9 +1,11 @@
 {
-    "news-header.title": "Blog",
-    "news-header.description": "News from the world of chemicals",
+  "news-header.title": "Blog",
+  "news-header.description": "News from the world of chemicals",
 
-    "news.article.return": "Return to blog",
+  "news.article.return": "Return to blog",
+  "news.article.toc": "Table of Contents",
+  "news.article.about": "About the author",
 
-    "news-read-more.title": "Read more",
-    "news-read-more.news": "All articles"
+  "news-read-more.title": "Read more",
+  "news-read-more.news": "All articles"
 }

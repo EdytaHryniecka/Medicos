@@ -1,9 +1,11 @@
 {
-    "news-header.title": "Blog",
-    "news-header.description": "Informacje ze świata surowców chemicznych",
+  "news-header.title": "Blog",
+  "news-header.description": "Informacje ze świata surowców chemicznych",
 
-    "news.article.return": "Powrót do bloga",
+  "news.article.return": "Powrót do bloga",
+  "news.article.toc": "Spis treści",
+  "news.article.about": "O Autorze",
 
-    "news-read-more.title": "Czytaj dalej",
-    "news-read-more.news": "Wszystkie artykuły"
+  "news-read-more.title": "Czytaj dalej",
+  "news-read-more.news": "Wszystkie artykuły"
 }
