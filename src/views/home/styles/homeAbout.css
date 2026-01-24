@@ -71,7 +71,11 @@
     width: 100%;
   }
   .home-a-container {
+    padding-top: 40px;
     padding-bottom: 400px;
+  }
+  .home-a-container .a-con .left-con p {
+    margin-bottom: 24px;
   }
 }
 

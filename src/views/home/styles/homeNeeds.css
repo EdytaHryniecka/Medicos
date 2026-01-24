@@ -27,4 +27,8 @@
     display: flex;
     width: 100%;
   }
+
+  .home-n-container {
+    text-align: left;
+  }
 }

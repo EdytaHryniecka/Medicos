@@ -3,8 +3,10 @@ import { I18nextContext, useTranslation } from "gatsby-plugin-react-i18next"
 import "../styles/aboutRules.css"
 import { graphql, useStaticQuery, withPrefix } from "gatsby"
 import getCurrentTranslations from "../../../components/contentful-translator"
+import { articleTextRenderOptions } from "../../../utils/articleRenderOption"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 
-const AboutRules = () => {
+const AboutRules = ({ textData }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
   const data = useStaticQuery(graphql`
@@ -93,8 +95,13 @@ const AboutRules = () => {
     <>
       <div className="about-r-container">
         <div className="container">
-          <h2 className="h2-style">{t`about-rules.title`}</h2>
-          <p className="p-style">{t`about-rules.description`}</p>
+          <h2 className="h2-style">{textData.node.oNasZasadyWsppracyTytu}</h2>
+          <div className="render-content">
+            {renderRichText(
+              textData.node.oNasZasadyWsppracyOpis,
+              articleTextRenderOptions
+            )}
+          </div>
           <div className="rules-con">{files && renderFiles(files)}</div>
         </div>
       </div>

@@ -1,31 +1,34 @@
 .about-pe-container {
   padding-top: 80px;
   padding-bottom: 80px;
-  background-color: #fbfcfe;
-  background: url(../../../images/about/people/people-background.webp) no-repeat
-    fixed;
-  overflow: hidden;
-  background-position: center top;
-  background-size: 100% auto;
-  background-color: #fbfcfe;
 }
 
-.about-pe-container {
-  background-attachment: scroll !important;
-}
 .con-up {
   padding-bottom: 60px;
 }
 .about-pe-container h2 {
-  color: var(--light-bg, #fbfcfe);
+  color: var(--Button-primary-bg, #144487);
   margin-bottom: 16px;
   width: 55%;
 }
 
+.h2-medicos {
+  background: var(
+    --linear,
+    linear-gradient(90deg, #144487 -0.01%, #4d8ce5 100.01%)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .about-pe-container p {
-  color: var(--light-bg, #fbfcfe);
-  font-size: 16px;
   width: 65%;
+  color: var(--main-text, #0a2243);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 170%;
 }
 
 .about-pe-container .team-con {
@@ -72,16 +75,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 1400px) {
-  .about-pe-container {
-    background-size: 100% 35%;
-  }
-}
-
 @media screen and (max-width: 1000px) {
-  .about-pe-container {
-    background-size: 100% 30%;
-  }
   .about-pe-container h2,
   .about-pe-container p {
     width: 100%;
@@ -91,24 +85,9 @@
   }
 }
 
-@media screen and (max-width: 800px) {
-  .about-pe-container {
-    background: url(../../../images/about/people/people-background-small.webp)
-      no-repeat fixed;
-    overflow: hidden;
-    background-size: 100% 70%;
-  }
-  .about-pe-container h2 {
-    margin-top: 80px;
-  }
-}
-
 @media screen and (max-width: 568px) {
   .about-pe-container {
-    background-size: 100% auto;
-  }
-  .about-pe-container h2,
-  .about-pe-container p {
-    width: 100%;
+    padding-top: 60px;
+    padding-bottom: 40px;
   }
 }

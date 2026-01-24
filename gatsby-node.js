@@ -4,6 +4,8 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
+
+// comment blog
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
   const { data } = await graphql(`

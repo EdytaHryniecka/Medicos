@@ -6,26 +6,11 @@ import MaterialComponent from "../../components/materialComponent/materialCompon
 import { StaticImage } from "gatsby-plugin-image"
 import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { articleTextRenderOptions } from "../../utils/articleRenderOption"
 
 const Pharmacy = () => {
   const { t } = useTranslation()
-
-  const backgroundHeader = "p-background"
-  const titleHeader = `${t`pharmacy.header.title`}`
-  const descriptionHeader = `${t`pharmacy.header.description`}`
-  const imageApplication = () => (
-    <StaticImage
-      className="right-image"
-      src="../../images/pharmacy/application/material-p-application.webp"
-      alt="Right image"
-      placeholder="Right image"
-      loading="lazy"
-    />
-  )
-
-  const titleApplication = `${t`pharmacy.application.title`}`
-  const descriptionApplication = `${t`pharmacy.application.description`}`
-
   const { language } = useContext(I18nextContext)
   const data = useStaticQuery(graphql`
     query {
@@ -53,9 +38,25 @@ const Pharmacy = () => {
           }
         }
       }
+      allContentfulTextOnTheRawMaterialsPages {
+        edges {
+          node {
+            node_locale
+            pharmacyTytu1
+            pharmacyOpis1 {
+              raw
+            }
+            pharmacyTytu2
+            pharmacyOpis2 {
+              raw
+            }
+          }
+        }
+      }
     }
   `)
   const [materials, setMaterials] = useState()
+  const [textData, setTextData] = useState()
 
   useEffect(() => {
     const getData = () => {
@@ -69,9 +70,31 @@ const Pharmacy = () => {
     getData()
   }, [data.allContentfulMaterials, language])
 
+  useEffect(() => {
+    const getData = () => {
+      const getTextData = getCurrentTranslations(
+        data.allContentfulTextOnTheRawMaterialsPages.edges,
+        language
+      )
+      setTextData(getTextData[0])
+    }
+    getData()
+  }, [data.allContentfulTextOnTheRawMaterialsPages, language])
+
   const titleDiscover = `${t`pharmacy.discover.title`}`
   const descriptionDiscover = `${t`pharmacy.discover.description`}`
   const materialQuery = "pharmacy"
+
+  const backgroundHeader = "p-background"
+  const imageApplication = () => (
+    <StaticImage
+      className="right-image"
+      src="../../images/pharmacy/application/material-p-application.webp"
+      alt="Right image"
+      placeholder="Right image"
+      loading="lazy"
+    />
+  )
 
   return (
     <Layout>
@@ -79,19 +102,35 @@ const Pharmacy = () => {
         title={t`seo.pharmacy.title`}
         description={t`seo.pharmacy.description`}
       />
-      <MaterialComponent
-        backgroundHeader={backgroundHeader}
-        titleHeader={titleHeader}
-        descriptionHeader={descriptionHeader}
-        imageApplication={imageApplication}
-        titleApplication={titleApplication}
-        descriptionApplication={descriptionApplication}
-        materialDiscover={materials}
-        titleDiscover={titleDiscover}
-        descriptionDiscover={descriptionDiscover}
-        t={t}
-        materialQuery={materialQuery}
-      />
+      {textData && (
+        <MaterialComponent
+          backgroundHeader={backgroundHeader}
+          titleHeader={textData.node.pharmacyTytu1}
+          descriptionHeader={
+            <div className="render-content">
+              {renderRichText(
+                textData.node.pharmacyOpis1,
+                articleTextRenderOptions
+              )}
+            </div>
+          }
+          imageApplication={imageApplication}
+          titleApplication={textData.node.pharmacyTytu2}
+          descriptionApplication={
+            <div className="render-content">
+              {renderRichText(
+                textData.node.pharmacyOpis2,
+                articleTextRenderOptions
+              )}
+            </div>
+          }
+          materialDiscover={materials}
+          titleDiscover={titleDiscover}
+          descriptionDiscover={descriptionDiscover}
+          t={t}
+          materialQuery={materialQuery}
+        />
+      )}
     </Layout>
   )
 }

@@ -1,3 +1,4 @@
+// comment blog
 import React, { useEffect, useState, useContext } from "react"
 import { useTranslation, I18nextContext } from "gatsby-plugin-react-i18next"
 import { graphql, useStaticQuery } from "gatsby"

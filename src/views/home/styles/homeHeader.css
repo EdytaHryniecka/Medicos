@@ -43,6 +43,11 @@
 }
 
 @media screen and (max-width: 568px) {
+  .home-h-container {
+    background: url(../../../images/home/header/home-header-background_mobile.webp);
+    padding-top: 112px;
+    padding-bottom: 345px;
+  }
   .home-h-container .header-button {
     display: flex;
     width: 100%;

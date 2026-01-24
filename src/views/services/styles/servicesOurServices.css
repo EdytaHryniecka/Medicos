@@ -79,6 +79,9 @@
 }
 
 @media screen and (max-width: 568px) {
+  .services-os-container {
+    padding-top: 24px;
+  }
   .services-os-container .services-con .service {
     width: 100%;
   }

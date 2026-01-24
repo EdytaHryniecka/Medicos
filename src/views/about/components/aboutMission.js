@@ -1,8 +1,10 @@
 import React from "react"
 import { useTranslation, Link } from "gatsby-plugin-react-i18next"
 import "../styles/aboutMission.css"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { articleTextRenderOptions } from "../../../utils/articleRenderOption"
 
-const AboutMission = () => {
+const AboutMission = ({ textData }) => {
   const { t } = useTranslation()
 
   return (
@@ -41,11 +43,13 @@ const AboutMission = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <h4 className="h4-style">{t`about-mission.vision-title`}</h4>
+                <h4 className="h4-style">{textData.node.oNasNaszaWizjaTytu}</h4>
               </div>
-              <div>
-                <p className="p-style">{t`about-mission.vision-description-1`}</p>
-                <p className="p-style p-bold">{t`about-mission.vision-description-2`}</p>
+              <div className="render-content">
+                {renderRichText(
+                  textData.node.oNasNaszaWizjaOpis,
+                  articleTextRenderOptions
+                )}
               </div>
             </div>
             <div className="mission">
@@ -86,17 +90,13 @@ const AboutMission = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <h4 className="h4-style">{t`about-mission.mission-title`}</h4>
+                <h4 className="h4-style">{textData.node.oNasNaszaMisjaTytu}</h4>
               </div>
-              <div>
-                <p className="p-style">{t`about-mission.mission-description-1`}</p>
-                <ul>
-                  <li className="p-style">{t`about-mission.mission-description-2`}</li>
-                  <li className="p-style">{t`about-mission.mission-description-3`}</li>
-                  <li className="p-style">{t`about-mission.mission-description-4`}</li>
-                  <li className="p-style">{t`about-mission.mission-description-5`}</li>
-                  <li className="p-style">{t`about-mission.mission-description-6`}</li>
-                </ul>
+              <div className="render-content">
+                {renderRichText(
+                  textData.node.oNasNaszaMisjaOpis,
+                  articleTextRenderOptions
+                )}
               </div>
             </div>
           </div>

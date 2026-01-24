@@ -14,3 +14,9 @@
 .about-h-container h1 {
   color: var(--color-basics-white, #fff);
 }
+
+@media screen and (max-width: 568px) {
+  .about-h-container {
+    background: url(../../../images/about//header/about-header-background_mobile.webp);
+  }
+}

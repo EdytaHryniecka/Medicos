@@ -41,6 +41,13 @@
 }
 
 @media screen and (max-width: 568px) {
+  .material-a-container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .material-a-container .material-grid .text-con p {
+    margin-bottom: 0;
+  }
   .material-a-container .material-grid .right-image img {
     width: 100%;
   }

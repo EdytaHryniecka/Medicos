@@ -1,7 +1,6 @@
 import React from "react"
 import Menu from "./menu/menu"
 import Footer from "./footer/footer"
-import CookieBar from "./cookies-bar/cookieBar"
 import { useLayoutEffect } from "react"
 import { useLocation } from "@reach/router"
 
@@ -24,7 +23,6 @@ const Layout = ({ children }) => {
     <>
       <Menu />
       <main>{children}</main>
-      <CookieBar />
       <Footer />
     </>
   )

@@ -1,6 +1,7 @@
 import News from "../views/news"
 import { graphql } from "gatsby"
 
+// comment blog
 export default News
 
 export const query = graphql`

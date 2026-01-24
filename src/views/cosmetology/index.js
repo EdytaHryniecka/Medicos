@@ -6,28 +6,11 @@ import MaterialComponent from "../../components/materialComponent/materialCompon
 import { StaticImage } from "gatsby-plugin-image"
 import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { articleTextRenderOptions } from "../../utils/articleRenderOption"
 
 const Cosmetology = () => {
   const { t } = useTranslation()
-
-  const backgroundHeader = "c-background"
-  const titleHeader = `${t`cosmetology.header.title`}`
-  const descriptionHeader = `${t`cosmetology.header.description`}`
-  const imageApplication = () => (
-    <StaticImage
-      className="right-image"
-      src="../../images/cosmetology/application/material-c-application.webp"
-      alt="Right image"
-      placeholder="Right image"
-      loading="lazy"
-    />
-  )
-
-  const titleApplication = `${t`cosmetology.application.title`}`
-  const descriptionApplication = `${t`cosmetology.application.description`}`
-  const descriptionApplication2 = `${t`cosmetology.application.description2`}`
-  const descriptionApplication3 = `${t`cosmetology.application.description3`}`
-
   const { language } = useContext(I18nextContext)
   const data = useStaticQuery(graphql`
     query {
@@ -55,9 +38,25 @@ const Cosmetology = () => {
           }
         }
       }
+      allContentfulTextOnTheRawMaterialsPages {
+        edges {
+          node {
+            node_locale
+            cosmetologyTytu1
+            cosmetologyOpis1 {
+              raw
+            }
+            cosmetologyTytu2
+            cosmetologyOpis2 {
+              raw
+            }
+          }
+        }
+      }
     }
   `)
   const [materials, setMaterials] = useState()
+  const [textData, setTextData] = useState()
 
   useEffect(() => {
     const getData = () => {
@@ -71,9 +70,31 @@ const Cosmetology = () => {
     getData()
   }, [data.allContentfulMaterials, language])
 
+  useEffect(() => {
+    const getData = () => {
+      const getTextData = getCurrentTranslations(
+        data.allContentfulTextOnTheRawMaterialsPages.edges,
+        language
+      )
+      setTextData(getTextData[0])
+    }
+    getData()
+  }, [data.allContentfulTextOnTheRawMaterialsPages, language])
+
   const titleDiscover = `${t`cosmetology.discover.title`}`
   const descriptionDiscover = `${t`cosmetology.discover.description`}`
   const materialQuery = "cosmetology"
+
+  const backgroundHeader = "c-background"
+  const imageApplication = () => (
+    <StaticImage
+      className="right-image"
+      src="../../images/cosmetology/application/material-c-application.webp"
+      alt="Right image"
+      placeholder="Right image"
+      loading="lazy"
+    />
+  )
 
   return (
     <Layout>
@@ -81,21 +102,35 @@ const Cosmetology = () => {
         title={t`seo.cosmetology.title`}
         description={t`seo.cosmetology.description`}
       />
-      <MaterialComponent
-        backgroundHeader={backgroundHeader}
-        titleHeader={titleHeader}
-        descriptionHeader={descriptionHeader}
-        imageApplication={imageApplication}
-        titleApplication={titleApplication}
-        descriptionApplication={descriptionApplication}
-        descriptionApplication2={descriptionApplication2}
-        descriptionApplication3={descriptionApplication3}
-        materialDiscover={materials}
-        titleDiscover={titleDiscover}
-        descriptionDiscover={descriptionDiscover}
-        t={t}
-        materialQuery={materialQuery}
-      />
+      {textData && (
+        <MaterialComponent
+          backgroundHeader={backgroundHeader}
+          titleHeader={textData.node.cosmetologyTytu1}
+          descriptionHeader={
+            <div className="render-content">
+              {renderRichText(
+                textData.node.cosmetologyOpis1,
+                articleTextRenderOptions
+              )}
+            </div>
+          }
+          imageApplication={imageApplication}
+          titleApplication={textData.node.cosmetologyTytu2}
+          descriptionApplication={
+            <div className="render-content">
+              {renderRichText(
+                textData.node.cosmetologyOpis2,
+                articleTextRenderOptions
+              )}
+            </div>
+          }
+          materialDiscover={materials}
+          titleDiscover={titleDiscover}
+          descriptionDiscover={descriptionDiscover}
+          t={t}
+          materialQuery={materialQuery}
+        />
+      )}
     </Layout>
   )
 }

@@ -1,0 +1,55 @@
+
+/oferta/*                                          /services
+/kontakt/*                                         /contact
+/kosmetyka/*                                       /cosmetology
+/o-nas/*                                           /about
+/regulamin-strony/*                                /website-regulations
+/page-regulations/*                                /en/website-regulations
+/pozostale-branze/*                                /other-industries
+/regulamin-newslettera/*                           /website-regulations
+/kwas-azotowy-dostepny-od-wrzesnia/*               /materials
+/%20privacy-policy/*                               /privacy-policy
+/en/%20privacy-policy/*                            /en/privacy-policy
+/wonton-nowy-pierwiastek-w-tablicy-mendelejewa/*   /
+/aktualnosci/*                                     /
+
+/surowce/*                                         /materials
+/en/surowce/*                                      /en/materials
+
+/siliutin-nowy-produkt-w-naszej-bazie/*            /
+/siliutin-nowy-produkt-w-naszej-bazie-*/*            /
+/?s=search_term_string/*                           /search
+/?s={search_term_string}/*                         /search
+/search/search_term_string/feed/rss2               /search
+
+/kategoria/*                                       /materials        
+/en/kategoria/*                                    /en/materials
+
+/alfabet/*                                         /
+/polityka-prywatnosci/*                            /privacy-policy
+
+/en/industries/*                                  /en/materials
+/industries/*                                     /materials
+/category/*                                       /materials
+/wp-json/*                                        /
+/zywnosc-i-suplementy/*                           /food-and-supplements
+/uslugi/*                                         /services
+
+/nowosc-w-naszej-ofercie-to-diwodorek-molibdenu-dostepny-juz-od-jutra/*   /materials
+
+/author/*                                         /
+/food/*                                           /food-and-supplements
+/en/strona-glowna-english/*                       /en
+/en/terms-of-webpage/*                            /en/website-regulations
+
+/en/pharmacology/*                                /en/pharmacy
+/pharmacology/*                                   /pharmacy
+
+/en/contact-us/*                                   /en/contact
+/contact-us/*                                   /contact
+
+
+http://medicos.com.pl/                          https://medicos.com.pl/:splat 301!
+http://www.medicos.com.pl/                      https://medicos.com.pl/:splat 301!
+https://medicos.com.pl/wp-content/uploads/2022/09/Ogolne-Warunki-Sprzedazy_Medicos.pdf      https://assets.ctfassets.net/35wc8zs1okh0/4F0C2EM28kha10MHeCKUSK/12086651b10ec278783ba446515af74b/Ogo_lne_Warunki_Sprzedaz_y_Medicos.pdf
+https://medicos.com.pl/wp-content/uploads/2022/09/General-Terms-And-Conditions-Of-Sale-And-Delivery-Of-Commercial-Goods_Medicos.pdf     https://assets.ctfassets.net/35wc8zs1okh0/4F0C2EM28kha10MHeCKUSK/9348081ba4f86fcdb55c789585a7b337/General_Terms_And_Conditions_Of_Sale_And_Delivery_Of_Commercial_Goods_Medicos.pdf

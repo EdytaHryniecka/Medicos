@@ -1,28 +1,8 @@
 {
     "about-header.title": "Medicos",
 
-    "about-firm.title": "O nas",
-    "about-firm.description-1": "Medicos to polska firma, która zajmuje się importem i dystrybucją surowców chemicznych dla różnych gałęzi przemysłu. Dzięki współpracy z wieloma znanymi i cenionymi producentami nieustannie poszerzamy asortyment, dostosowując go do dynamicznie zmieniających się potrzeb naszych klientów i wymagań rynku. Szczególną uwagę przykładamy oferowaniu oraz dostarczaniu produktów o najwyższej jakości, niezmiennych parametrach, w terminach preferowanych przez klienta. Gwarantowane przez nas od wielu lat dogodne warunki handlowe, cenowe oraz terminowe, pozwoliły stworzyć silną sieć powiązań handlowych z naszymi kontrahentami.",
-    "about-firm.description-2": "Nasza firma jest członkiem Polskiego Stowarzyszenia Przemysłu Kosmetycznego i Detergentowego (PSPKD) oraz Polskiego Towarzystwa Chemików Kosmetologów (PTCK), co jest gwarancją zaangażowania w rozwój naukowy branży. Włączenie do IFSCC (The International Federation of Societes of Cosmetic Chemists) dodatkowo potwierdza naszą międzynarodową pozycję i standardy.",
-
-    "about-mission.vision-title": "Nasza wizja",
-    "about-mission.vision-description-1": "Dystrybucja to dla nas to przede wszystkim przenoszenie informacji pomiędzy przemysłem i dostawcami surowców chemicznych, ich łączenie w celu stworzenia innowacyjnych produktów, które poprawiają jakość życia nas wszystkich. Mamy ambitną wizję tego, czym jako firma chemiczna chcemy być teraz i w przyszłości.",
-    "about-mission.vision-description-2": "Poprzez nasze usługi chcemy stać się częścią rozwiązań dla naszego dzisiejszego świata i dla przyszłych pokoleń, rozwiązań chroniących nasze zasoby i chroniących środowisko.",
-    "about-mission.mission-title": "Nasza misja",
-    "about-mission.mission-description-1": "W dzisiejszym niezwykle dynamicznie rozwijającym się świecie pełnym zmian i nowych wyzwań branża chemiczna staje się coraz bardziej złożona. Jesteśmy po to, aby pomóc Ci nie tylko zarządzać zmianą, ale także z niej korzystać poprzez:",
-    "about-mission.mission-description-2": "pozostanie spójnym źródłem wiedzy i usług;",
-    "about-mission.mission-description-3": "dostarczanie nie tylko produktów chemicznych, ale także nowych pomysłów, które pomogą Ci odnieść sukces;",
-    "about-mission.mission-description-4": "oferowanie głębokiej wiedzy technicznej opartej na wieloletnim doświadczeniu we współpracy z zespołami badawczo-rozwojowymi naszych klientów;",
-    "about-mission.mission-description-5": "rekomendacje i pomoc w opracowywaniu nowych sposobów zwiększania konkurencyjności produktów i usług;",
-    "about-mission.mission-description-6": "stałe doskonalenie, poszukiwanie i poszerzanie bazy wytwórców surowców chemicznych z całego świata;",
-
-    "about-policy.title": "Polityka jakości",
-    "about-policy.description": "Wysoko cenimy sobie zdobyte zaufanie i zadowolenie naszych Klientów, dlatego wciąż doskonalimy jakość oferowanych usług. Potwierdza to certyfikat GDP dla substancji czynnych.",
+    "about-policy.title": "Standardy jakości",
+    "about-policy.description": "Zaufanie i satysfakcja naszych klientów są dla nas najwyższym priorytetem. Dlatego nieustannie doskonalimy jakość świadczonych usług, co znajduje potwierdzenie w naszych certyfikatach i wdrożonych standardach jakości.",
     "about-policy.see": "Zobacz",
-
-    "about-people.title": "Poznaj ludzi napędzających chemiczne innowacje w MEDICOS",
-    "about-people.description": "Wykwalifikowany, dynamicznie działający zespół jest jednym z głównych elementów sukcesu naszej firmy. Współpracę z naszymi klientami postrzegamy jako proces, podczas którego systematycznie przekazujemy wiedzę i rozwiązania zapewniające stały rozwój, bezpieczeństwo i komfort. Lata doświadczenia w handlu surowcami chemicznymi zaowocowały ekspertyzą i rozbudowaną siecią kontaktów, dzięki którym jesteśmy w stanie sprostać wymaganiom i oczekiwaniom naszych klientów.",
-
-    "about-rules.title": "Zasady współpracy",
-    "about-rules.description": "Współpracujemy z przodującymi na rynku producentami i dbamy o to, aby dostarczane do naszych klientów towary były z najwyższej półki. Stawiamy na wysoką jakość, gwarantując, że dostarczane do nich surowce chemiczne posiadały odpowiednie certyfikaty, atesty oraz deklaracje zgodności. Rozumiemy, że terminowość odgrywa ogromną rolę w działalności naszych kontrahentów, dlatego do każdego podchodzimy indywidualnie i dokładamy wszelkich starań, aby zamówienia docierały na czas. Wszelkie informacje dotyczące warunków dostaw znajdziesz w poniższych plikach:"
+    "about-policy.button": "Nasze standardy jakości"
 }

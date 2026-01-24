@@ -20,6 +20,7 @@ const Home = () => {
       <HomeAbout />
       <HomeServices />
       <HomeNeeds />
+      {/* comment blog */}
       <HomeBlog />
     </Layout>
   )

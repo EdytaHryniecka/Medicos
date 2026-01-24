@@ -7,16 +7,31 @@ require("dotenv").config({
  */
 module.exports = {
   siteMetadata: {
-    title: `Medicos`,
+    title: `Medicos | Łączymy przemysł z producentami surowców chemicznych`,
     author: "Medicos",
     author: {
-      name: `Medicost`,
+      name: `Medicos`,
       summary: `Medicos`,
     },
-    description: `Medicos`,
-    siteUrl: `https://github.com/Konrad47`,
+    description: `Nasza firma oferuje surowce chemiczne i składniki aktywne z doradztwem i zabezpieczoną dostawą dla innowacyjnych rozwiązań.`,
+    siteUrl: `https://medicos.com.pl/`,
   },
   plugins: [
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-W98XBQ5F",
+        enableWebVitalsTracking: true,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-hotjar`,
+      options: {
+        includeInDevelopment: true,
+        id: 4984875,
+        sv: 6,
+      },
+    },
     {
       resolve: `gatsby-source-contentful`,
       options: {
@@ -88,5 +103,6 @@ module.exports = {
         icon: `src/images/medicos-icon.png`,
       },
     },
+    "gatsby-plugin-sitemap",
   ],
 }

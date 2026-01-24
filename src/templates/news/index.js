@@ -1,3 +1,4 @@
+// comment blog
 import React, { useEffect, useState, useContext } from "react"
 import Seo from "../../components/seo"
 import { useTranslation, I18nextContext } from "gatsby-plugin-react-i18next"
