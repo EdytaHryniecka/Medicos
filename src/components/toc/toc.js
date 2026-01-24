@@ -31,7 +31,7 @@ const Toc = ({ items }) => {
   return (
     <div className={`toc ${open ? "open" : "closed"}`}>
       <button className="toc-toggle" onClick={() => setOpen(!open)}>
-        <span> {t`news.article.toc`}</span>
+        <span>{t`news.article.toc`}</span>
         <span className={`toc-icon ${open ? "open" : ""}`}>
           <svg width="32" height="32" viewBox="0 0 32 32">
             <rect
@@ -61,20 +61,18 @@ const Toc = ({ items }) => {
         </span>
       </button>
 
-      {open && (
-        <ul className="toc-list">
-          {items.map(item => (
-            <li
-              key={item.id}
-              className={`toc-item level-${item.level} ${
-                activeId === item.id ? "active" : ""
-              }`}
-            >
-              <a href={`#${item.id}`}>{item.text}</a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="toc-list">
+        {items.map(item => (
+          <li
+            key={item.id}
+            className={`toc-item level-${item.level} ${
+              activeId === item.id ? "active" : ""
+            }`}
+          >
+            <a href={`#${item.id}`}>{item.text}</a>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

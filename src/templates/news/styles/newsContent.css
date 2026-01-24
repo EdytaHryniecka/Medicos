@@ -175,12 +175,13 @@
 }
 .article-author-image {
   margin-bottom: 12px;
-  border-radius: 10px;
+  border-radius: 16px;
   object-fit: cover;
 }
 .article-author-image img {
   object-fit: cover;
-  min-width: 144px;
+  aspect-ratio: 1 / 1;
+  width: 144px;
 }
 
 @media (min-width: 1024px) {
