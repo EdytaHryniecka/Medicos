@@ -86,6 +86,9 @@ export const query = graphql`
               title
             }
           }
+          bibliography {
+            raw
+          }
           image {
             gatsbyImageData(quality: 100)
           }
