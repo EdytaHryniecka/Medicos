@@ -49,6 +49,12 @@ const NewsContent = ({ article }) => {
         <div className="article-wrap">
           <div className="article-content">
             {renderRichText(article.node.description, renderOptions)}
+            {article?.node?.bibliography?.raw && (
+              <div className="article-content article-content--bibliography">
+                <h2 className="h2-style title">{t`news.article.bibliography`}</h2>
+                {renderRichText(article.node.bibliography, renderOptions)}
+              </div>
+            )}
           </div>
 
           <div className="article-toc">

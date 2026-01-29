@@ -41,8 +41,10 @@ const NewsPage = ({ data, pageContext }) => {
   return (
     <Layout>
       <Seo
-        title={t`seo.news-page.title`}
-        description={t`seo.news-page.description`}
+        title={article?.node?.metaTitle || t`seo.news-page.title`}
+        description={
+          article?.node?.metaDescription || t`seo.news-page.description`
+        }
       />
       {article && <NewsContent article={article} />}
       {readMoreArticles && <NewsReadMore articles={readMoreArticles} />}
@@ -86,9 +88,14 @@ export const query = graphql`
               title
             }
           }
+          bibliography {
+            raw
+          }
           image {
             gatsbyImageData(quality: 100)
           }
+          metaTitle
+          metaDescription
           slug
           title
         }
