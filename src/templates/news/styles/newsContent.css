@@ -191,6 +191,7 @@
   margin-bottom: 12px;
   border-radius: 16px;
   object-fit: cover;
+  width: 144px;
 }
 .article-author-image img {
   object-fit: cover;
