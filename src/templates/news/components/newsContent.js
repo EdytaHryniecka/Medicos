@@ -32,7 +32,7 @@ const NewsContent = ({ article }) => {
                 <p className="p-style">
                   {moment(article.node.createdAt).format("DD/MM/YYYY HH:mm")}
                 </p>
-                <p className="p-style">{article.node.author}</p>
+                <p className="p-style">{article.node.authorRep.authorName}</p>
               </div>
 
               <h2 className="h2-style">{article.node.title}</h2>
@@ -69,15 +69,17 @@ const NewsContent = ({ article }) => {
             <GatsbyImage
               alt={article.title}
               className="article-author-image"
-              image={getImage(article.node.authorImg.gatsbyImageData)}
+              image={getImage(article.node.authorRep.authorImg.gatsbyImageData)}
             />
             <div className="article-author-text">
-              <p className="article-author-name">{article.node.author}</p>
+              <p className="article-author-name">
+                {article.node.authorRep.authorName}
+              </p>
               <p className="article-author-position">
-                {article.node.authorPosition}
+                {article.node.authorRep.authorPosition}
               </p>
               <p className="article-author-description">
-                {article.node.authorDescription}
+                {article.node.authorRep.authorDescription}
               </p>
             </div>
           </div>
