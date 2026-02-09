@@ -697,12 +697,12 @@ const Search = () => {
     }
 
     if (
-      article.node.author
+      article.node.authorRep.authorName
         ?.toLowerCase()
         .normalize("NFC")
         .includes(searchQuery?.toLowerCase().normalize("NFC"))
     ) {
-      firstSentenceContainingQuery += `...${article.node.author}`
+      firstSentenceContainingQuery += `...${article.node.authorRep.authorName}`
     }
 
     return {
