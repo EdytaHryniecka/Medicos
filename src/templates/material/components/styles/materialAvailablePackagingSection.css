@@ -1,0 +1,14 @@
+.material-available-packaging-list {
+  margin-right: 0;
+  margin-bottom: 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.material-available-packaging-item {
+  margin-bottom: 8px;
+}
+
+.material-available-packaging-item:last-child {
+  margin-bottom: 0;
+}
