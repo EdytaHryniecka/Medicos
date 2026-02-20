@@ -266,15 +266,15 @@ const Search = () => {
       ) {
         const filteredMaterials = materials
           .filter(material => {
-            const generalInformationContent = JSON.parse(
-              material.node.generalInformation.raw
-            ).content
+            const generalInformationContent = parseRichTextContent(
+              material.node.generalInformation?.raw
+            )
             const generalInformationText = getDescriptionText(
               generalInformationContent
             )
-            const applicationContent = JSON.parse(
-              material.node.application.raw
-            ).content
+            const applicationContent = parseRichTextContent(
+              material.node.application?.raw
+            )
             const applicationText = getDescriptionText(applicationContent)
             return materialMatchesQuery(
               material,
@@ -1253,7 +1253,7 @@ const Search = () => {
   }
 
   const parseDataRaw = dataRaw => {
-    const dataContent = JSON.parse(dataRaw).content
+    const dataContent = parseRichTextContent(dataRaw)
     const dataText = getDescriptionText(dataContent)
 
     if (
@@ -1278,6 +1278,16 @@ const Search = () => {
           "..." + dataText.slice(startIndex, endIndex)
       }
       return firstSentenceContainingQuery
+    }
+  }
+
+  const parseRichTextContent = raw => {
+    if (!raw) return []
+    try {
+      const parsed = JSON.parse(raw)
+      return Array.isArray(parsed?.content) ? parsed.content : []
+    } catch (error) {
+      return []
     }
   }
 
