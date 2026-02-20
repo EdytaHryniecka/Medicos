@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 import "../styles/materialsContent.css"
 import CustomPagination from "../../../components/pagination/pagination"
 import MaterialTile from "../../../components/materialTile/materialTile"
-import MaterialModal from "../../../components/materialModal/materialModal"
+import { I18nextContext } from "gatsby-plugin-react-i18next"
+import Navigate from "../../../hooks/navigate"
+import { slugify } from "../../../utils/slugify"
 
-const MaterialsContent = ({
-  materialsContent,
-  resetFilters,
-  dataFromSearch,
-}) => {
+const MaterialsContent = ({ materialsContent, resetFilters }) => {
   const { t } = useTranslation()
+  const { language } = useContext(I18nextContext)
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 9
 
+  const goToDetails = material => {
+    Navigate(`materials/${slugify(material.node.title)}`, language)
+  }
+
   useEffect(() => {
     setCurrentPage(1)
-    if (dataFromSearch !== "") {
-      const openModalWithData = materialsContent.filter(material => {
-        return material.node.title === dataFromSearch
-      })
-      openModal(openModalWithData[0])
-    }
-  }, [dataFromSearch])
+  }, [materialsContent])
 
   const paginatedData = materialsContent.slice(
     (currentPage - 1) * pageSize,
@@ -32,24 +29,12 @@ const MaterialsContent = ({
   const renderMaterials = value => {
     return value.map((val, index) => (
       <MaterialTile
-        openModal={() => openModal(val)}
+        goToDetails={() => goToDetails(val)}
         key={index}
         material={val}
         t={t}
       />
     ))
-  }
-
-  const [showModal, setShowModal] = useState(false)
-  const [currentMaterial, setCurrentMaterial] = useState()
-
-  const openModal = material => {
-    setCurrentMaterial(material)
-    setShowModal(true)
-  }
-
-  const closeModal = () => {
-    setShowModal(false)
   }
 
   return (
@@ -70,14 +55,6 @@ const MaterialsContent = ({
                 setCurrentPage={setCurrentPage}
                 alwaysShown={true}
               />
-              {currentMaterial && (
-                <MaterialModal
-                  showModal={showModal}
-                  currentMaterial={currentMaterial}
-                  closeModal={closeModal}
-                  t={t}
-                />
-              )}
             </>
           ) : (
             <div className="empty-content-con">

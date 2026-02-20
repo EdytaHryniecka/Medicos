@@ -1,0 +1,21 @@
+.material-certificates .js-acc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.material-certificates-graphics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.material-certificate-image img {
+  max-height: 96px;
+  object-fit: contain;
+}
+
+.material-certificates-description {
+  margin-bottom: 0;
+  white-space: pre-line;
+}

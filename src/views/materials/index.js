@@ -4,12 +4,13 @@ import { useTranslation, I18nextContext } from "gatsby-plugin-react-i18next"
 import MaterialsHeader from "./components/materialsHeader"
 import Layout from "../../components/layout"
 import MaterialsFilter from "./components/materialsFilter"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql, navigate, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
 import MaterialsContent from "./components/materialsContent"
 import MaterialsDontFind from "./components/materialsDontFind"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { useLocation } from "@reach/router"
+import { slugify } from "../../utils/slugify"
 
 const Materials = () => {
   const { t } = useTranslation()
@@ -78,6 +79,33 @@ const Materials = () => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (!dataFromSearch) {
+      return
+    }
+
+    const materials = getCurrentTranslations(
+      data.allContentfulMaterials.edges,
+      language
+    )
+
+    const foundMaterial = materials.find(material => {
+      return material.node.title === dataFromSearch
+    })
+
+    if (!foundMaterial) {
+      return
+    }
+
+    const targetSlug = slugify(foundMaterial.node.title)
+    const targetPath =
+      language === "pl"
+        ? `/materials/${targetSlug}`
+        : `/${language}/materials/${targetSlug}`
+
+    navigate(targetPath, { replace: true })
+  }, [dataFromSearch, data.allContentfulMaterials.edges, language])
 
   useEffect(() => {
     const getData = () => {
@@ -172,7 +200,6 @@ const Materials = () => {
       <MaterialsContent
         materialsContent={searchedData}
         resetFilters={resetFilters}
-        dataFromSearch={dataFromSearch}
       />
       <MaterialsDontFind />
     </Layout>

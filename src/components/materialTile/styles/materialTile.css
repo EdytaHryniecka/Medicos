@@ -30,7 +30,7 @@
   gap: 8px;
   align-self: stretch;
   border-top: 1px solid var(--active-bg, #d4e5f7);
-  padding: 8px 16px 0 16px;
+  padding: 16px 16px 0 16px;
 }
 
 .material-tile .down-text {
@@ -38,7 +38,7 @@
   align-items: flex-start;
   gap: 8px;
   align-self: stretch;
-  padding: 0 16px 8px 16px;
+  padding: 0 16px 0 16px;
 }
 
 .material-tile .down-text p,
@@ -62,7 +62,7 @@
   display: flex;
   align-items: flex-start;
   align-content: flex-start;
-  gap: 8px;
+  gap: 12px;
   align-self: stretch;
   flex-wrap: wrap;
   padding: 0 16px 0 16px;

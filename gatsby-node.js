@@ -1,12 +1,20 @@
 const path = require(`path`)
-const { createFilePath } = require(`gatsby-source-filesystem`)
+
+const slugify = text =>
+  text
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
 
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
 
 // comment blog
-exports.createPages = async ({ graphql, actions, reporter }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const { data } = await graphql(`
     query {
@@ -14,30 +22,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             node_locale
-            author
-            authorPosition
-            authorDescription
-            authorImg {
-              gatsbyImageData(quality: 100)
-            }
-            createdAt
-            description {
-              raw
-              references {
-                ... on ContentfulAsset {
-                  __typename
-                  contentful_id
-                  file {
-                    url
-                  }
-                }
-                title
-              }
-            }
-            image {
-              gatsbyImageData(quality: 100)
-            }
             slug
+            title
+          }
+        }
+      }
+      allContentfulMaterials {
+        edges {
+          node {
+            node_locale
             title
           }
         }
@@ -51,6 +44,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       component: path.resolve(`./src/templates/news/index.js`),
       context: {
         article: node,
+      },
+    })
+  })
+
+  data.allContentfulMaterials.edges.forEach(({ node }) => {
+    createPage({
+      path: `materials/${slugify(node.title)}`,
+      component: path.resolve(`./src/templates/material/index.js`),
+      context: {
+        slug: slugify(node.title),
       },
     })
   })
