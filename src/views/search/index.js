@@ -9,6 +9,7 @@ import getCurrentTranslations from "../../components/contentful-translator"
 import SearchContent from "./components/searchContent"
 import moment from "moment"
 import getLocaleTranslations from "../../components/locale-translator"
+import { slugify } from "../../utils/slugify"
 
 const Search = () => {
   const { t } = useTranslation()
@@ -28,7 +29,9 @@ const Search = () => {
             title
             node_locale
             slug
-            author
+            authorRep {
+              authorName
+            }
             createdAt
             description {
               raw
@@ -646,7 +649,7 @@ const Search = () => {
         ?.toLowerCase()
         .normalize("NFC")
         .includes(searchQuery?.toLowerCase().normalize("NFC")) ||
-      article.node.author
+      article.node.authorRep?.authorName
         ?.toLowerCase()
         .normalize("NFC")
         .includes(searchQuery?.toLowerCase().normalize("NFC")) ||
@@ -782,13 +785,11 @@ const Search = () => {
       }
     }
 
-    const encodedSearchQuery = encodeURIComponent(material.node.title)
-
     return {
       title: material.node.title.normalize("NFC"),
       description: firstSentenceContainingQuery.normalize("NFC") + "...",
       category: t("search.material"),
-      slug: `/materials?query=${encodedSearchQuery}`,
+      slug: `/materials/${slugify(material.node.title)}`,
     }
   }
 

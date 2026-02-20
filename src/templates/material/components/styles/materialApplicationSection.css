@@ -1,0 +1,24 @@
+.material-application .article-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.material-application-table-head-text {
+  color: var(--Dark, #0a2243);
+  font-family: REM;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%;
+}
+
+.material-application-table-head-cell {
+  background: var(--Whiteness, #fbfcfe);
+}
+
+@media (max-width: 768px) {
+  .material-application-table-head-row
+    > th.material-parameters-key.material-application-table-head-cell {
+    display: none;
+  }
+}

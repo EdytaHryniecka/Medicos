@@ -17,7 +17,6 @@ const News = () => {
         edges {
           node {
             node_locale
-            author
             createdAt
             description {
               raw

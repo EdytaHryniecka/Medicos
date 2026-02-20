@@ -210,3 +210,35 @@ th {
     max-width: 1180px;
   }
 }
+/* Studionext - normalize */
+
+.p--p1 {
+  color: var(--Dark, #0a2243);
+  font-family: "REM";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
+.p--p2 {
+  color: var(--Navy, #144487);
+  font-family: "REM";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+}
+.p--emphasis {
+  color: var(--Blue, #4d8ce5);
+  font-family: "REM";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 170%;
+}
+.title {
+  color: var(--Dark, #0a2243);
+  font-family: "REM";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 130%;
+}

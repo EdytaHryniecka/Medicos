@@ -1,0 +1,96 @@
+.material-parameters-table-wrap {
+  width: calc(100% - 32px);
+}
+@media (min-width: 1400px) {
+  .material-parameters-table-wrap {
+    width: 100%;
+  }
+}
+.material-parameters-table {
+  border-radius: 16px;
+  background: var(--Whiteness, #fbfcfe);
+  width: 100%;
+  border-collapse: collapse;
+  border: none !important;
+}
+.material-parameters-table-body {
+  border-radius: 16px;
+  background: var(--Whiteness, #fbfcfe);
+  box-shadow: 4px 4px 4px 0 rgba(13, 45, 89, 0.2);
+  padding: 16px;
+  overflow: hidden;
+}
+.material-page-wrapper .material-parameters-table > tbody > tr > th,
+.material-page-wrapper .material-parameters-table > tbody > tr > td {
+  padding: 8px 16px;
+  text-align: left;
+  vertical-align: top;
+  background: var(--Whiteness, #fbfcfe);
+  border: none !important;
+}
+
+.material-page-wrapper
+  .material-parameters-table
+  > tbody
+  > tr:not(:last-child)
+  > th,
+.material-page-wrapper
+  .material-parameters-table
+  > tbody
+  > tr:not(:last-child)
+  > td {
+  border-bottom: 1px solid #d4e5f7 !important;
+}
+
+.material-parameters-key {
+  display: none;
+}
+
+.material-parameters-value::before {
+  content: attr(data-label);
+  display: block;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .material-parameters-table-wrap {
+    width: 100%;
+  }
+
+  .material-parameters-table-body {
+    padding: 0;
+    border-radius: 16px;
+    box-shadow: 4px 4px 4px 0 rgba(13, 45, 89, 0.2);
+  }
+
+  .material-page-wrapper .material-parameters-table > tbody > tr > td {
+    padding: 12px 16px;
+    border-right: none !important;
+  }
+
+  .material-parameters-value::before {
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #144487;
+  }
+}
+
+@media (min-width: 768px) {
+  .material-page-wrapper
+    .material-parameters-table
+    > tbody
+    > tr
+    > th.material-parameters-key {
+    display: table-cell;
+    width: 208px;
+    border-right: 1px solid #d4e5f7 !important;
+  }
+
+  .material-parameters-value {
+    width: auto;
+  }
+
+  .material-parameters-value::before {
+    content: none;
+  }
+}

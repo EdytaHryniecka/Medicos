@@ -13,6 +13,9 @@ const Contact = () => {
   const searchQuery = searchParams.get("query")
     ? decodeURIComponent(searchParams.get("query"))
     : ""
+  const searchMessage = searchParams.get("message")
+    ? decodeURIComponent(searchParams.get("message"))
+    : ""
 
   return (
     <Layout>
@@ -20,7 +23,7 @@ const Contact = () => {
         title={t`seo.contact.title`}
         description={t`seo.contact.description`}
       />
-      <ContactComponent searchQuery={searchQuery} />
+      <ContactComponent searchQuery={searchQuery} searchMessage={searchMessage} />
     </Layout>
   )
 }
