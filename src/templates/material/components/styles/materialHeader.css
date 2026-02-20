@@ -1,12 +1,17 @@
 .material-page-header {
   display: flex;
-  padding: 24px;
   align-items: flex-start;
   gap: 16px;
   background: var(--hover-bg, #e9f2fb);
   margin-bottom: 40px;
+  padding: 24px;
 }
-
+@media (min-width: 569px) {
+  .material-page-header {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
 .material-page-header .left-text {
   display: flex;
   flex-direction: column;

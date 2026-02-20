@@ -1,7 +1,12 @@
 .material-downloadable-materials {
-  padding: 32px;
+  padding: 24px;
   background: #e9f2fb;
   border-radius: 16px;
+}
+@media (min-width: 1024px) {
+  .material-downloadable-materials {
+    padding: 32px;
+  }
 }
 .material-downloadable-materials .register-btn.register-material {
   margin-top: 8px;

@@ -3,10 +3,6 @@
   flex-direction: column;
 }
 
-.material-application-table-wrap {
-  margin-top: 24px;
-}
-
 .material-application-table-head-text {
   color: var(--Dark, #0a2243);
   font-family: REM;
@@ -23,6 +19,6 @@
 @media (max-width: 768px) {
   .material-application-table-head-row
     > th.material-parameters-key.material-application-table-head-cell {
-    display: table-cell;
+    display: none;
   }
 }

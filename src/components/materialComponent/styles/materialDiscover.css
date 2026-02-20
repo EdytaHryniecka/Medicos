@@ -1,9 +1,14 @@
 .material-d-container {
   padding-top: 40px;
-  padding-bottom: 60px;
+  padding-bottom: 40px;
   background: var(--hover-bg, #e9f2fb);
 }
-
+@media (min-width: 1024px) {
+  .material-d-container {
+    padding-top: 40px;
+    padding-bottom: 60px;
+  }
+}
 .material-d-container .container {
   display: flex;
   flex-direction: column;
