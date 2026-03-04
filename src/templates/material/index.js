@@ -388,8 +388,10 @@ const MaterialPage = ({ data, pageContext }) => {
   return (
     <Layout>
       <Seo
-        title={material.node.title || t`seo.materials.title`}
-        description={material.node.inci || t`seo.materials.description`}
+        title={material.node.metaTitle || t`seo.materials.title`}
+        description={
+          material.node.metaDescription || t`seo.materials.description`
+        }
       />
       <div
         ref={pageWrapperRef}
@@ -427,7 +429,10 @@ const MaterialPage = ({ data, pageContext }) => {
               />
             )}
             {packagingRows.length > 0 && (
-              <MaterialAvailablePackagingSection t={t} packagingRows={packagingRows} />
+              <MaterialAvailablePackagingSection
+                t={t}
+                packagingRows={packagingRows}
+              />
             )}
             <MaterialDownloadableMaterialsSection t={t} />
             {hasTechnicalSupportDescription && (
@@ -444,9 +449,7 @@ const MaterialPage = ({ data, pageContext }) => {
                 renderOptions={renderOptions}
               />
             )}
-            {shouldShowMoreInfoSection && (
-              <MaterialMoreInfoSection t={t} />
-            )}
+            {shouldShowMoreInfoSection && <MaterialMoreInfoSection t={t} />}
           </div>
           <MaterialSticky
             material={material}
@@ -490,6 +493,8 @@ export const query = graphql`
           node_locale
           pH
           title
+          metaTitle
+          metaDescription
           inci
           cas
           form
