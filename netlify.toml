@@ -7,9 +7,15 @@ command = "gatsby develop"
 targetPort = 8000
 
 
-#[[redirects]]
-from = ""
-to = ""
+[[redirects]]
+from = "/materials/mocznik-krystaliczny-czysty-pheur-usp/"
+to = "/materials/mocznik-farmaceutyczny-ph-eur-urea/"
+status = 301
+
+[[redirects]]
+from = "/en/materials/urea-chem-pure-cryst-ph-eur-usp/"
+to = "/en/materials/pharmaceutical-grade-urea-ph-eur/"
+status = 301
 
 [[plugins]]
 package = "@netlify/plugin-gatsby"
