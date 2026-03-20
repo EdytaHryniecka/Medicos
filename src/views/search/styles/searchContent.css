@@ -152,4 +152,7 @@
   .search-c-container .content-con .results-con {
     grid-template-columns: repeat(1, 1fr);
   }
+  .search-c-container .content-con .results-con .result h4 {
+    font-size: 18px;
+  }
 }

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react"
-import { graphql } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { I18nextContext, useTranslation } from "gatsby-plugin-react-i18next"
+import { Helmet } from "react-helmet"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Layout from "../../components/layout"
 import Seo from "../../components/seo"
@@ -12,6 +13,7 @@ import "../../components/materialModal/styles/materialModal.css"
 import "./styles/materialPage.css"
 import "./styles/materialParametersTable.css"
 import "./styles/materialAccordion.css"
+import "./styles/materialFaqSection.css"
 import MaterialsDontFind from "../../views/materials/components/materialsDontFind"
 import MaterialDiscover from "../../components/materialComponent/components/materialDiscover"
 import { getImage } from "gatsby-plugin-image"
@@ -26,6 +28,7 @@ import MaterialDownloadableMaterialsSection from "./components/materialDownloada
 import MaterialTechnicalSupportSection from "./components/materialTechnicalSupportSection"
 import MaterialAdditionalInformationSection from "./components/materialAdditionalInformationSection"
 import MaterialMoreInfoSection from "./components/materialMoreInfoSection"
+import MaterialFaqSection from "./components/materialFaqSection"
 const MaterialPage = ({ data, pageContext }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
@@ -44,9 +47,13 @@ const MaterialPage = ({ data, pageContext }) => {
       language
     )
 
-    const currentMaterial = translatedMaterials.find(
-      current => slugify(current.node.title) === pageContext.slug
-    )
+    const currentMaterial =
+      translatedMaterials.find(
+        current => current.node.contentful_id === pageContext.materialId
+      ) ||
+      translatedMaterials.find(
+        current => slugify(current.node.title) === pageContext.slug
+      )
 
     setMaterial(currentMaterial)
   }, [data.allContentfulMaterials.edges, language, pageContext.slug])
@@ -158,6 +165,25 @@ const MaterialPage = ({ data, pageContext }) => {
     }
   }, [material])
 
+  useEffect(() => {
+    if (!material) {
+      return
+    }
+
+    const desiredSlug = slugify(material.node.title)
+
+    if (!desiredSlug || desiredSlug === pageContext.slug) {
+      return
+    }
+
+    const targetPath =
+      language === "pl"
+        ? `/materials/${desiredSlug}`
+        : `/${language}/materials/${desiredSlug}`
+
+    navigate(targetPath, { replace: true })
+  }, [material, language, pageContext.slug])
+
   const goToContact = () => {
     if (!material) {
       return
@@ -209,6 +235,22 @@ const MaterialPage = ({ data, pageContext }) => {
       )
     }
 
+    if (normalizedCategory.includes("produkty")) {
+      return (
+        <div key={index} className="category der-background">
+          <p className="p-style ">{t`materials-filter.dermatological`}</p>
+        </div>
+      )
+    }
+
+    if (normalizedCategory.includes("podologia")) {
+      return (
+        <div key={index} className="category podiatry-background">
+          <p className="p-style ">{t`materials-filter.podiatry`}</p>
+        </div>
+      )
+    }
+
     if (
       normalizedCategory.includes("suplement") ||
       normalizedCategory.includes("ywno")
@@ -231,6 +273,66 @@ const MaterialPage = ({ data, pageContext }) => {
     return null
   }
 
+  const heroImageFileUrl =
+    typeof material?.node?.heroImage?.file?.url === "string"
+      ? material.node.heroImage.file.url.trim()
+      : ""
+  const heroImageUrl = heroImageFileUrl
+    ? heroImageFileUrl.startsWith("//")
+      ? `https:${heroImageFileUrl}`
+      : heroImageFileUrl
+    : ""
+  const faqItemsSource = Array.isArray(material?.node?.faq)
+    ? material.node.faq
+    : []
+  const faqSchema = useMemo(() => {
+    if (!faqItemsSource.length) {
+      return null
+    }
+
+    const items = faqItemsSource
+      .map(item => {
+        const question =
+          typeof item?.question === "string"
+            ? item.question.trim()
+            : typeof item?.key === "string"
+            ? item.key.trim()
+            : ""
+        const rawAnswer =
+          typeof item?.answer === "string"
+            ? item.answer
+            : typeof item?.value === "string"
+            ? item.value
+            : ""
+        const answerText = rawAnswer
+          .replace(/<br\s*\/?>/gi, "\n")
+          .trim()
+
+        if (!question || !answerText) {
+          return null
+        }
+
+        return {
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: answerText,
+          },
+        }
+      })
+      .filter(Boolean)
+
+    if (!items.length) {
+      return null
+    }
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: items,
+    }
+  }, [faqItemsSource])
   if (!material) {
     return null
   }
@@ -368,6 +470,12 @@ const MaterialPage = ({ data, pageContext }) => {
         })
         .filter(Boolean)
     : []
+  const hasTechnicalSpecifications = hasRichTextContent(
+    material?.node?.technicalSpecifications?.raw
+  )
+  const hasAvailablePackagingDescription = hasRichTextContent(
+    material?.node?.availablePackagingDescription?.raw
+  )
   const hasTechnicalSupportDescription = hasRichTextContent(
     material?.node?.technicalSupport?.raw
   )
@@ -384,6 +492,7 @@ const MaterialPage = ({ data, pageContext }) => {
     .filter(related => related?.title || related?.inci || related?.cas)
     .map(related => ({ node: related }))
   const shouldShowMoreInfoSection = !material?.node?.hideSectionMoreInformation
+  const useSecondLayout = Boolean(material?.node?.useSecondLayout)
 
   return (
     <Layout>
@@ -393,6 +502,13 @@ const MaterialPage = ({ data, pageContext }) => {
           material.node.metaDescription || t`seo.materials.description`
         }
       />
+      {faqSchema && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(faqSchema)}
+          </script>
+        </Helmet>
+      )}
       <div
         ref={pageWrapperRef}
         className="material-page-wrapper"
@@ -406,50 +522,127 @@ const MaterialPage = ({ data, pageContext }) => {
         />
         <div className="container material-container">
           <div className="material-column">
-            <MaterialParametersSection t={t} parameterRows={parameterRows} />
-            {shouldShowCertificatesSection && (
-              <MaterialCertificatesSection
-                t={t}
-                certificateItems={certificateItems}
-                certificatesDescription={certificatesDescription}
-              />
+            {useSecondLayout ? (
+              <>
+                <MaterialParametersSection
+                  t={t}
+                  parameterRows={parameterRows}
+                  technicalSpecifications={material?.node?.technicalSpecifications}
+                  renderOptions={renderOptions}
+                  hasTechnicalSpecifications={hasTechnicalSpecifications}
+                />
+                {packagingRows.length > 0 && (
+                  <MaterialAvailablePackagingSection
+                    t={t}
+                    packagingRows={packagingRows}
+                    availablePackagingDescription={
+                      material?.node?.availablePackagingDescription
+                    }
+                    renderOptions={renderOptions}
+                    hasAvailablePackagingDescription={
+                      hasAvailablePackagingDescription
+                    }
+                  />
+                )}
+                {shouldShowCertificatesSection && (
+                  <MaterialCertificatesSection
+                    t={t}
+                    certificateItems={certificateItems}
+                    certificatesDescription={certificatesDescription}
+                  />
+                )}
+                <MaterialGeneralInformationSection
+                  t={t}
+                  material={material}
+                  renderOptions={renderOptions}
+                />
+                {shouldShowApplicationSection && (
+                  <MaterialApplicationSection
+                    t={t}
+                    material={material}
+                    renderOptions={renderOptions}
+                    hasApplicationDescription={hasApplicationDescription}
+                    applicationTableRows={applicationTableRows}
+                  />
+                )}
+                <MaterialDownloadableMaterialsSection t={t} />
+                {hasTechnicalSupportDescription && (
+                  <MaterialTechnicalSupportSection
+                    t={t}
+                    material={material}
+                    renderOptions={renderOptions}
+                  />
+                )}
+                {hasAdditionalInformationDescription && (
+                  <MaterialAdditionalInformationSection
+                    t={t}
+                    material={material}
+                    renderOptions={renderOptions}
+                  />
+                )}
+                {shouldShowMoreInfoSection && <MaterialMoreInfoSection t={t} />}
+              </>
+            ) : (
+              <>
+                <MaterialParametersSection
+                  t={t}
+                  parameterRows={parameterRows}
+                  technicalSpecifications={material?.node?.technicalSpecifications}
+                  renderOptions={renderOptions}
+                  hasTechnicalSpecifications={hasTechnicalSpecifications}
+                />
+                {shouldShowCertificatesSection && (
+                  <MaterialCertificatesSection
+                    t={t}
+                    certificateItems={certificateItems}
+                    certificatesDescription={certificatesDescription}
+                  />
+                )}
+                <MaterialGeneralInformationSection
+                  t={t}
+                  material={material}
+                  renderOptions={renderOptions}
+                />
+                {shouldShowApplicationSection && (
+                  <MaterialApplicationSection
+                    t={t}
+                    material={material}
+                    renderOptions={renderOptions}
+                    hasApplicationDescription={hasApplicationDescription}
+                    applicationTableRows={applicationTableRows}
+                  />
+                )}
+                {packagingRows.length > 0 && (
+                  <MaterialAvailablePackagingSection
+                    t={t}
+                    packagingRows={packagingRows}
+                    availablePackagingDescription={
+                      material?.node?.availablePackagingDescription
+                    }
+                    renderOptions={renderOptions}
+                    hasAvailablePackagingDescription={
+                      hasAvailablePackagingDescription
+                    }
+                  />
+                )}
+                <MaterialDownloadableMaterialsSection t={t} />
+                {hasTechnicalSupportDescription && (
+                  <MaterialTechnicalSupportSection
+                    t={t}
+                    material={material}
+                    renderOptions={renderOptions}
+                  />
+                )}
+                {hasAdditionalInformationDescription && (
+                  <MaterialAdditionalInformationSection
+                    t={t}
+                    material={material}
+                    renderOptions={renderOptions}
+                  />
+                )}
+                {shouldShowMoreInfoSection && <MaterialMoreInfoSection t={t} />}
+              </>
             )}
-            <MaterialGeneralInformationSection
-              t={t}
-              material={material}
-              renderOptions={renderOptions}
-            />
-            {shouldShowApplicationSection && (
-              <MaterialApplicationSection
-                t={t}
-                material={material}
-                renderOptions={renderOptions}
-                hasApplicationDescription={hasApplicationDescription}
-                applicationTableRows={applicationTableRows}
-              />
-            )}
-            {packagingRows.length > 0 && (
-              <MaterialAvailablePackagingSection
-                t={t}
-                packagingRows={packagingRows}
-              />
-            )}
-            <MaterialDownloadableMaterialsSection t={t} />
-            {hasTechnicalSupportDescription && (
-              <MaterialTechnicalSupportSection
-                t={t}
-                material={material}
-                renderOptions={renderOptions}
-              />
-            )}
-            {hasAdditionalInformationDescription && (
-              <MaterialAdditionalInformationSection
-                t={t}
-                material={material}
-                renderOptions={renderOptions}
-              />
-            )}
-            {shouldShowMoreInfoSection && <MaterialMoreInfoSection t={t} />}
           </div>
           <MaterialSticky
             material={material}
@@ -468,6 +661,11 @@ const MaterialPage = ({ data, pageContext }) => {
         />
       )}
       <MaterialsDontFind />
+      <MaterialFaqSection
+        faqItems={faqItemsSource}
+        faqDescription={material?.node?.faqDescription}
+        renderOptions={renderOptions}
+      />
     </Layout>
   )
 }
@@ -493,6 +691,7 @@ export const query = graphql`
           node_locale
           pH
           title
+          contentful_id
           metaTitle
           metaDescription
           inci
@@ -511,11 +710,17 @@ export const query = graphql`
           }
           heroImage {
             gatsbyImageData(quality: 100)
+            file {
+              url
+            }
           }
           generalInformation {
             raw
           }
           application {
+            raw
+          }
+          technicalSpecifications {
             raw
           }
           applicationTable {
@@ -526,12 +731,23 @@ export const query = graphql`
             key
             value
           }
+          availablePackagingDescription {
+            raw
+          }
           technicalSupport {
             raw
           }
           additionalInformation {
             raw
           }
+          faqDescription {
+            raw
+          }
+          faq {
+            key
+            value
+          }
+          useSecondLayout
           hideSectionMoreInformation
           relatedMaterials {
             node_locale
