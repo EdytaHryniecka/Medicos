@@ -303,4 +303,7 @@
     left: 24px;
     height: 36px;
   }
+  .article .article-content blockquote p:nth-child(2) {
+    font-size: 18px;
+  }
 }

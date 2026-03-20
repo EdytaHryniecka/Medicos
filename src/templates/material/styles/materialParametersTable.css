@@ -20,6 +20,10 @@
   padding: 16px;
   overflow: hidden;
 }
+
+.material-parameters-extra {
+  margin-top: 24px;
+}
 .material-page-wrapper .material-parameters-table > tbody > tr > th,
 .material-page-wrapper .material-parameters-table > tbody > tr > td {
   padding: 8px 16px;

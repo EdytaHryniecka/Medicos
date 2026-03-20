@@ -1,7 +1,14 @@
 import React from "react"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 import "./styles/materialAvailablePackagingSection.css"
 
-const MaterialAvailablePackagingSection = ({ t, packagingRows }) => {
+const MaterialAvailablePackagingSection = ({
+  t,
+  packagingRows,
+  availablePackagingDescription,
+  renderOptions,
+  hasAvailablePackagingDescription,
+}) => {
   return (
     <div className="material-available-packaging article">
       <h2 className="h2-style js-acc-header">
@@ -18,6 +25,11 @@ const MaterialAvailablePackagingSection = ({ t, packagingRows }) => {
             </li>
           ))}
         </ul>
+        {hasAvailablePackagingDescription && (
+          <div className="material-available-packaging-description">
+            {renderRichText(availablePackagingDescription, renderOptions)}
+          </div>
+        )}
       </div>
     </div>
   )

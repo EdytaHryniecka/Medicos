@@ -56,6 +56,16 @@
   color: #264073;
 }
 
+.material-page-wrapper .categories .der-background {
+  background: #efd6c8;
+  color: #893b11;
+}
+
+.material-page-wrapper .categories .podiatry-background {
+  background: #edc8c9;
+  color: #700b0d;
+}
+
 .material-page-wrapper .categories .oi-background {
   background: #b6e7db;
   color: #267361;
@@ -96,7 +106,7 @@
   .material-container {
     flex-direction: row;
     gap: 40px;
-    padding: 24px 24px 80px 24px !important;
+    padding: 0px 24px 80px 24px !important;
   }
 }
 .material-container .h2-style {
@@ -122,6 +132,12 @@
   .material-page-wrapper .article-content,
   .material-page .article-content {
     padding: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .material-page-wrapper .title {
+    font-size: 18px;
   }
 }
 .material-column .article-content *:nth-last-child(1) {
