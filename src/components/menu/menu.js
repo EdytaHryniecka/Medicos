@@ -1,14 +1,31 @@
-import React, { useState, useEffect } from "react"
+import React, { useMemo, useState, useEffect } from "react"
 import "./styles/menu.css"
 import { useTranslation, useI18next, Link } from "gatsby-plugin-react-i18next"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Dropdown from "react-bootstrap/Dropdown"
 import { StaticImage } from "gatsby-plugin-image"
 import QueryNavigate from "../../hooks/queryNavigate"
+import { graphql, useStaticQuery } from "gatsby"
+import { useLocation } from "@reach/router"
+import { slugify } from "../../utils/slugify"
 
 const Menu = () => {
   const { t } = useTranslation()
   const { language, languages, originalPath } = useI18next()
+  const location = useLocation()
+  const data = useStaticQuery(graphql`
+    query {
+      allContentfulMaterials {
+        edges {
+          node {
+            contentful_id
+            node_locale
+            title
+          }
+        }
+      }
+    }
+  `)
   const [isUnderTrigger, setIsUnderTrigger] = useState(false)
   const [isMenu, setIsMenu] = useState(false)
   const [isHideMenu, setIsHideMenu] = useState(false)
@@ -18,6 +35,66 @@ const Menu = () => {
   const [showAbout, setShowAbout] = useState(false)
 
   const [isErrorSearch, setIsErrorSearch] = useState(false)
+
+  const materialPathsByLanguage = useMemo(() => {
+    const pathname = location?.pathname || ""
+    const trimmedPath = pathname.replace(/\/+$/, "")
+    const segments = trimmedPath.split("/").filter(Boolean)
+
+    if (!segments.length) {
+      return null
+    }
+
+    const hasLangPrefix = languages.includes(segments[0])
+    const materialsIndex = hasLangPrefix ? 1 : 0
+
+    if (segments[materialsIndex] !== "materials") {
+      return null
+    }
+
+    const slug = segments[materialsIndex + 1]
+    if (!slug) {
+      return null
+    }
+
+    const edges = data?.allContentfulMaterials?.edges || []
+    if (!edges.length) {
+      return null
+    }
+
+    const currentEntry =
+      edges.find(edge => slugify(edge.node.title) === slug) || null
+
+    if (!currentEntry) {
+      return null
+    }
+
+    const localeFromLang = lang => (lang === "pl" ? "pl-PL" : lang)
+    const materialId = currentEntry.node.contentful_id
+
+    const paths = {}
+    languages.forEach(lang => {
+      const targetLocale = localeFromLang(lang)
+      const targetEntry = edges.find(
+        edge =>
+          edge.node.contentful_id === materialId &&
+          edge.node.node_locale === targetLocale
+      )
+
+      if (!targetEntry) {
+        return
+      }
+
+      const targetSlug = slugify(targetEntry.node.title)
+      if (!targetSlug) {
+        return
+      }
+
+      paths[lang] = `/materials/${targetSlug}`
+    })
+
+    return Object.keys(paths).length ? paths : null
+  }, [data, languages, location?.pathname])
 
   const handleSearchChange = event => {
     setSearch(event.target.value)
@@ -438,7 +515,12 @@ const Menu = () => {
                   {languages.map(lang => (
                     <div key={lang}>
                       <Dropdown.Item>
-                        <Link to={originalPath} language={lang}>
+                        <Link
+                          to={
+                            materialPathsByLanguage?.[lang] || originalPath
+                          }
+                          language={lang}
+                        >
                           {lang.toUpperCase()}
                         </Link>
                       </Dropdown.Item>
@@ -646,7 +728,7 @@ const Menu = () => {
                 >
                   <Link
                     style={language === lang ? { color: "#FBFCFE" } : null}
-                    to={originalPath}
+                    to={materialPathsByLanguage?.[lang] || originalPath}
                     language={lang}
                   >
                     {lang === "pl" ? (

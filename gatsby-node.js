@@ -32,6 +32,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             node_locale
             title
+            contentful_id
           }
         }
       }
@@ -54,6 +55,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/material/index.js`),
       context: {
         slug: slugify(node.title),
+        materialId: node.contentful_id,
       },
     })
   })

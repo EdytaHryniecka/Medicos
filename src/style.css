@@ -242,3 +242,12 @@ th {
   font-weight: 500;
   line-height: 130%;
 }
+
+@media only screen and (max-width: 568px) {
+  .h5-style {
+    font-size: 18px;
+  }
+  .title {
+    font-size: 18px;
+  }
+}

@@ -16,7 +16,15 @@
   background: var(--Whiteness, #fbfcfe);
 }
 
+.material-application-description.with-table {
+  margin-top: 24px;
+}
+
 @media (max-width: 768px) {
+  .material-application-table-head-text {
+    font-size: 18px;
+  }
+
   .material-application-table-head-row
     > th.material-parameters-key.material-application-table-head-cell {
     display: none;

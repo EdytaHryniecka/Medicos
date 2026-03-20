@@ -31,6 +31,19 @@ const MaterialTile = ({ material, goToDetails, t }) => {
                 <p className="p-style ">{t`materials-filter.pharmacy`}</p>
               </div>
             )}
+
+            {cat === "Produkty dermatologiczne" && (
+              <div key={index} className="category der-background">
+                <p className="p-style ">{t`materials-filter.dermatological`}</p>
+              </div>
+            )}
+
+            {cat === "Podologia" && (
+              <div key={index} className="category podiatry-background">
+                <p className="p-style ">{t`materials-filter.podiatry`}</p>
+              </div>
+            )}
+
             {cat === "Żywność i suplementy diety" && (
               <div className="category food-background">
                 <p className="p-style ">{t`materials-filter.food`}</p>

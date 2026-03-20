@@ -9,13 +9,14 @@ const MaterialApplicationSection = ({
   hasApplicationDescription,
   applicationTableRows,
 }) => {
+  const shouldShowTable = applicationTableRows.length > 0
+  const shouldShowDescription = hasApplicationDescription
+
   return (
     <div className="material-application article">
       <h2 className="h2-style js-acc-header">{t`materials.post.title4`}</h2>
       <div className="article-content js-acc-body">
-        {hasApplicationDescription &&
-          renderRichText(material.node.application, renderOptions)}
-        {applicationTableRows.length > 0 && (
+        {shouldShowTable && (
           <div className="material-application-table-wrap material-parameters-table-wrap">
             <div className="material-parameters-table-body">
               <table className="material-parameters-table material-application-table">
@@ -56,6 +57,15 @@ const MaterialApplicationSection = ({
                 </tbody>
               </table>
             </div>
+          </div>
+        )}
+        {shouldShowDescription && (
+          <div
+            className={`material-application-description${
+              shouldShowTable ? " with-table" : ""
+            }`}
+          >
+            {renderRichText(material.node.application, renderOptions)}
           </div>
         )}
       </div>

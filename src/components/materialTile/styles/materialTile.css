@@ -93,6 +93,16 @@
   color: #264073;
 }
 
+.material-tile .der-background {
+  background: #efd6c8;
+  color: #893b11;
+}
+
+.material-tile .podiatry-background {
+  background: #edc8c9;
+  color: #700b0d;
+}
+
 .material-tile .oi-background {
   background: #b6e7db;
   color: #267361;
@@ -133,5 +143,9 @@
   .material-tile:hover .details {
     text-decoration: none;
     color: var(--Button-primary-bg, #144487);
+  }
+
+  .material-tile h4 {
+    font-size: 18px;
   }
 }
