@@ -5,12 +5,14 @@ export const richTextRenderOptions = {
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: node => {
       if (node.data.target.file === undefined) return
+
+      const { file, title, description } = node.data.target
+
       return (
-        <img
-          className="article-img"
-          src={node.data.target.file.url}
-          alt={node.data.target.title}
-        />
+        <div className="article-image-wrapper">
+          <img className="article-img" src={file.url} alt={title || ""} />
+          {description && <p className="article-img-caption">{description}</p>}
+        </div>
       )
     },
     [BLOCKS.PARAGRAPH]: (node, children) => {
