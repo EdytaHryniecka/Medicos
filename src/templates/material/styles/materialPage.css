@@ -147,3 +147,14 @@
 .material-column .article .article-content :is(p):has(+ :is(p)) {
   margin-bottom: 16px;
 }
+
+.material-column .article .article-content .article-image-wrapper {
+  text-align: center;
+}
+
+.material-column .article .article-content .article-img-caption {
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 150%;
+  color: inherit;
+}

@@ -24,11 +24,12 @@ const News = () => {
                 ... on ContentfulAsset {
                   __typename
                   contentful_id
+                  title
+                  description
                   file {
                     url
                   }
                 }
-                title
               }
             }
             image {

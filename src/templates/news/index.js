@@ -83,11 +83,12 @@ export const query = graphql`
               ... on ContentfulAsset {
                 __typename
                 contentful_id
+                title
+                description
                 file {
                   url
                 }
               }
-              title
             }
           }
           bibliography {

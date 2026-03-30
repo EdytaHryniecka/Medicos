@@ -2,7 +2,19 @@ import React from "react"
 import { BLOCKS } from "@contentful/rich-text-types"
 import { slugify } from "./slugify"
 
-export const articleTextRenderOptions = tocRef => {
+const getAssetFromTarget = (target, assetMap) => {
+  if (!target) return null
+  if (target.file) return target
+
+  const targetId =
+    typeof target.contentful_id === "string"
+      ? target.contentful_id
+      : target.sys?.id
+
+  return targetId ? assetMap[targetId] || null : null
+}
+
+export const articleTextRenderOptions = (tocRef, assetMap = {}) => {
   const renderHeading = (level, className) => node => {
     const text = node.content.map(item => item.value || "").join("")
 
@@ -19,14 +31,18 @@ export const articleTextRenderOptions = tocRef => {
   return {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: node => {
-        if (!node.data?.target?.file) return null
+        const asset = getAssetFromTarget(node.data?.target, assetMap)
+        if (!asset?.file) return null
+
+        const { file, title, description } = asset
 
         return (
-          <img
-            className="article-img"
-            src={node.data.target.file.url}
-            alt={node.data.target.title}
-          />
+          <div className="article-image-wrapper">
+            <img className="article-img" src={file.url} alt={title || ""} />
+            {description && (
+              <p className="article-img-caption">{description}</p>
+            )}
+          </div>
         )
       },
 

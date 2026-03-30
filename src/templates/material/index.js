@@ -36,9 +36,30 @@ const MaterialPage = ({ data, pageContext }) => {
   const pageWrapperRef = useRef(null)
   const materialRichTextRef = useRef([])
   materialRichTextRef.current = []
+
+  const assetEdges = Array.isArray(data?.allContentfulAsset?.edges)
+    ? data.allContentfulAsset.edges
+    : []
+  const assetsById = useMemo(
+    () =>
+      assetEdges.reduce((acc, edge) => {
+        const node = edge?.node
+        const contentfulId = node?.contentful_id
+        const id = node?.id
+        if (contentfulId) {
+          acc[contentfulId] = node
+        }
+        if (id) {
+          acc[id] = node
+        }
+        return acc
+      }, {}),
+    [assetEdges]
+  )
+
   const renderOptions = useMemo(
-    () => articleTextRenderOptions(materialRichTextRef),
-    []
+    () => articleTextRenderOptions(materialRichTextRef, assetsById),
+    [assetsById]
   )
 
   useEffect(() => {
@@ -304,9 +325,7 @@ const MaterialPage = ({ data, pageContext }) => {
             : typeof item?.value === "string"
             ? item.value
             : ""
-        const answerText = rawAnswer
-          .replace(/<br\s*\/?>/gi, "\n")
-          .trim()
+        const answerText = rawAnswer.replace(/<br\s*\/?>/gi, "\n").trim()
 
         if (!question || !answerText) {
           return null
@@ -352,16 +371,6 @@ const MaterialPage = ({ data, pageContext }) => {
     : []
   const parameterRows =
     basicParameters.length > 0 ? basicParameters : defaultParameterRows
-  const assetEdges = Array.isArray(data?.allContentfulAsset?.edges)
-    ? data.allContentfulAsset.edges
-    : []
-  const assetsById = assetEdges.reduce((acc, edge) => {
-    const id = edge?.node?.contentful_id
-    if (id) {
-      acc[id] = edge.node
-    }
-    return acc
-  }, {})
   const certificateItems = Array.isArray(material?.node?.certificateGraphics)
     ? material.node.certificateGraphics
         .map(item => {
@@ -527,7 +536,9 @@ const MaterialPage = ({ data, pageContext }) => {
                 <MaterialParametersSection
                   t={t}
                   parameterRows={parameterRows}
-                  technicalSpecifications={material?.node?.technicalSpecifications}
+                  technicalSpecifications={
+                    material?.node?.technicalSpecifications
+                  }
                   renderOptions={renderOptions}
                   hasTechnicalSpecifications={hasTechnicalSpecifications}
                 />
@@ -587,7 +598,9 @@ const MaterialPage = ({ data, pageContext }) => {
                 <MaterialParametersSection
                   t={t}
                   parameterRows={parameterRows}
-                  technicalSpecifications={material?.node?.technicalSpecifications}
+                  technicalSpecifications={
+                    material?.node?.technicalSpecifications
+                  }
                   renderOptions={renderOptions}
                   hasTechnicalSpecifications={hasTechnicalSpecifications}
                 />
@@ -762,8 +775,10 @@ export const query = graphql`
     allContentfulAsset {
       edges {
         node {
+          id
           contentful_id
           title
+          description
           file {
             url
           }

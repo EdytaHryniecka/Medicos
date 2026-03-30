@@ -13,8 +13,13 @@ to = "/materials/mocznik-farmaceutyczny-ph-eur-urea/"
 status = 301
 
 [[redirects]]
-from = "/en/materials/urea-chem-pure-cryst-ph-eur-usp/"
-to = "/en/materials/pharmaceutical-grade-urea-ph-eur/"
+from = "/materials/sorbitol-t/"
+to = "/materials/sorbitol-t-e420/"
+status = 301
+
+[[redirects]]
+from = "/en/materials/sorbitol-t/"
+to = "/en/materials/sorbitol-t-e420/"
 status = 301
 
 [[plugins]]
