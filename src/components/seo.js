@@ -26,9 +26,6 @@ function Seo({
             title
             description
             siteUrl
-            author {
-              name
-            }
           }
         }
       }
@@ -81,7 +78,7 @@ function Seo({
         },
         {
           name: `author`,
-          content: site.siteMetadata.author?.name || "Medicos",
+          content: site.siteMetadata.author,
         },
         {
           property: `og:image`,
