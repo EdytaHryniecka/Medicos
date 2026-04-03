@@ -60,7 +60,7 @@ module.exports = {
         localeJsonSourceName: `locales`,
         languages: [`pl`, `en`],
         defaultLanguage: `pl`,
-        siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+        siteUrl: `https://medicos.com.pl/`,
         redirect: false,
         pages: [
           {

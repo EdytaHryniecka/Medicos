@@ -1,10 +1,23 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import { useI18next } from "gatsby-plugin-react-i18next"
+import { useI18next, useTranslation } from "gatsby-plugin-react-i18next"
+import { useLocation } from "@reach/router"
 import defaultOgImage from "../images/seo/medicos-seo.png"
 
-function Seo({ description, meta = [], title, ogImage }) {
+function Seo({
+  description,
+  meta = [],
+  title,
+  ogImage,
+  canonical,
+  canonicalTranslationKey,
+}) {
+  const location = useLocation()
+  const currentPath =
+    location?.pathname ||
+    (typeof window !== "undefined" ? window.location.pathname : "") ||
+    ""
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -12,6 +25,10 @@ function Seo({ description, meta = [], title, ogImage }) {
           siteMetadata {
             title
             description
+            siteUrl
+            author {
+              name
+            }
           }
         }
       }
@@ -19,10 +36,30 @@ function Seo({ description, meta = [], title, ogImage }) {
   )
 
   const { language } = useI18next()
+  const { t } = useTranslation()
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
-
   const metaOgImage = ogImage === undefined ? defaultOgImage : ogImage
+  const baseUrl =
+    site.siteMetadata?.siteUrl?.replace(/\/+$/, "") || "https://medicos.com.pl"
+
+  const getCanonicalTranslationKeyFromPath = path => {
+    const pathWithoutLang = path.replace(/^\/(pl|en)(?=\/|$)/, "")
+    const normalizedPath = pathWithoutLang.replace(/\/+$/, "")
+    const pageKey =
+      normalizedPath === ""
+        ? "home"
+        : normalizedPath.replace(/^\//, "").split("/")[0]
+    return `seo.${pageKey}.canonical`
+  }
+
+  const translationKey =
+    canonicalTranslationKey || getCanonicalTranslationKeyFromPath(currentPath)
+  const translatedCanonical = translationKey
+    ? t(translationKey, { defaultValue: "" })
+    : ""
+  const canonicalValue =
+    canonical || translatedCanonical || `${baseUrl}${currentPath}`
 
   return (
     <Helmet
@@ -31,6 +68,12 @@ function Seo({ description, meta = [], title, ogImage }) {
       }}
       title={title}
       titleTemplate={defaultTitle ? `%s` : null}
+      link={[
+        {
+          rel: `canonical`,
+          href: canonicalValue,
+        },
+      ]}
       meta={[
         {
           name: `description`,
@@ -38,11 +81,15 @@ function Seo({ description, meta = [], title, ogImage }) {
         },
         {
           name: `author`,
-          content: site.siteMetadata.author,
+          content: site.siteMetadata.author?.name || "Medicos",
         },
         {
           property: `og:image`,
           content: metaOgImage,
+        },
+        {
+          property: `og:url`,
+          content: canonicalValue,
         },
       ].concat(meta)}
     >

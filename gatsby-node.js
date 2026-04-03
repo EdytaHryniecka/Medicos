@@ -24,6 +24,7 @@ exports.createPages = async ({ graphql, actions }) => {
             node_locale
             slug
             title
+            canonical
           }
         }
       }
