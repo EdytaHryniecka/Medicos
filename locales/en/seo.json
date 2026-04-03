@@ -48,5 +48,23 @@
   "seo.quality-standards.description": "Quality Standards | Medicos - Standards that build trust",
 
   "seo.search.title": "Search | Medicos - Raw Materials Search Engine",
-  "seo.search.description": "Search | Medicos - Raw Materials Search Engine"
+  "seo.search.description": "Search | Medicos - Raw Materials Search Engine",
+
+  "seo.home.canonical": "",
+  "seo.about.canonical": "",
+  "seo.services.canonical": "",
+  "seo.materials.canonical": "",
+  "seo.contact.canonical": "",
+  "seo.news.canonical": "",
+  "seo.news-page.canonical": "",
+  "seo.household-chemicals.canonical": "",
+  "seo.cosmetology.canonical": "",
+  "seo.pharmacy.canonical": "",
+  "seo.food-and-supplements.canonical": "",
+  "seo.other-industries.canonical": "",
+  "seo.not-found.canonical": "",
+  "seo.privacy-policy.canonical": "",
+  "seo.website-regulations.canonical": "",
+  "seo.quality-standards.canonical": "",
+  "seo.search.canonical": ""
 }

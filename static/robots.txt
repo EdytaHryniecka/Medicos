@@ -1,2 +1,29 @@
 User-agent: *
-Disallow:
+
+Crawl-delay: 1
+
+# blokada parametrów (jeśli występują)
+Disallow: /*?query=
+Disallow: /*?filter=
+Disallow: /*?sort=
+
+# strony techniczne (thank you)
+Disallow: /thank-you-for-your-message/
+Disallow: /en/thank-you-for-your-message/
+
+# sitemap
+Sitemap: https://medicos.com.pl/sitemap-0.xml
+
+
+# AI boty
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /

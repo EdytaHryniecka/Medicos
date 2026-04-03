@@ -32,10 +32,37 @@ import MaterialFaqSection from "./components/materialFaqSection"
 const MaterialPage = ({ data, pageContext }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
-  const [material, setMaterial] = useState()
   const pageWrapperRef = useRef(null)
   const materialRichTextRef = useRef([])
   materialRichTextRef.current = []
+
+  const initialMaterial = useMemo(() => {
+    const translatedMaterials = getCurrentTranslations(
+      data.allContentfulMaterials.edges,
+      language
+    )
+
+    return (
+      translatedMaterials.find(
+        current => current.node.contentful_id === pageContext.materialId
+      ) ||
+      translatedMaterials.find(
+        current => slugify(current.node.title) === pageContext.slug
+      ) ||
+      null
+    )
+  }, [
+    data.allContentfulMaterials.edges,
+    language,
+    pageContext.materialId,
+    pageContext.slug,
+  ])
+
+  const [material, setMaterial] = useState(initialMaterial)
+
+  useEffect(() => {
+    setMaterial(initialMaterial)
+  }, [initialMaterial])
 
   const assetEdges = Array.isArray(data?.allContentfulAsset?.edges)
     ? data.allContentfulAsset.edges
@@ -61,23 +88,6 @@ const MaterialPage = ({ data, pageContext }) => {
     () => articleTextRenderOptions(materialRichTextRef, assetsById),
     [assetsById]
   )
-
-  useEffect(() => {
-    const translatedMaterials = getCurrentTranslations(
-      data.allContentfulMaterials.edges,
-      language
-    )
-
-    const currentMaterial =
-      translatedMaterials.find(
-        current => current.node.contentful_id === pageContext.materialId
-      ) ||
-      translatedMaterials.find(
-        current => slugify(current.node.title) === pageContext.slug
-      )
-
-    setMaterial(currentMaterial)
-  }, [data.allContentfulMaterials.edges, language, pageContext.slug])
 
   useEffect(() => {
     if (!material || !pageWrapperRef.current) {
@@ -510,6 +520,7 @@ const MaterialPage = ({ data, pageContext }) => {
         description={
           material.node.metaDescription || t`seo.materials.description`
         }
+        canonical={material.node.canonical}
       />
       {faqSchema && (
         <Helmet>
@@ -707,6 +718,7 @@ export const query = graphql`
           contentful_id
           metaTitle
           metaDescription
+          canonical
           inci
           cas
           form
