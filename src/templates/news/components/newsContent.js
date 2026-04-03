@@ -9,6 +9,9 @@ import moment from "moment"
 
 const NewsContent = ({ article }) => {
   const { t } = useTranslation()
+  const author = article?.node?.authorRep
+  const heroImage = article?.node?.image?.gatsbyImageData
+  const authorImage = author?.authorImg?.gatsbyImageData
 
   // ⬇️ ref zamiast state
   const tocRef = useRef([])
@@ -32,18 +35,22 @@ const NewsContent = ({ article }) => {
                 <p className="p-style">
                   {moment(article.node.createdAt).format("DD/MM/YYYY HH:mm")}
                 </p>
-                <p className="p-style">{article.node.authorRep.authorName}</p>
+                {author?.authorName && (
+                  <p className="p-style">{author.authorName}</p>
+                )}
               </div>
 
               <h2 className="h2-style">{article.node.title}</h2>
             </div>
           </div>
 
-          <GatsbyImage
-            alt={article.title}
-            className="article-image"
-            image={getImage(article.node.image.gatsbyImageData)}
-          />
+          {heroImage && (
+            <GatsbyImage
+              alt={article.title}
+              className="article-image"
+              image={getImage(heroImage)}
+            />
+          )}
         </div>
 
         <div className="article-wrap">
@@ -62,29 +69,37 @@ const NewsContent = ({ article }) => {
           </div>
         </div>
       </div>
-      <div className="article-author-box">
-        <div className="container">
-          <div className="article-author-container">
-            <p className="article-author-box-title">{t`news.article.about`}</p>
-            <GatsbyImage
-              alt={article.title}
-              className="article-author-image"
-              image={getImage(article.node.authorRep.authorImg.gatsbyImageData)}
-            />
-            <div className="article-author-text">
-              <p className="article-author-name">
-                {article.node.authorRep.authorName}
-              </p>
-              <p className="article-author-position">
-                {article.node.authorRep.authorPosition}
-              </p>
-              <p className="article-author-description">
-                {article.node.authorRep.authorDescription}
-              </p>
+      {author && (
+        <div className="article-author-box">
+          <div className="container">
+            <div className="article-author-container">
+              <p className="article-author-box-title">{t`news.article.about`}</p>
+              {authorImage && (
+                <GatsbyImage
+                  alt={article.title}
+                  className="article-author-image"
+                  image={getImage(authorImage)}
+                />
+              )}
+              <div className="article-author-text">
+                {author.authorName && (
+                  <p className="article-author-name">{author.authorName}</p>
+                )}
+                {author.authorPosition && (
+                  <p className="article-author-position">
+                    {author.authorPosition}
+                  </p>
+                )}
+                {author.authorDescription && (
+                  <p className="article-author-description">
+                    {author.authorDescription}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
