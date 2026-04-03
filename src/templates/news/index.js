@@ -12,7 +12,7 @@ const NewsPage = ({ data, pageContext }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
 
-  const [article, setArticle] = useState()
+  const [article, setArticle] = useState({ node: pageContext.article })
   const [readMoreArticles, setReadMoreArticles] = useState()
 
   useEffect(() => {
@@ -45,6 +45,7 @@ const NewsPage = ({ data, pageContext }) => {
         description={
           article?.node?.metaDescription || t`seo.news-page.description`
         }
+        canonical={article?.node?.canonical}
       />
       {article && <NewsContent article={article} />}
       {readMoreArticles && <NewsReadMore articles={readMoreArticles} />}
@@ -101,6 +102,7 @@ export const query = graphql`
           metaDescription
           slug
           title
+          canonical
         }
       }
     }
