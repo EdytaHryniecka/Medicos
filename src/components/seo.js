@@ -12,6 +12,7 @@ function Seo({
   ogImage,
   canonical,
   canonicalTranslationKey,
+  hreflangOverrides,
 }) {
   const location = useLocation()
   const currentPath =
@@ -32,7 +33,7 @@ function Seo({
     `
   )
 
-  const { language } = useI18next()
+  const { language, languages, defaultLanguage, originalPath } = useI18next()
   const { t } = useTranslation()
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
@@ -58,6 +59,72 @@ function Seo({
   const canonicalValue =
     canonical || translatedCanonical || `${baseUrl}${currentPath}`
 
+  const normalizedOriginalPath = (() => {
+    if (typeof originalPath === "string" && originalPath.length) {
+      return originalPath.startsWith("/") ? originalPath : `/${originalPath}`
+    }
+    if (currentPath && typeof currentPath === "string") {
+      return currentPath.startsWith("/") ? currentPath : `/${currentPath}`
+    }
+    return "/"
+  })()
+
+  const normalizeHref = hrefValue => {
+    if (!hrefValue) {
+      return ""
+    }
+
+    if (/^https?:\/\//i.test(hrefValue)) {
+      return hrefValue
+    }
+
+    if (hrefValue.startsWith("//")) {
+      return `https:${hrefValue}`
+    }
+
+    if (hrefValue.startsWith("/")) {
+      return `${baseUrl}${hrefValue}`
+    }
+
+    return `${baseUrl}/${hrefValue}`
+  }
+
+  const buildHref = lang => {
+    if (hreflangOverrides && hreflangOverrides[lang]) {
+      return normalizeHref(hreflangOverrides[lang])
+    }
+
+    const prefix =
+      defaultLanguage && lang === defaultLanguage ? "" : `/${lang}`
+    const path =
+      normalizedOriginalPath === "/" ? "" : normalizedOriginalPath
+    return `${baseUrl}${prefix}${path}`
+  }
+
+  const hreflangLanguages =
+    hreflangOverrides && Array.isArray(languages)
+      ? languages.filter(lang => Boolean(hreflangOverrides[lang]))
+      : languages
+
+  const hreflangLinks =
+    Array.isArray(hreflangLanguages) && hreflangLanguages.length
+      ? hreflangLanguages.map(lang => ({
+          rel: "alternate",
+          hrefLang: lang,
+          href: buildHref(lang),
+        }))
+      : []
+
+  const xDefaultHref =
+    (hreflangOverrides && hreflangOverrides["x-default"]
+      ? normalizeHref(hreflangOverrides["x-default"])
+      : null) ||
+    (defaultLanguage
+      ? buildHref(defaultLanguage)
+      : languages?.[0]
+        ? buildHref(languages[0])
+        : canonicalValue)
+
   return (
     <Helmet
       htmlAttributes={{
@@ -69,6 +136,12 @@ function Seo({
         {
           rel: `canonical`,
           href: canonicalValue,
+        },
+        ...hreflangLinks,
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: xDefaultHref,
         },
       ]}
       meta={[

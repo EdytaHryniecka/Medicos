@@ -102,6 +102,15 @@
   color: var(--primary, #144487);
 }
 
+.hide-menu .up-hide-menu .languages .language .language-disabled {
+  color: rgba(10, 34, 67, 0.45);
+  cursor: not-allowed;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+}
+
 .hide-menu .up-hide-menu .languages .pl {
   border-radius: 8px 0 0 8px;
 }
@@ -297,6 +306,14 @@
 .menu-container .dropdown-menu a:hover {
   border-radius: 8px;
   background: var(--hover-bg, #e9f2fb);
+}
+
+.menu-container .dropdown-menu .language-disabled {
+  display: inline-block;
+  width: 100%;
+  padding: 10px 8px;
+  color: rgba(10, 34, 67, 0.45);
+  cursor: not-allowed;
 }
 
 .menu-container .hide-menu-button {
