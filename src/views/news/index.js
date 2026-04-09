@@ -17,6 +17,7 @@ const News = () => {
         edges {
           node {
             node_locale
+            contentful_id
             createdAt
             description {
               raw
@@ -52,7 +53,40 @@ const News = () => {
         language
       )
 
-      setArticles(getArticles)
+      const allEdges = data?.allContentfulArticle?.edges || []
+      const plSlugById = allEdges.reduce((acc, edge) => {
+        const node = edge?.node
+        if (node?.node_locale === "pl-PL" && node?.contentful_id) {
+          acc[node.contentful_id] = node.slug
+        }
+        return acc
+      }, {})
+
+      const filteredArticles = getArticles
+        .map(article => {
+          const node = article?.node || {}
+          const localizedSlug = node.slug
+          const plSlug = plSlugById[node.contentful_id]
+
+          if (
+            typeof localizedSlug === "string" &&
+            localizedSlug.trim() &&
+            !(language === "en" && plSlug && localizedSlug === plSlug)
+          ) {
+            return {
+              ...article,
+              node: {
+                ...node,
+                localizedSlug: localizedSlug.trim(),
+              },
+            }
+          }
+
+          return null
+        })
+        .filter(Boolean)
+
+      setArticles(filteredArticles)
     }
     getData()
   }, [data.allContentfulArticle, language])

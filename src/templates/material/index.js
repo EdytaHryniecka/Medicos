@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react"
 import { graphql, navigate } from "gatsby"
-import { I18nextContext, useTranslation } from "gatsby-plugin-react-i18next"
+import {
+  I18nextContext,
+  useI18next,
+  useTranslation,
+} from "gatsby-plugin-react-i18next"
 import { Helmet } from "react-helmet"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Layout from "../../components/layout"
@@ -32,6 +36,7 @@ import MaterialFaqSection from "./components/materialFaqSection"
 const MaterialPage = ({ data, pageContext }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
+  const { languages, defaultLanguage } = useI18next()
   const pageWrapperRef = useRef(null)
   const materialRichTextRef = useRef([])
   materialRichTextRef.current = []
@@ -63,6 +68,67 @@ const MaterialPage = ({ data, pageContext }) => {
   useEffect(() => {
     setMaterial(initialMaterial)
   }, [initialMaterial])
+
+  const materialPathsByLanguage = useMemo(() => {
+    const materialId = material?.node?.contentful_id || pageContext.materialId
+    if (!materialId) {
+      return null
+    }
+
+    const edges = data?.allContentfulMaterials?.edges || []
+    if (!edges.length) {
+      return null
+    }
+
+    const localeFromLang = lang => (lang === "pl" ? "pl-PL" : lang)
+
+    const paths = {}
+    languages.forEach(lang => {
+      const targetLocale = localeFromLang(lang)
+      const targetEntry = edges.find(
+        edge =>
+          edge.node.contentful_id === materialId &&
+          edge.node.node_locale === targetLocale
+      )
+
+      if (!targetEntry) {
+        return
+      }
+
+      const targetSlug = slugify(targetEntry.node.title)
+      if (!targetSlug) {
+        return
+      }
+
+      paths[lang] = `/materials/${targetSlug}`
+    })
+
+    return Object.keys(paths).length ? paths : null
+  }, [data?.allContentfulMaterials?.edges, languages, material, pageContext])
+
+  const hreflangOverrides = useMemo(() => {
+    if (!materialPathsByLanguage) {
+      return null
+    }
+
+    const overrides = {}
+    languages.forEach(lang => {
+      const path = materialPathsByLanguage[lang]
+      if (!path) {
+        return
+      }
+
+      const prefix =
+        defaultLanguage && lang === defaultLanguage ? "" : `/${lang}`
+      overrides[lang] = `${prefix}${path}`
+    })
+
+    if (defaultLanguage && overrides[defaultLanguage]) {
+      overrides["x-default"] = overrides[defaultLanguage]
+    }
+
+    return overrides
+  }, [defaultLanguage, languages, materialPathsByLanguage])
 
   const assetEdges = Array.isArray(data?.allContentfulAsset?.edges)
     ? data.allContentfulAsset.edges
@@ -521,6 +587,7 @@ const MaterialPage = ({ data, pageContext }) => {
           material.node.metaDescription || t`seo.materials.description`
         }
         canonical={material.node.canonical}
+        hreflangOverrides={hreflangOverrides}
       />
       {faqSchema && (
         <Helmet>
