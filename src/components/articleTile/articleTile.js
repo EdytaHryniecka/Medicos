@@ -18,7 +18,11 @@ const ArticleTile = ({ article, t }) => {
       : description
 
   const goToDetails = () => {
-    Navigate(`news/${article.node.slug}`, language)
+    const slug = article?.node?.localizedSlug || article?.node?.slug
+    if (!slug) {
+      return
+    }
+    Navigate(`news/${slug}`, language)
   }
 
   return (

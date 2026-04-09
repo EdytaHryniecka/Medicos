@@ -24,6 +24,15 @@ const Menu = () => {
           }
         }
       }
+      allContentfulArticle {
+        edges {
+          node {
+            contentful_id
+            node_locale
+            slug
+          }
+        }
+      }
     }
   `)
   const [isUnderTrigger, setIsUnderTrigger] = useState(false)
@@ -95,6 +104,49 @@ const Menu = () => {
 
     return Object.keys(paths).length ? paths : null
   }, [data, languages, location?.pathname])
+
+  const hasEnglishNews = useMemo(() => {
+    const edges = data?.allContentfulArticle?.edges || []
+    if (!edges.length) {
+      return false
+    }
+
+    const plSlugById = edges.reduce((acc, edge) => {
+      const node = edge?.node
+      if (node?.node_locale === "pl-PL" && node?.contentful_id) {
+        acc[node.contentful_id] = node.slug
+      }
+      return acc
+    }, {})
+
+    return edges.some(edge => {
+      const node = edge?.node
+      if (!node || node.node_locale !== "en") {
+        return false
+      }
+
+      const slug = node.slug
+      if (!slug || !slug.trim()) {
+        return false
+      }
+
+      const plSlug = plSlugById[node.contentful_id]
+      return !plSlug || plSlug !== slug
+    })
+  }, [data?.allContentfulArticle?.edges])
+
+  const newsPathInfo = useMemo(() => {
+    const rawPath = originalPath || location?.pathname || ""
+    const withoutLang = rawPath.replace(/^\/(pl|en)(?=\/|$)/, "")
+    const normalized = (withoutLang || "/").startsWith("/")
+      ? (withoutLang || "/").slice(1)
+      : withoutLang || "/"
+    const isListing = normalized === "news"
+    const isDetail = normalized.startsWith("news/") && !isListing
+    return { isListing, isDetail }
+  }, [location?.pathname, originalPath])
+
+  const isEnglishDisabled = newsPathInfo.isDetail && !hasEnglishNews
 
   const handleSearchChange = event => {
     setSearch(event.target.value)
@@ -515,14 +567,20 @@ const Menu = () => {
                   {languages.map(lang => (
                     <div key={lang}>
                       <Dropdown.Item>
-                        <Link
-                          to={
-                            materialPathsByLanguage?.[lang] || originalPath
-                          }
-                          language={lang}
-                        >
-                          {lang.toUpperCase()}
-                        </Link>
+                        {lang === "en" && isEnglishDisabled ? (
+                          <span className="language-disabled">
+                            {lang.toUpperCase()}
+                          </span>
+                        ) : (
+                          <Link
+                            to={
+                              materialPathsByLanguage?.[lang] || originalPath
+                            }
+                            language={lang}
+                          >
+                            {lang.toUpperCase()}
+                          </Link>
+                        )}
                       </Dropdown.Item>
                     </div>
                   ))}
@@ -726,30 +784,56 @@ const Menu = () => {
                   className={lang === "pl" ? "language pl" : "language en"}
                   style={language === lang ? { background: "#144487" } : null}
                 >
-                  <Link
-                    style={language === lang ? { color: "#FBFCFE" } : null}
-                    to={materialPathsByLanguage?.[lang] || originalPath}
-                    language={lang}
-                  >
-                    {lang === "pl" ? (
-                      <StaticImage
-                        className="flag-image"
-                        src="../../images/menu/polish.webp"
-                        alt="Flag"
-                        placeholder="Flag"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <StaticImage
-                        className="flag-image"
-                        src="../../images/menu/english.webp"
-                        alt="Flag"
-                        placeholder="Flag"
-                        loading="lazy"
-                      />
-                    )}{" "}
-                    {lang.toUpperCase()}
-                  </Link>
+                  {lang === "en" && isEnglishDisabled ? (
+                    <span
+                      className="language-disabled"
+                      style={language === lang ? { color: "#FBFCFE" } : null}
+                    >
+                      {lang === "pl" ? (
+                        <StaticImage
+                          className="flag-image"
+                          src="../../images/menu/polish.webp"
+                          alt="Flag"
+                          placeholder="Flag"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <StaticImage
+                          className="flag-image"
+                          src="../../images/menu/english.webp"
+                          alt="Flag"
+                          placeholder="Flag"
+                          loading="lazy"
+                        />
+                      )}{" "}
+                      {lang.toUpperCase()}
+                    </span>
+                  ) : (
+                    <Link
+                      style={language === lang ? { color: "#FBFCFE" } : null}
+                      to={materialPathsByLanguage?.[lang] || originalPath}
+                      language={lang}
+                    >
+                      {lang === "pl" ? (
+                        <StaticImage
+                          className="flag-image"
+                          src="../../images/menu/polish.webp"
+                          alt="Flag"
+                          placeholder="Flag"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <StaticImage
+                          className="flag-image"
+                          src="../../images/menu/english.webp"
+                          alt="Flag"
+                          placeholder="Flag"
+                          loading="lazy"
+                        />
+                      )}{" "}
+                      {lang.toUpperCase()}
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>

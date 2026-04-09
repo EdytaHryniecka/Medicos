@@ -22,6 +22,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             node_locale
+            contentful_id
             slug
             title
             canonical
@@ -40,12 +41,34 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  data.allContentfulArticle.edges.forEach(({ node }) => {
+  const articleEdges = data.allContentfulArticle.edges || []
+  const plSlugById = articleEdges.reduce((acc, { node }) => {
+    if (node.node_locale === "pl-PL" && node.contentful_id) {
+      acc[node.contentful_id] = node.slug
+    }
+    return acc
+  }, {})
+
+  articleEdges.forEach(({ node }) => {
+    const localizedSlug = node.slug
+    const plSlug = plSlugById[node.contentful_id]
+
+    if (
+      !localizedSlug ||
+      !localizedSlug.trim() ||
+      (node.node_locale === "en" && plSlug && localizedSlug === plSlug)
+    ) {
+      return
+    }
+
     createPage({
-      path: `news/${node.slug}`,
+      path: `news/${localizedSlug.trim()}`,
       component: path.resolve(`./src/templates/news/index.js`),
       context: {
-        article: node,
+        article: {
+          ...node,
+          slug: localizedSlug.trim(),
+        },
       },
     })
   })
