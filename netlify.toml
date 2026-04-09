@@ -6,6 +6,30 @@ publish = "public"
 command = "gatsby develop"
 targetPort = 8000
 
+[[redirects]]
+from = "/index.html"
+to = "/"
+status = 301
+force = true
+
+[[redirects]]
+from = "/:splat/index.html"
+to = "/:splat/"
+status = 301
+force = true
+
+[[redirects]]
+from = "^/(.*)//+$"
+to = "/$1/"
+status = 301
+force = true
+
+[[redirects]]
+from = "^/(.*[^/\\.])$"
+to = "/$1/"
+status = 301
+force = true
+
 
 [[redirects]]
 from = "/materials/mocznik-krystaliczny-czysty-pheur-usp/"

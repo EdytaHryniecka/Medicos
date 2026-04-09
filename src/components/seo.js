@@ -41,6 +41,29 @@ function Seo({
   const baseUrl =
     site.siteMetadata?.siteUrl?.replace(/\/+$/, "") || "https://medicos.com.pl"
 
+  const normalizePathname = pathValue => {
+    if (!pathValue) {
+      return "/"
+    }
+
+    let normalized = pathValue
+    if (!normalized.startsWith("/")) {
+      normalized = `/${normalized}`
+    }
+
+    normalized = normalized.replace(/\/{2,}/g, "/")
+    normalized = normalized.replace(/\/index\.html?$/i, "/")
+
+    if (normalized !== "/") {
+      normalized = normalized.replace(/\/+$/, "")
+      normalized = `${normalized}/`
+    }
+
+    return normalized || "/"
+  }
+
+  const normalizedCurrentPath = normalizePathname(currentPath)
+
   const getCanonicalTranslationKeyFromPath = path => {
     const pathWithoutLang = path.replace(/^\/(pl|en)(?=\/|$)/, "")
     const normalizedPath = pathWithoutLang.replace(/\/+$/, "")
@@ -52,19 +75,20 @@ function Seo({
   }
 
   const translationKey =
-    canonicalTranslationKey || getCanonicalTranslationKeyFromPath(currentPath)
+    canonicalTranslationKey ||
+    getCanonicalTranslationKeyFromPath(normalizedCurrentPath)
   const translatedCanonical = translationKey
     ? t(translationKey, { defaultValue: "" })
     : ""
   const canonicalValue =
-    canonical || translatedCanonical || `${baseUrl}${currentPath}`
+    canonical || translatedCanonical || `${baseUrl}${normalizedCurrentPath}`
 
   const normalizedOriginalPath = (() => {
     if (typeof originalPath === "string" && originalPath.length) {
-      return originalPath.startsWith("/") ? originalPath : `/${originalPath}`
+      return normalizePathname(originalPath)
     }
     if (currentPath && typeof currentPath === "string") {
-      return currentPath.startsWith("/") ? currentPath : `/${currentPath}`
+      return normalizePathname(currentPath)
     }
     return "/"
   })()

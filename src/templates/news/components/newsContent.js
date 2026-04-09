@@ -40,7 +40,7 @@ const NewsContent = ({ article }) => {
                 )}
               </div>
 
-              <h2 className="h2-style">{article.node.title}</h2>
+              <h1 className="h2-style">{article.node.title}</h1>
             </div>
           </div>
 

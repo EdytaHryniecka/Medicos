@@ -29,7 +29,8 @@
   margin-bottom: auto;
 }
 
-.home-a-container .a-con .left-con h1 {
+.home-a-container .a-con .left-con h1,
+.home-a-container .a-con .left-con h2 {
   color: var(--Button-primary-bg, #144487);
   margin-bottom: 16px;
 }
