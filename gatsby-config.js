@@ -6,6 +6,7 @@ require("dotenv").config({
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
+  trailingSlash: "always",
   siteMetadata: {
     title: `Medicos | Łączymy przemysł z producentami surowców chemicznych`,
     author: "Medicos",

@@ -55,7 +55,7 @@ const HomeServices = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <h4 className="h4-style">{t`home-services.service-consulting-title`}</h4>
+                <h3 className="h4-style">{t`home-services.service-consulting-title`}</h3>
               </div>
               <p className="p-style">{t`home-services.service-consulting-description`}</p>
             </div>
@@ -130,7 +130,7 @@ const HomeServices = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <h4 className="h4-style">{t`home-services.service-search-title`}</h4>
+                <h3 className="h4-style">{t`home-services.service-search-title`}</h3>
               </div>
               <p className="p-style">{t`home-services.service-search-description`}</p>
             </div>
@@ -184,7 +184,7 @@ const HomeServices = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <h4 className="h4-style">{t`home-services.service-analysis-title`}</h4>
+                <h3 className="h4-style">{t`home-services.service-analysis-title`}</h3>
               </div>
               <p className="p-style">{t`home-services.service-analysis-description`}</p>
             </div>

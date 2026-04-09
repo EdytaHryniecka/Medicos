@@ -45,7 +45,7 @@ const AboutPeople = ({ textData }) => {
     return value.map((val, index) => (
       <div className="team" key={index}>
         <div className="text-up">
-          <h4 className="h4-style">{val.node.name}</h4>
+          <h3 className="h4-style">{val.node.name}</h3>
           <p className="p-style p-500">{val.node.education}</p>
           <p className="p-style">{val.node.role}</p>
         </div>

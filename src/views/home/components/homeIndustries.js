@@ -31,7 +31,7 @@ const HomeIndustries = () => {
               >
                 <div className="industry-con">
                   <div className="h4-con">
-                    <h4>{t`home-industries.household-chemicals`}</h4>
+                    <h3>{t`home-industries.household-chemicals`}</h3>
                   </div>
                   <div className="industry-desc">
                     <p className="p-style">{t`home-industries.hc-description`}</p>
@@ -51,7 +51,7 @@ const HomeIndustries = () => {
               >
                 <div className="industry-con">
                   <div className="h4-con">
-                    <h4>{t`home-industries.cosmetology`}</h4>
+                    <h3>{t`home-industries.cosmetology`}</h3>
                   </div>
                   <div className="industry-desc">
                     <p className="p-style">{t`home-industries.c-description`}</p>
@@ -70,7 +70,7 @@ const HomeIndustries = () => {
                 className="industry pharmacy"
               >
                 <div className="industry-con">
-                  <h4 className="h4-con">{t`home-industries.pharmacy`}</h4>
+                  <h3 className="h4-con">{t`home-industries.pharmacy`}</h3>
                   <div className="industry-desc">
                     <p className="p-style">{t`home-industries.p-description`}</p>
                   </div>
@@ -88,7 +88,7 @@ const HomeIndustries = () => {
                 className="industry food"
               >
                 <div className="industry-con">
-                  <h4 className="h4-con">{t`home-industries.food`}</h4>
+                  <h3 className="h4-con">{t`home-industries.food`}</h3>
                   <div className="industry-desc">
                     <p className="p-style">{t`home-industries.f-description`}</p>
                   </div>
@@ -106,7 +106,7 @@ const HomeIndustries = () => {
                 className="industry other-industries"
               >
                 <div className="industry-con">
-                  <h4 className="h4-con">{t`home-industries.other-industries`}</h4>
+                  <h3 className="h4-con">{t`home-industries.other-industries`}</h3>
                   <div className="industry-desc">
                     <p className="p-style">{t`home-industries.oi-description`}</p>
                   </div>

@@ -15,10 +15,11 @@ const HomeBlog = () => {
   const { language } = useContext(I18nextContext)
   const data = useStaticQuery(graphql`
     query {
-      allContentfulArticle(sort: { createdAt: DESC }, limit: 3) {
+      allContentfulArticle(sort: { createdAt: DESC }) {
         edges {
           node {
             node_locale
+            contentful_id
             createdAt
             description {
               raw
@@ -46,7 +47,41 @@ const HomeBlog = () => {
         language
       )
 
-      setArticles(getArticles)
+      const allEdges = data?.allContentfulArticle?.edges || []
+      const plSlugById = allEdges.reduce((acc, edge) => {
+        const node = edge?.node
+        if (node?.node_locale === "pl-PL" && node?.contentful_id) {
+          acc[node.contentful_id] = node.slug
+        }
+        return acc
+      }, {})
+
+      const filteredArticles = getArticles
+        .map(article => {
+          const node = article?.node || {}
+          const localizedSlug = node.slug
+          const plSlug = plSlugById[node.contentful_id]
+
+          if (
+            typeof localizedSlug === "string" &&
+            localizedSlug.trim() &&
+            !(language === "en" && plSlug && localizedSlug === plSlug)
+          ) {
+            return {
+              ...article,
+              node: {
+                ...node,
+                localizedSlug: localizedSlug.trim(),
+              },
+            }
+          }
+
+          return null
+        })
+        .filter(Boolean)
+        .slice(0, 3)
+
+      setArticles(filteredArticles)
     }
     getData()
   }, [data.allContentfulArticle, language])
@@ -62,11 +97,23 @@ const HomeBlog = () => {
       <div className="home-b-container">
         <div className="container">
           <h2 className="h2-style">{t`home-blog.title`}</h2>
-          <div className="articles">{articles && renderArticles(articles)}</div>
-          <Link
-            to="/news"
-            className="register-btn blog-button"
-          >{t`home-blog.news`}</Link>
+          {articles && articles.length > 0 ? (
+            <>
+              <div className="articles">{renderArticles(articles)}</div>
+              <Link
+                to="/news"
+                className="register-btn blog-button"
+              >{t`home-blog.news`}</Link>
+            </>
+          ) : (
+            <div className="empty-content-con">
+              {language === "en" && (
+                <Link className="empty-news-button" to="/news" language="pl">
+                  {t`news.empty.button`}
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>

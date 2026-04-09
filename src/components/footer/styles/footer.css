@@ -69,7 +69,7 @@
   color: var(--Button-secondary-hover-txt, #4d8ce5);
 }
 
-.footer-container h6 {
+.footer-container .footer-heading {
   color: var(--mid-blue, #4d8ce5);
   font-size: 14px;
   font-style: normal;

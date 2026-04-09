@@ -255,7 +255,7 @@ const ContactComponent = ({ searchQuery, searchMessage }) => {
       <div className="contact-c-container">
         {/* <div className="container"> */}
         <div className="contact-con">
-          <h1 className="h1-style white-h">{t`contact-component.contact-title`}</h1>
+          <h2 className="h1-style white-h">{t`contact-component.contact-title`}</h2>
           <div className="left-con">
             <div className="title-con">
               <h1 className="h1-style">{t`contact-component.contact-title`}</h1>

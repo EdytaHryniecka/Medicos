@@ -13,12 +13,14 @@
   background-attachment: scroll !important;
 }
 
-.home-n-container h1 {
+.home-n-container h1,
+.home-n-container h2 {
   margin-bottom: 44px;
   color: var(--color-basics-white, #fff);
 }
 
-.home-n-container h1 span {
+.home-n-container h1 span,
+.home-n-container h2 span {
   color: var(--color-basics-white, #80d9ff);
 }
 
