@@ -116,7 +116,7 @@ const Footer = () => {
               </svg>
             </div>
             <div className="address">
-              <h6>{contact.name}</h6>
+              <p className="footer-heading">{contact.name}</p>
               <p>{contact.street}</p>
               <p>{contact.zipCode}</p>
               <p>
@@ -127,7 +127,7 @@ const Footer = () => {
               </p>
             </div>
             <div>
-              <h6>{t`footer.industries`}</h6>
+              <p className="footer-heading">{t`footer.industries`}</p>
               <Link to="/household-chemicals">
                 <p>{t`footer.household-chemicals`}</p>
               </Link>
@@ -145,7 +145,7 @@ const Footer = () => {
               </Link>
             </div>
             <div>
-              <h6>{t`footer.about`}</h6>
+              <p className="footer-heading">{t`footer.about`}</p>
               <Link to="/quality-standards">
                 <p>{t`footer.quality-standards`}</p>
               </Link>

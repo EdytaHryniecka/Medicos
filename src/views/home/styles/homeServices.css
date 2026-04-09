@@ -57,7 +57,7 @@
   background: var(--active-bg, #d4e5f7);
 }
 
-.home-s-container .services-con .service .service-up h4 {
+.home-s-container .services-con .service .service-up h3 {
   color: var(--Button-primary-bg, #144487);
   text-align: left;
   margin-top: auto;

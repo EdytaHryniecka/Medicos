@@ -47,7 +47,7 @@
   background: var(--active-bg, #d4e5f7);
 }
 
-.about-m-container .missions-con .mission .mission-up h4 {
+.about-m-container .missions-con .mission .mission-up h3 {
   color: var(--Button-primary-bg, #144487);
   text-align: left;
   margin-top: auto;

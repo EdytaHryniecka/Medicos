@@ -43,7 +43,7 @@ const AboutMission = ({ textData }) => {
                     </clipPath>
                   </defs>
                 </svg>
-                <h4 className="h4-style">{textData.node.oNasNaszaWizjaTytu}</h4>
+                <h3 className="h4-style">{textData.node.oNasNaszaWizjaTytu}</h3>
               </div>
               <div className="render-content">
                 {renderRichText(
@@ -90,7 +90,7 @@ const AboutMission = ({ textData }) => {
                     </clipPath>
                   </defs>
                 </svg>
-                <h4 className="h4-style">{textData.node.oNasNaszaMisjaTytu}</h4>
+                <h3 className="h4-style">{textData.node.oNasNaszaMisjaTytu}</h3>
               </div>
               <div className="render-content">
                 {renderRichText(

@@ -43,6 +43,7 @@
   color: var(--Button-secondary-hover-txt, #4d8ce5);
 }
 
+.article .article-header .left-text .down-left-text h1,
 .article .article-header .left-text .down-left-text h2 {
   color: var(--Button-primary-bg, #144487);
 }

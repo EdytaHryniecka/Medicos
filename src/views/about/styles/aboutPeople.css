@@ -54,7 +54,7 @@
   transition: all 0.2s ease-out;
 }
 
-.about-pe-container .team-con .team .text-up h4 {
+.about-pe-container .team-con .team .text-up h3 {
   color: var(--Button-primary-bg, #144487);
   width: 100%;
 }

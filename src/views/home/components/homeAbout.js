@@ -12,7 +12,7 @@ const HomeAbout = () => {
         <div className="container">
           <div className="a-con">
             <div className="left-con">
-              <h1 className="h1-style">{t`home-about.title`}</h1>
+              <h2 className="h1-style">{t`home-about.title`}</h2>
               <p className="p-style">{t`home-about.description`}</p>
               <Link
                 to="/about"
