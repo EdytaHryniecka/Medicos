@@ -5,6 +5,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
 import Seo from "../../components/seo"
 import Layout from "../../components/layout"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 import NewsHeader from "./components/newsHeader"
 import NewsContent from "./components/newsContent"
 
@@ -91,9 +92,15 @@ const News = () => {
     getData()
   }, [data.allContentfulArticle, language])
 
+  const breadcrumbItems = [
+    { label: t`search-content.home`, to: "/" },
+    { label: t`menu.blog` },
+  ]
+
   return (
     <Layout>
       <Seo title={t`seo.news.title`} description={t`seo.news.description`} />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <NewsHeader />
       {articles && <NewsContent newsContent={articles} />}
     </Layout>

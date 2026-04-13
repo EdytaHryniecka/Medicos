@@ -8,6 +8,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { articleTextRenderOptions } from "../../utils/articleRenderOption"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 
 const Food = () => {
   const { t } = useTranslation()
@@ -86,6 +87,11 @@ const Food = () => {
   const materialQuery = "food-and-supplements"
 
   const backgroundHeader = "f-background"
+  const breadcrumbItems = [
+    { label: t`search-content.home`, to: "/" },
+    { label: t`menu.raw-material-offer`, to: "/materials" },
+    { label: t`materials-filter.food` },
+  ]
   const imageApplication = () => (
     <StaticImage
       className="right-image"
@@ -102,9 +108,11 @@ const Food = () => {
         title={t`seo.food-and-supplements.title`}
         description={t`seo.food-and-supplements.description`}
       />
+      <BreadcrumbSchema items={breadcrumbItems} />
       {textData && (
         <MaterialComponent
           backgroundHeader={backgroundHeader}
+          breadcrumbsItems={breadcrumbItems}
           titleHeader={textData.node.foodAndSupplementsTytu1}
           descriptionHeader={
             <div className="render-content">

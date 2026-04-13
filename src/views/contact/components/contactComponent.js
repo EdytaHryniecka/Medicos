@@ -4,6 +4,7 @@ import {
   Link,
   I18nextContext,
 } from "gatsby-plugin-react-i18next"
+import Breadcrumbs from "../../../components/breadcrumbs/breadcrumbs"
 import "../styles/contactComponent.css"
 import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../../components/contentful-translator"
@@ -255,9 +256,25 @@ const ContactComponent = ({ searchQuery, searchMessage }) => {
       <div className="contact-c-container">
         {/* <div className="container"> */}
         <div className="contact-con">
+          <div className="breadcrumbs-inline contact-breadcrumbs-mobile">
+            <Breadcrumbs
+              items={[
+                { label: t`search-content.home`, to: "/" },
+                { label: t`menu.contact` },
+              ]}
+            />
+          </div>
           <h2 className="h1-style white-h">{t`contact-component.contact-title`}</h2>
           <div className="left-con">
             <div className="title-con">
+              <div className="breadcrumbs-inline contact-breadcrumbs-desktop">
+                <Breadcrumbs
+                  items={[
+                    { label: t`search-content.home`, to: "/" },
+                    { label: t`menu.contact` },
+                  ]}
+                />
+              </div>
               <h1 className="h1-style">{t`contact-component.contact-title`}</h1>
               <p className="p-style">{t`contact-component.contact-description`}</p>
             </div>

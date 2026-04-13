@@ -18,6 +18,7 @@ module.exports = {
     siteUrl: `https://medicos.com.pl/`,
   },
   plugins: [
+    "gatsby-plugin-react-helmet",
     {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {

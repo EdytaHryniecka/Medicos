@@ -7,6 +7,7 @@ import {
   useI18next,
 } from "gatsby-plugin-react-i18next"
 import { graphql, navigate } from "gatsby"
+import { Helmet } from "react-helmet"
 import getCurrentTranslations from "../../components/contentful-translator"
 import Layout from "../../components/layout"
 import NewsContent from "./components/newsContent"
@@ -16,6 +17,9 @@ const NewsPage = ({ data, pageContext }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
   const { languages, defaultLanguage } = useI18next()
+  const site = data?.site
+  const baseUrl =
+    site?.siteMetadata?.siteUrl?.replace(/\/+$/, "") || "https://medicos.com.pl"
 
   const [article, setArticle] = useState({ node: pageContext.article })
   const [readMoreArticles, setReadMoreArticles] = useState()
@@ -184,6 +188,118 @@ const NewsPage = ({ data, pageContext }) => {
     return overrides
   }, [articlePathsByLanguage, defaultLanguage, languages])
 
+  const blogPostingSchema = useMemo(() => {
+    if (!article?.node) {
+      return null
+    }
+
+    const path =
+      (articlePathsByLanguage && articlePathsByLanguage[language]) ||
+      (article.node.slug ? `/news/${article.node.slug}` : "")
+    const articleUrl = (() => {
+      const canonicalUrl = article.node.canonical
+      if (typeof canonicalUrl === "string" && canonicalUrl.trim()) {
+        return canonicalUrl.trim()
+      }
+      if (!path) {
+        return ""
+      }
+      if (/^https?:\/\//i.test(path)) {
+        return path
+      }
+      const normalizedPath = path.startsWith("/") ? path : `/${path}`
+      return `${baseUrl}${normalizedPath}`
+    })()
+
+    const imageFileUrl =
+      typeof article.node.image?.file?.url === "string"
+        ? article.node.image.file.url.trim()
+        : ""
+    const imageUrl = imageFileUrl
+      ? imageFileUrl.startsWith("//")
+        ? `https:${imageFileUrl}`
+        : imageFileUrl
+      : ""
+
+    const author = article.node.authorRep
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "@id": articleUrl ? `${articleUrl}#article` : undefined,
+      url: articleUrl || undefined,
+      mainEntityOfPage: articleUrl
+        ? {
+            "@type": "WebPage",
+            "@id": articleUrl,
+          }
+        : undefined,
+      headline: article.node.title || undefined,
+      description: article.node.metaDescription || undefined,
+      image: imageUrl ? [imageUrl] : undefined,
+      datePublished: article.node.createdAt || undefined,
+      dateModified: article.node.createdAt || undefined,
+      author: author?.authorName
+        ? {
+            "@type": "Person",
+            name: author.authorName,
+            jobTitle: author.authorPosition || undefined,
+          }
+        : undefined,
+      publisher: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      inLanguage: language,
+    }
+  }, [article, articlePathsByLanguage, baseUrl, language])
+
+  const breadcrumbSchema = useMemo(() => {
+    if (!article?.node) {
+      return null
+    }
+
+    const langPrefix =
+      defaultLanguage && language === defaultLanguage ? "" : `/${language}`
+    const homeUrl = `${baseUrl}${langPrefix}/`
+    const newsIndexUrl = `${baseUrl}${langPrefix}/news/`
+    const articlePath =
+      (articlePathsByLanguage && articlePathsByLanguage[language]) ||
+      (article.node.slug ? `/news/${article.node.slug}` : "")
+    const articleUrl = articlePath
+      ? /^https?:\/\//i.test(articlePath)
+        ? articlePath
+        : `${baseUrl}${articlePath.startsWith("/") ? articlePath : `/${articlePath}`}`
+      : ""
+
+    const homeName = language === "pl" ? "Strona główna" : "Home"
+    const newsName = language === "pl" ? "Aktualności" : "News"
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: homeName,
+          item: homeUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: newsName,
+          item: newsIndexUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: article.node.title,
+          item: articleUrl || undefined,
+        },
+      ],
+    }
+  }, [article, articlePathsByLanguage, baseUrl, defaultLanguage, language])
+
   return (
     <Layout>
       <Seo
@@ -194,6 +310,20 @@ const NewsPage = ({ data, pageContext }) => {
         canonical={article?.node?.canonical}
         hreflangOverrides={hreflangOverrides}
       />
+      {blogPostingSchema && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(blogPostingSchema)}
+          </script>
+        </Helmet>
+      )}
+      {breadcrumbSchema && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(breadcrumbSchema)}
+          </script>
+        </Helmet>
+      )}
       {article && <NewsContent article={article} />}
       {readMoreArticles && <NewsReadMore articles={readMoreArticles} />}
     </Layout>
@@ -203,6 +333,11 @@ export default NewsPage
 
 export const query = graphql`
   query ($language: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     locales: allLocale(filter: { language: { eq: $language } }) {
       edges {
         node {
@@ -245,6 +380,9 @@ export const query = graphql`
           }
           image {
             gatsbyImageData(quality: 100)
+            file {
+              url
+            }
           }
           metaTitle
           metaDescription

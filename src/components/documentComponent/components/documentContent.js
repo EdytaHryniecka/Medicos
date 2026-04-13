@@ -3,6 +3,8 @@ import "../styles/documentContent.css"
 import { articleTextRenderOptions } from "../../../utils/articleRenderOption"
 import moment from "moment"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
+import Breadcrumbs from "../../breadcrumbs/breadcrumbs"
+import { useTranslation } from "gatsby-plugin-react-i18next"
 
 const DocumentContent = ({
   documentDate,
@@ -10,10 +12,20 @@ const DocumentContent = ({
   documentDescription,
   textLastUpdate,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <div className="document-c-container">
         <div className="container">
+          <div className="breadcrumbs-inline">
+            <Breadcrumbs
+              items={[
+                { label: t`search-content.home`, to: "/" },
+                { label: documentTitle },
+              ]}
+            />
+          </div>
           <div className="title-con">
             <p className="p-style">
               {textLastUpdate} {moment(documentDate).format("DD/MM/YYYY HH:MM")}

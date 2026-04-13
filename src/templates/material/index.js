@@ -37,6 +37,9 @@ const MaterialPage = ({ data, pageContext }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
   const { languages, defaultLanguage } = useI18next()
+  const site = data?.site
+  const baseUrl =
+    site?.siteMetadata?.siteUrl?.replace(/\/+$/, "") || "https://medicos.com.pl"
   const pageWrapperRef = useRef(null)
   const materialRichTextRef = useRef([])
   materialRichTextRef.current = []
@@ -428,6 +431,142 @@ const MaterialPage = ({ data, pageContext }) => {
       mainEntity: items,
     }
   }, [faqItemsSource])
+
+  const productSchema = useMemo(() => {
+    if (!material?.node) {
+      return null
+    }
+
+    const materialUrl = (() => {
+      const canonicalUrl = material.node.canonical
+      if (typeof canonicalUrl === "string" && canonicalUrl.trim()) {
+        return canonicalUrl.trim()
+      }
+
+      const path =
+        (hreflangOverrides && hreflangOverrides[language]) ||
+        (materialPathsByLanguage && materialPathsByLanguage[language]) ||
+        ""
+      if (!path) {
+        return ""
+      }
+
+      if (/^https?:\/\//i.test(path)) {
+        return path
+      }
+
+      const normalizedPath = path.startsWith("/") ? path : `/${path}`
+      return `${baseUrl}${normalizedPath}`
+    })()
+
+    const additionalProperty = []
+    if (material.node.cas) {
+      additionalProperty.push({
+        "@type": "PropertyValue",
+        name: "CAS",
+        value: material.node.cas,
+      })
+    }
+    if (material.node.inci) {
+      additionalProperty.push({
+        "@type": "PropertyValue",
+        name: "INCI",
+        value: material.node.inci,
+      })
+    }
+    if (material.node.form) {
+      additionalProperty.push({
+        "@type": "PropertyValue",
+        name: "Form",
+        value: material.node.form,
+      })
+    }
+    if (material.node.color) {
+      additionalProperty.push({
+        "@type": "PropertyValue",
+        name: "Color",
+        value: material.node.color,
+      })
+    }
+    if (material.node.pH) {
+      additionalProperty.push({
+        "@type": "PropertyValue",
+        name: "pH",
+        value: material.node.pH,
+      })
+    }
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": materialUrl ? `${materialUrl}#product` : undefined,
+      url: materialUrl || undefined,
+      name: material.node.title || undefined,
+      description: material.node.metaDescription || undefined,
+      image: heroImageUrl ? [heroImageUrl] : undefined,
+      category: material.node.category || undefined,
+      brand: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      manufacturer: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      additionalProperty: additionalProperty.length ? additionalProperty : undefined,
+    }
+  }, [
+    baseUrl,
+    heroImageUrl,
+    hreflangOverrides,
+    language,
+    material,
+    materialPathsByLanguage,
+  ])
+
+  const breadcrumbSchema = useMemo(() => {
+    if (!material?.node) {
+      return null
+    }
+
+    const langPrefix =
+      defaultLanguage && language === defaultLanguage ? "" : `/${language}`
+    const homeUrl = `${baseUrl}${langPrefix}/`
+    const materialsIndexUrl = `${baseUrl}${langPrefix}/materials/`
+    const materialPath =
+      (materialPathsByLanguage && materialPathsByLanguage[language]) || ""
+    const materialUrl = materialPath
+      ? /^https?:\/\//i.test(materialPath)
+        ? materialPath
+        : `${baseUrl}${materialPath.startsWith("/") ? materialPath : `/${materialPath}`}`
+      : ""
+
+    const homeName = language === "pl" ? "Strona główna" : "Home"
+    const materialsName = language === "pl" ? "Materiały" : "Materials"
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: homeName,
+          item: homeUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: materialsName,
+          item: materialsIndexUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: material.node.title,
+          item: materialUrl || undefined,
+        },
+      ],
+    }
+  }, [baseUrl, defaultLanguage, language, material, materialPathsByLanguage])
   if (!material) {
     return null
   }
@@ -589,6 +728,20 @@ const MaterialPage = ({ data, pageContext }) => {
         canonical={material.node.canonical}
         hreflangOverrides={hreflangOverrides}
       />
+      {productSchema && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(productSchema)}
+          </script>
+        </Helmet>
+      )}
+      {breadcrumbSchema && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(breadcrumbSchema)}
+          </script>
+        </Helmet>
+      )}
       {faqSchema && (
         <Helmet>
           <script type="application/ld+json">
@@ -765,6 +918,11 @@ export default MaterialPage
 
 export const query = graphql`
   query ($language: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     locales: allLocale(filter: { language: { eq: $language } }) {
       edges {
         node {
