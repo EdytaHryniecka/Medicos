@@ -7,6 +7,7 @@ const MaterialComponent = ({
   backgroundHeader,
   titleHeader,
   descriptionHeader,
+  breadcrumbsItems,
   imageApplication,
   titleApplication,
   descriptionApplication,
@@ -22,6 +23,7 @@ const MaterialComponent = ({
         backgroundHeader={backgroundHeader}
         titleHeader={titleHeader}
         descriptionHeader={descriptionHeader}
+        breadcrumbsItems={breadcrumbsItems}
       />
       <MaterialApplication
         imageApplication={imageApplication}

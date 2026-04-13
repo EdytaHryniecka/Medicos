@@ -413,6 +413,14 @@
   display: none;
 }
 
+.contact-breadcrumbs-mobile {
+  display: none;
+}
+
+.contact-breadcrumbs-desktop {
+  display: block;
+}
+
 @media screen and (max-width: 1270px) {
   .contact-c-container .contact-con .left-con,
   .contact-c-container .contact-con .right-con {
@@ -424,7 +432,16 @@
 @media screen and (max-width: 1000px) {
   .white-h {
     display: flex;
-    padding: 100px 5% 20px 5%;
+    padding: 50px 5% 20px 5%;
+  }
+  .contact-breadcrumbs-mobile {
+    display: block;
+    padding: 0 5%;
+    margin-top: 80px;
+    margin-bottom: 12px;
+  }
+  .contact-breadcrumbs-desktop {
+    display: none;
   }
   .contact-c-container .contact-con .left-con .title-con h1 {
     display: none;

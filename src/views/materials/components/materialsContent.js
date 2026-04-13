@@ -1,4 +1,6 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect, useRef } from "react"
+import { navigate } from "gatsby"
+import { useLocation } from "@reach/router"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 import "../styles/materialsContent.css"
 import CustomPagination from "../../../components/pagination/pagination"
@@ -7,10 +9,43 @@ import { I18nextContext } from "gatsby-plugin-react-i18next"
 import Navigate from "../../../hooks/navigate"
 import { slugify } from "../../../utils/slugify"
 
+const normalizePage = page => {
+  const parsed = Number.parseInt(page, 10)
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1
+}
+
+const getPageFromSearch = search => {
+  const params = new URLSearchParams(search || "")
+  return normalizePage(params.get("page"))
+}
+
+const buildSearchWithPage = (search, page) => {
+  const params = new URLSearchParams(search || "")
+  if (page <= 1) {
+    params.delete("page")
+  } else {
+    params.set("page", String(page))
+  }
+  const query = params.toString()
+  return query ? `?${query}` : ""
+}
+
 const MaterialsContent = ({ materialsContent, resetFilters }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
-  const [currentPage, setCurrentPage] = useState(1)
+  const location = useLocation()
+  const getSearch = () =>
+    typeof window !== "undefined"
+      ? window.location.search || ""
+      : location?.search || ""
+  const getPathname = () =>
+    typeof window !== "undefined"
+      ? window.location.pathname || ""
+      : location?.pathname || ""
+  const [currentPage, setCurrentPage] = useState(() =>
+    getPageFromSearch(getSearch())
+  )
+  const hasMountedRef = useRef(false)
   const pageSize = 9
 
   const goToDetails = material => {
@@ -18,8 +53,51 @@ const MaterialsContent = ({ materialsContent, resetFilters }) => {
   }
 
   useEffect(() => {
-    setCurrentPage(1)
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true
+      return
+    }
+    const pageFromUrl = getPageFromSearch(getSearch())
+    if (pageFromUrl > 1) {
+      setCurrentPage(pageFromUrl)
+      return
+    }
+    setPageAndSync(1)
   }, [materialsContent])
+
+  useEffect(() => {
+    const pageFromUrl = getPageFromSearch(getSearch())
+    setCurrentPage(prev => (prev === pageFromUrl ? prev : pageFromUrl))
+  }, [location?.search])
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return
+    }
+    const handlePopState = () => {
+      const pageFromUrl = getPageFromSearch(getSearch())
+      setCurrentPage(prev => (prev === pageFromUrl ? prev : pageFromUrl))
+    }
+    window.addEventListener("popstate", handlePopState)
+    return () => window.removeEventListener("popstate", handlePopState)
+  }, [])
+
+  const setPageAndSync = value => {
+    setCurrentPage(prev => {
+      const nextPage =
+        typeof value === "function" ? value(prev) : normalizePage(value)
+      const normalizedNext = normalizePage(nextPage)
+      const currentSearch = getSearch()
+      const nextSearch = buildSearchWithPage(currentSearch, normalizedNext)
+      const pathname = getPathname()
+      const nextPath = `${pathname}${nextSearch}`
+      const currentPath = `${pathname}${currentSearch || ""}`
+      if (nextPath !== currentPath) {
+        navigate(nextPath)
+      }
+      return normalizedNext
+    })
+  }
 
   const paginatedData = materialsContent.slice(
     (currentPage - 1) * pageSize,
@@ -52,7 +130,7 @@ const MaterialsContent = ({ materialsContent, resetFilters }) => {
                 itemsCount={materialsContent.length}
                 itemsPerPage={pageSize}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+                setCurrentPage={setPageAndSync}
                 alwaysShown={true}
               />
             </>

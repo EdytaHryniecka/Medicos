@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { articleTextRenderOptions } from "../../../utils/articleRenderOption"
 import Toc from "../../../components/toc/toc"
+import Breadcrumbs from "../../../components/breadcrumbs/breadcrumbs"
 import moment from "moment"
 
 const NewsContent = ({ article }) => {
@@ -26,9 +27,13 @@ const NewsContent = ({ article }) => {
       <div className="container">
         <div className="article-header">
           <div className="left-text">
-            <Link to="/news" className="bright-button">
-              {t`news.article.return`}
-            </Link>
+            <Breadcrumbs
+              items={[
+                { label: t`search-content.home`, to: "/" },
+                { label: t`menu.blog`, to: "/news" },
+                { label: article.node.title },
+              ]}
+            />
 
             <div className="down-left-text">
               <div className="date-and-name">

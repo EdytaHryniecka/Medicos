@@ -8,6 +8,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { articleTextRenderOptions } from "../../utils/articleRenderOption"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 
 const OtherIndustries = () => {
   const { t } = useTranslation()
@@ -86,6 +87,11 @@ const OtherIndustries = () => {
   const materialQuery = "other-industries"
 
   const backgroundHeader = "oi-background"
+  const breadcrumbItems = [
+    { label: t`search-content.home`, to: "/" },
+    { label: t`menu.raw-material-offer`, to: "/materials" },
+    { label: t`materials-filter.other-industries` },
+  ]
   const imageApplication = () => (
     <StaticImage
       className="right-image"
@@ -102,9 +108,11 @@ const OtherIndustries = () => {
         title={t`seo.other-industries.title`}
         description={t`seo.other-industries.description`}
       />
+      <BreadcrumbSchema items={breadcrumbItems} />
       {textData && (
         <MaterialComponent
           backgroundHeader={backgroundHeader}
+          breadcrumbsItems={breadcrumbItems}
           titleHeader={textData.node.otherIndustriesTytu1}
           descriptionHeader={
             <div className="render-content">

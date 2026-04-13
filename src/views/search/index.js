@@ -4,6 +4,7 @@ import { useTranslation, I18nextContext } from "gatsby-plugin-react-i18next"
 import Layout from "../../components/layout"
 import SearchHeader from "./components/searchHeader"
 import { useLocation } from "@reach/router"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
 import SearchContent from "./components/searchContent"
@@ -1360,12 +1361,18 @@ const Search = () => {
     return check
   }
 
+  const breadcrumbItems = [
+    { label: t`search-content.home`, to: "/" },
+    { label: t`search-header.title` },
+  ]
+
   return (
     <Layout>
       <Seo
         title={t`seo.search.title`}
         description={t`seo.search.description`}
       />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <SearchHeader searchData={searchQuery} />
       {searchedData && (
         <SearchContent searchContent={searchedData} searchData={searchQuery} />

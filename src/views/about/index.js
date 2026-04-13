@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import Seo from "../../components/seo"
 import { I18nextContext, useTranslation } from "gatsby-plugin-react-i18next"
 import Layout from "../../components/layout"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 import AboutHeader from "./components/aboutHeader"
 import AboutFirm from "./components/aboutFirm"
 import AboutMission from "./components/aboutMission"
@@ -58,9 +59,15 @@ const About = () => {
     getData()
   }, [data.allContentfulTextOnThePage, language])
 
+  const breadcrumbItems = [
+    { label: t`search-content.home`, to: "/" },
+    { label: t`menu.about` },
+  ]
+
   return (
     <Layout>
       <Seo title={t`seo.about.title`} description={t`seo.about.description`} />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <AboutHeader />
       {textData && <AboutFirm textData={textData} />}
       {textData && <AboutMission textData={textData} />}
