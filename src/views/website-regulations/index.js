@@ -5,6 +5,7 @@ import Layout from "../../components/layout"
 import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
 import DocumentComponent from "../../components/documentComponent/documentComponent"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 
 const WebsiteRegulations = () => {
   const { t } = useTranslation()
@@ -43,6 +44,12 @@ const WebsiteRegulations = () => {
   const textLastUpdate = `${t`website-regulations.last-update`}`
   const texttitle = `${t`website-regulations.title`}`
   const textSee = `${t`website-regulations.see`}`
+  const breadcrumbItems = websiteRegulations
+    ? [
+        { label: t`search-content.home`, to: "/" },
+        { label: websiteRegulations.node.title },
+      ]
+    : null
 
   return (
     <Layout>
@@ -50,6 +57,7 @@ const WebsiteRegulations = () => {
         title={t`seo.website-regulations.title`}
         description={t`seo.website-regulations.description`}
       />
+      {breadcrumbItems && <BreadcrumbSchema items={breadcrumbItems} />}
       {websiteRegulations && (
         <DocumentComponent
           documentDate={websiteRegulations.node.updatedAt}

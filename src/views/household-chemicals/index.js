@@ -8,6 +8,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { articleTextRenderOptions } from "../../utils/articleRenderOption"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 
 const HouseholdChemicals = () => {
   const { t } = useTranslation()
@@ -86,6 +87,11 @@ const HouseholdChemicals = () => {
   const materialQuery = "household-chemicals"
 
   const backgroundHeader = "hc-background"
+  const breadcrumbItems = [
+    { label: t`search-content.home`, to: "/" },
+    { label: t`menu.raw-material-offer`, to: "/materials" },
+    { label: t`materials-filter.household-chemicals` },
+  ]
   const imageApplication = () => (
     <StaticImage
       className="right-image"
@@ -102,9 +108,11 @@ const HouseholdChemicals = () => {
         title={t`seo.household-chemicals.title`}
         description={t`seo.household-chemicals.description`}
       />
+      <BreadcrumbSchema items={breadcrumbItems} />
       {textData && (
         <MaterialComponent
           backgroundHeader={backgroundHeader}
+          breadcrumbsItems={breadcrumbItems}
           titleHeader={textData.node.householdChemicalsTytu1}
           descriptionHeader={
             <div className="render-content">

@@ -5,6 +5,7 @@ import Layout from "../../components/layout"
 import { graphql, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
 import DocumentComponent from "../../components/documentComponent/documentComponent"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 
 const PrivacyPolicy = () => {
   const { t } = useTranslation()
@@ -46,6 +47,12 @@ const PrivacyPolicy = () => {
   // const textCertificate2 = `${t`privacy-policy.certificate-2`}`
   // const textCertificate3 = `${t`privacy-policy.certificate-3`}`
   const textSee = `${t`privacy-policy.see`}`
+  const breadcrumbItems = privacyPolicy
+    ? [
+        { label: t`search-content.home`, to: "/" },
+        { label: privacyPolicy.node.title },
+      ]
+    : null
 
   return (
     <Layout>
@@ -53,6 +60,7 @@ const PrivacyPolicy = () => {
         title={t`seo.privacy-policy.title`}
         description={t`seo.privacy-policy.description`}
       />
+      {breadcrumbItems && <BreadcrumbSchema items={breadcrumbItems} />}
       {privacyPolicy && (
         <DocumentComponent
           documentDate={privacyPolicy.node.updatedAt}

@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import { useI18next, useTranslation } from "gatsby-plugin-react-i18next"
@@ -149,6 +149,49 @@ function Seo({
         ? buildHref(languages[0])
         : canonicalValue)
 
+  const organizationSchema = {
+    "@type": "Organization",
+    "@id": `${baseUrl}/#organization`,
+    url: `${baseUrl}/`,
+    name: "Medicos Sp. z o.o.",
+    isAccessibleForFree: true,
+    description:
+      "Nasza firma oferuje surowce chemiczne i składniki aktywne z doradztwem i zabezpieczoną dostawą dla innowacyjnych rozwiązań.",
+    email: "kontakt@medicos.com.pl",
+    contactPoint: {
+      "@type": "ContactPoint",
+      name: "Informacja",
+      telephone: "+48 601 939 903",
+      availableLanguage: ["English", "Polish"],
+    },
+    address: {
+      "@type": "PostalAddress",
+      name: "ul. Ukryty Raj 4 lok. 1 02-757 Warszawa",
+      addressCountry: "PL",
+      addressLocality: "Warszawa",
+      addressRegion: "Mazowieckie",
+      postalCode: "02-757",
+      streetAddress: "ul. Ukryty Raj 4",
+      "@id": "https://maps.app.goo.gl/5YL6MD26Gk3tBaiA7",
+    },
+  }
+
+  const websiteSchema = {
+    "@type": "WebSite",
+    "@id": `${baseUrl}/#website`,
+    url: `${baseUrl}/`,
+    name: defaultTitle || "Medicos",
+    description: site.siteMetadata?.description || "",
+    inLanguage: language,
+    publisher: {
+      "@id": `${baseUrl}/#organization`,
+    },
+  }
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [organizationSchema, websiteSchema],
+  }
   return (
     <Helmet
       htmlAttributes={{
@@ -188,36 +231,13 @@ function Seo({
       ].concat(meta)}
     >
       <script type="application/ld+json">
-        {`
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "url": "https://medicos.com.pl/",
-        "name": "Medicos Sp. z o.o.",
-        "isAccessibleForFree": true,
-        "description": "Nasza firma oferuje surowce chemiczne i składniki aktywne z doradztwem i zabezpieczoną dostawą dla innowacyjnych rozwiązań.",
-        "email": "kontakt@medicos.com.pl",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "name": "Informacja",
-          "telephone": "+48 601 939 903",
-          "availableLanguage": "English, Polish",
-        }
-        "address": {
-          "@type": "PostalAddress",
-          "name": "ul. Ukryty Raj 4 lok. 1 02-757 Warszawa",
-          "addressCountry": "Polska",
-          "addressLocality": "Warszawa",
-          "addressRegion": "Mazowieckie",
-          "postalCode": "02-757",
-          "streetAddress": "ul. Ukryty Raj 4",
-          "@id": "https://maps.app.goo.gl/5YL6MD26Gk3tBaiA7"
-        },
-      }
-    `}
+        {JSON.stringify(schemaGraph)}
       </script>
     </Helmet>
   )
 }
 
 export default Seo
+
+
+

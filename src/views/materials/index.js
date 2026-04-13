@@ -3,6 +3,7 @@ import Seo from "../../components/seo"
 import { useTranslation, I18nextContext } from "gatsby-plugin-react-i18next"
 import MaterialsHeader from "./components/materialsHeader"
 import Layout from "../../components/layout"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 import MaterialsFilter from "./components/materialsFilter"
 import { graphql, navigate, useStaticQuery } from "gatsby"
 import getCurrentTranslations from "../../components/contentful-translator"
@@ -181,12 +182,18 @@ const Materials = () => {
     setSelectedSort("name-up")
   }
 
+  const breadcrumbItems = [
+    { label: t`search-content.home`, to: "/" },
+    { label: t`menu.raw-material-offer` },
+  ]
+
   return (
     <Layout>
       <Seo
         title={t`seo.materials.title`}
         description={t`seo.materials.description`}
       />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <MaterialsHeader />
       <MaterialsFilter
         onSearchMaterialChange={handleSearchMaterialChange}

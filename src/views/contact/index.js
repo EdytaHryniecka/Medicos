@@ -4,6 +4,7 @@ import { useTranslation } from "gatsby-plugin-react-i18next"
 import Layout from "../../components/layout"
 import ContactComponent from "./components/contactComponent"
 import { useLocation } from "@reach/router"
+import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
 
 const Contact = () => {
   const { t } = useTranslation()
@@ -17,12 +18,18 @@ const Contact = () => {
     ? decodeURIComponent(searchParams.get("message"))
     : ""
 
+  const breadcrumbItems = [
+    { label: t`search-content.home`, to: "/" },
+    { label: t`menu.contact` },
+  ]
+
   return (
     <Layout>
       <Seo
         title={t`seo.contact.title`}
         description={t`seo.contact.description`}
       />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <ContactComponent searchQuery={searchQuery} searchMessage={searchMessage} />
     </Layout>
   )
