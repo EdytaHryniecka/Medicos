@@ -539,8 +539,8 @@ const MaterialPage = ({ data, pageContext }) => {
         : `${baseUrl}${materialPath.startsWith("/") ? materialPath : `/${materialPath}`}`
       : ""
 
-    const homeName = language === "pl" ? "Strona główna" : "Home"
-    const materialsName = language === "pl" ? "Materiały" : "Materials"
+    const homeName = language === "pl" ? "Strona g\u0142\u00f3wna" : "Home"
+    const materialsName = language === "pl" ? "Materia\u0142y" : "Materials"
 
     return {
       "@context": "https://schema.org",
@@ -721,9 +721,13 @@ const MaterialPage = ({ data, pageContext }) => {
   return (
     <Layout>
       <Seo
-        title={material.node.metaTitle || t`seo.materials.title`}
+        title={
+          material.node.metaTitle || material.node.title || t`seo.materials.title`
+        }
         description={
-          material.node.metaDescription || t`seo.materials.description`
+          material.node.metaDescription ||
+          material.node.title ||
+          t`seo.materials.description`
         }
         canonical={material.node.canonical}
         hreflangOverrides={hreflangOverrides}
@@ -1025,3 +1029,4 @@ export const query = graphql`
     }
   }
 `
+

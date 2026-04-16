@@ -38,6 +38,7 @@ function Seo({
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
   const metaOgImage = ogImage === undefined ? defaultOgImage : ogImage
+  const metaTitle = title || defaultTitle || ""
   const baseUrl =
     site.siteMetadata?.siteUrl?.replace(/\/+$/, "") || "https://medicos.com.pl"
 
@@ -145,9 +146,10 @@ function Seo({
       : null) ||
     (defaultLanguage
       ? buildHref(defaultLanguage)
-      : languages?.[0]
-        ? buildHref(languages[0])
-        : canonicalValue)
+        : languages?.[0]
+          ? buildHref(languages[0])
+          : canonicalValue)
+  const ogImageUrl = normalizeHref(metaOgImage)
 
   const organizationSchema = {
     "@type": "Organization",
@@ -222,11 +224,39 @@ function Seo({
         },
         {
           property: `og:image`,
-          content: metaOgImage,
+          content: ogImageUrl,
         },
         {
           property: `og:url`,
           content: canonicalValue,
+        },
+        {
+          property: `og:title`,
+          content: metaTitle,
+        },
+        {
+          property: `og:description`,
+          content: metaDescription,
+        },
+        {
+          property: `og:type`,
+          content: "website",
+        },
+        {
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        {
+          name: "twitter:title",
+          content: metaTitle,
+        },
+        {
+          name: "twitter:description",
+          content: metaDescription,
+        },
+        {
+          name: "twitter:image",
+          content: ogImageUrl,
         },
       ].concat(meta)}
     >
