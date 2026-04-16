@@ -1,5 +1,5 @@
 // comment blog
-import React, { useEffect, useState, useContext, useMemo } from "react"
+import React, { useEffect, useContext, useMemo } from "react"
 import Seo from "../../components/seo"
 import {
   useTranslation,
@@ -21,8 +21,6 @@ const NewsPage = ({ data, pageContext }) => {
   const baseUrl =
     site?.siteMetadata?.siteUrl?.replace(/\/+$/, "") || "https://medicos.com.pl"
 
-  const [article, setArticle] = useState({ node: pageContext.article })
-  const [readMoreArticles, setReadMoreArticles] = useState()
   const plSlugById = useMemo(() => {
     const edges = data?.allContentfulArticle?.edges || []
     return edges.reduce((acc, edge) => {
@@ -53,62 +51,57 @@ const NewsPage = ({ data, pageContext }) => {
     return slug
   }
 
-  useEffect(() => {
-    const getData = () => {
-      const getArticles = getCurrentTranslations(
-        data.allContentfulArticle.edges,
-        language
-      )
+  const filteredArticles = useMemo(() => {
+    const translatedArticles = getCurrentTranslations(
+      data?.allContentfulArticle?.edges || [],
+      language
+    )
 
-      const filteredArticles = getArticles.filter(article => {
-        const slug = getLocalizedSlug(article?.node, language, plSlugById)
-        return typeof slug === "string" && slug.trim().length > 0
-      })
+    return translatedArticles.filter(entry => {
+      const slug = getLocalizedSlug(entry?.node, language, plSlugById)
+      return typeof slug === "string" && slug.trim().length > 0
+    })
+  }, [data?.allContentfulArticle?.edges, language, plSlugById])
 
-      const articleId = pageContext.article?.contentful_id
-      const desiredSlug = pageContext.article?.slug
+  const article = useMemo(() => {
+    const articleId = pageContext.article?.contentful_id
+    const desiredSlug = pageContext.article?.slug
 
-      const singleArticle =
-        (articleId
-          ? filteredArticles.find(
-              entry => entry.node.contentful_id === articleId
-            )
-          : null) ||
-        (desiredSlug
-          ? filteredArticles.find(entry => {
-              const entrySlug = getLocalizedSlug(
-                entry?.node,
-                language,
-                plSlugById
-              )
-              return entrySlug === desiredSlug
-            })
-          : null) ||
-        null
-
-      setArticle(singleArticle)
-
-      const lastThreeArticles = filteredArticles
-        .filter(entry => {
-          if (articleId) {
-            return entry.node.contentful_id !== articleId
-          }
-          if (desiredSlug) {
+    return (
+      (articleId
+        ? filteredArticles.find(entry => entry.node.contentful_id === articleId)
+        : null) ||
+      (desiredSlug
+        ? filteredArticles.find(entry => {
             const entrySlug = getLocalizedSlug(
               entry?.node,
               language,
               plSlugById
             )
-            return entrySlug !== desiredSlug
-          }
-          return true
-        })
-        .slice(0, 3)
+            return entrySlug === desiredSlug
+          })
+        : null) ||
+      null
+    )
+  }, [filteredArticles, language, pageContext, plSlugById])
 
-      setReadMoreArticles(lastThreeArticles)
-    }
-    getData()
-  }, [data.allContentfulArticle, pageContext, language])
+  const readMoreArticles = useMemo(() => {
+    const articleId = pageContext.article?.contentful_id
+    const desiredSlug = pageContext.article?.slug
+
+    return filteredArticles
+      .filter(entry => {
+        if (articleId) {
+          return entry.node.contentful_id !== articleId
+        }
+        if (desiredSlug) {
+          const entrySlug = getLocalizedSlug(entry?.node, language, plSlugById)
+          return entrySlug !== desiredSlug
+        }
+        return true
+      })
+      .slice(0, 3)
+  }, [filteredArticles, language, pageContext, plSlugById])
 
   useEffect(() => {
     if (language !== "en") {
@@ -162,7 +155,7 @@ const NewsPage = ({ data, pageContext }) => {
     })
 
     return Object.keys(paths).length ? paths : null
-  }, [article, data?.allContentfulArticle?.edges, languages, pageContext])
+  }, [article, data?.allContentfulArticle?.edges, languages, pageContext, plSlugById])
 
   const hreflangOverrides = useMemo(() => {
     if (!articlePathsByLanguage) {
@@ -271,8 +264,8 @@ const NewsPage = ({ data, pageContext }) => {
         : `${baseUrl}${articlePath.startsWith("/") ? articlePath : `/${articlePath}`}`
       : ""
 
-    const homeName = language === "pl" ? "Strona główna" : "Home"
-    const newsName = language === "pl" ? "Aktualności" : "News"
+    const homeName = language === "pl" ? "Strona g\u0142\u00f3wna" : "Home"
+    const newsName = language === "pl" ? "Aktualno\u015bci" : "News"
 
     return {
       "@context": "https://schema.org",
@@ -303,9 +296,13 @@ const NewsPage = ({ data, pageContext }) => {
   return (
     <Layout>
       <Seo
-        title={article?.node?.metaTitle || t`seo.news-page.title`}
+        title={
+          article?.node?.metaTitle || article?.node?.title || t`seo.news-page.title`
+        }
         description={
-          article?.node?.metaDescription || t`seo.news-page.description`
+          article?.node?.metaDescription ||
+          article?.node?.title ||
+          t`seo.news-page.description`
         }
         canonical={article?.node?.canonical}
         hreflangOverrides={hreflangOverrides}
@@ -325,7 +322,7 @@ const NewsPage = ({ data, pageContext }) => {
         </Helmet>
       )}
       {article && <NewsContent article={article} />}
-      {readMoreArticles && <NewsReadMore articles={readMoreArticles} />}
+      {readMoreArticles?.length > 0 && <NewsReadMore articles={readMoreArticles} />}
     </Layout>
   )
 }
@@ -394,3 +391,4 @@ export const query = graphql`
     }
   }
 `
+
