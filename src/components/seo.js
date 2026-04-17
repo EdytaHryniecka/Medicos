@@ -114,16 +114,48 @@ function Seo({
     return `${baseUrl}/${hrefValue}`
   }
 
+  const normalizePageHref = hrefValue => {
+    if (!hrefValue) {
+      return ""
+    }
+
+    const normalizedInput = hrefValue.startsWith("//")
+      ? `https:${hrefValue}`
+      : hrefValue
+
+    let parsedUrl
+    try {
+      parsedUrl = new URL(normalizedInput, `${baseUrl}/`)
+    } catch (error) {
+      return normalizeHref(hrefValue)
+    }
+
+    parsedUrl.pathname = normalizePathname(parsedUrl.pathname)
+
+    if (/^https?:\/\//i.test(normalizedInput)) {
+      return parsedUrl.toString()
+    }
+
+    return `${baseUrl}${parsedUrl.pathname}${parsedUrl.search}${parsedUrl.hash}`
+  }
+
   const buildHref = lang => {
     if (hreflangOverrides && hreflangOverrides[lang]) {
-      return normalizeHref(hreflangOverrides[lang])
+      return normalizePageHref(hreflangOverrides[lang])
     }
 
     const prefix =
       defaultLanguage && lang === defaultLanguage ? "" : `/${lang}`
-    const path =
-      normalizedOriginalPath === "/" ? "" : normalizedOriginalPath
-    return `${baseUrl}${prefix}${path}`
+    const basePath =
+      normalizedOriginalPath === "/" ? "/" : normalizedOriginalPath
+    const localizedPath =
+      prefix && (basePath === "/" || basePath === "")
+        ? `${prefix}/`
+        : prefix && !basePath.startsWith(`${prefix}/`)
+          ? `${prefix}${basePath}`
+          : basePath
+
+    return `${baseUrl}${normalizePathname(localizedPath)}`
   }
 
   const hreflangLanguages =
@@ -142,7 +174,7 @@ function Seo({
 
   const xDefaultHref =
     (hreflangOverrides && hreflangOverrides["x-default"]
-      ? normalizeHref(hreflangOverrides["x-default"])
+      ? normalizePageHref(hreflangOverrides["x-default"])
       : null) ||
     (defaultLanguage
       ? buildHref(defaultLanguage)

@@ -15,7 +15,7 @@ module.exports = {
       summary: `Medicos`,
     },
     description: `Nasza firma oferuje surowce chemiczne i składniki aktywne z doradztwem i zabezpieczoną dostawą dla innowacyjnych rozwiązań.`,
-    siteUrl: `https://medicos.com.pl/`,
+    siteUrl: `https://medicos.com.pl`,
   },
   plugins: [
     "gatsby-plugin-react-helmet",
@@ -62,7 +62,7 @@ module.exports = {
         localeJsonSourceName: `locales`,
         languages: [`pl`, `en`],
         defaultLanguage: `pl`,
-        siteUrl: `https://medicos.com.pl/`,
+        siteUrl: `https://medicos.com.pl`,
         redirect: false,
         pages: [
           {
