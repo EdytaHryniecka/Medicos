@@ -136,22 +136,41 @@ const MaterialPage = ({ data, pageContext }) => {
   const assetEdges = Array.isArray(data?.allContentfulAsset?.edges)
     ? data.allContentfulAsset.edges
     : []
-  const assetsById = useMemo(
-    () =>
-      assetEdges.reduce((acc, edge) => {
-        const node = edge?.node
-        const contentfulId = node?.contentful_id
-        const id = node?.id
-        if (contentfulId) {
-          acc[contentfulId] = node
-        }
-        if (id) {
-          acc[id] = node
-        }
-        return acc
-      }, {}),
-    [assetEdges]
-  )
+  const assetsById = useMemo(() => {
+    const localeFromLang = lang => (lang === "pl" ? "pl-PL" : lang)
+    const targetLocale = localeFromLang(language)
+    const localizedAssets = assetEdges.filter(
+      edge => edge?.node?.node_locale === targetLocale
+    )
+
+    const localizedMap = localizedAssets.reduce((acc, edge) => {
+      const node = edge?.node
+      const contentfulId = node?.contentful_id
+      const id = node?.id
+
+      if (contentfulId) {
+        acc[contentfulId] = node
+      }
+      if (id) {
+        acc[id] = node
+      }
+      return acc
+    }, {})
+
+    return assetEdges.reduce((acc, edge) => {
+      const node = edge?.node
+      const contentfulId = node?.contentful_id
+      const id = node?.id
+
+      if (contentfulId && !acc[contentfulId]) {
+        acc[contentfulId] = node
+      }
+      if (id && !acc[id]) {
+        acc[id] = node
+      }
+      return acc
+    }, localizedMap)
+  }, [assetEdges, language])
 
   const renderOptions = useMemo(
     () => articleTextRenderOptions(materialRichTextRef, assetsById),
@@ -1018,6 +1037,7 @@ export const query = graphql`
         node {
           id
           contentful_id
+          node_locale
           title
           description
           file {
