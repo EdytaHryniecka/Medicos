@@ -658,12 +658,19 @@ const MaterialPage = ({ data, pageContext }) => {
       ? certificatesDescriptionNode.descriptionOfTheCertificatesSection
       : ""
   ).trim()
+  const certificatesDescriptionLong =
+    material?.node?.descriptionOfTheCertificatesSectionLong
+  const hasCertificatesDescriptionLong = hasRichTextContent(
+    certificatesDescriptionLong?.raw
+  )
   const shouldShowCertificatesSection =
-    certificateItems.length > 0 || Boolean(certificatesDescription)
+    certificateItems.length > 0 ||
+    Boolean(certificatesDescription) ||
+    hasCertificatesDescriptionLong
   const applicationTableRows = Array.isArray(material?.node?.applicationTable)
     ? material.node.applicationTable.filter(row => row?.key || row?.value)
     : []
-  const hasRichTextContent = rawValue => {
+  function hasRichTextContent(rawValue) {
     if (typeof rawValue !== "string" || !rawValue.trim()) {
       return false
     }
@@ -814,6 +821,11 @@ const MaterialPage = ({ data, pageContext }) => {
                     t={t}
                     certificateItems={certificateItems}
                     certificatesDescription={certificatesDescription}
+                    certificatesDescriptionLong={certificatesDescriptionLong}
+                    renderOptions={renderOptions}
+                    hasCertificatesDescriptionLong={
+                      hasCertificatesDescriptionLong
+                    }
                   />
                 )}
                 <MaterialGeneralInformationSection
@@ -863,6 +875,11 @@ const MaterialPage = ({ data, pageContext }) => {
                     t={t}
                     certificateItems={certificateItems}
                     certificatesDescription={certificatesDescription}
+                    certificatesDescriptionLong={certificatesDescriptionLong}
+                    renderOptions={renderOptions}
+                    hasCertificatesDescriptionLong={
+                      hasCertificatesDescriptionLong
+                    }
                   />
                 )}
                 <MaterialGeneralInformationSection
@@ -980,6 +997,9 @@ export const query = graphql`
           }
           descriptionOfTheCertificatesSection {
             descriptionOfTheCertificatesSection
+          }
+          descriptionOfTheCertificatesSectionLong {
+            raw
           }
           heroImage {
             gatsbyImageData(quality: 100)
