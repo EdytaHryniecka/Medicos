@@ -1,10 +1,18 @@
 import React from "react"
 import { GatsbyImage } from "gatsby-plugin-image"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 import "./styles/materialCertificatesSection.css"
 
-const MaterialCertificatesSection = ({ t, certificateItems, certificatesDescription }) => {
+const MaterialCertificatesSection = ({
+  t,
+  certificateItems,
+  certificatesDescription,
+  certificatesDescriptionLong,
+  renderOptions,
+  hasCertificatesDescriptionLong,
+}) => {
   return (
-    <div className="material-certificates">
+    <div className="material-certificates article">
       <h2 className="h2-style js-acc-header">{t`materials.post.title2`}</h2>
       <div className="js-acc-body">
         {certificateItems.length > 0 && (
@@ -31,7 +39,12 @@ const MaterialCertificatesSection = ({ t, certificateItems, certificatesDescript
             ))}
           </div>
         )}
-        {certificatesDescription && (
+        {hasCertificatesDescriptionLong && (
+          <div className="material-certificates-description article-content">
+            {renderRichText(certificatesDescriptionLong, renderOptions)}
+          </div>
+        )}
+        {!hasCertificatesDescriptionLong && certificatesDescription && (
           <p className="p--p1 material-certificates-description">
             {certificatesDescription}
           </p>

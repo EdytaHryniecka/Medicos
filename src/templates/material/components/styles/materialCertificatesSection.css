@@ -4,6 +4,10 @@
   gap: 24px;
 }
 
+.material-certificates > .h2-style {
+  color: var(--Dark, #0a2243);
+}
+
 .material-certificates-graphics {
   display: flex;
   flex-wrap: wrap;
