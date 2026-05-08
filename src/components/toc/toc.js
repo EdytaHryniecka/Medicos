@@ -14,7 +14,7 @@ const Toc = ({ items }) => {
         const elem = document.getElementById(item.id)
         if (elem) {
           const top = elem.getBoundingClientRect().top
-          if (top <= 80) {
+          if (top <= 120) {
             // offset od topu (np. header)
             currentId = item.id
           }

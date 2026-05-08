@@ -82,7 +82,7 @@ const NewsContent = ({ article }) => {
 
           {heroImage && (
             <GatsbyImage
-              alt={article.title}
+              alt={article?.node?.image?.description || article?.node?.title}
               className="article-image"
               image={getImage(heroImage)}
             />

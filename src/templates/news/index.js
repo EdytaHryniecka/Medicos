@@ -398,6 +398,7 @@ export const query = graphql`
             }
           }
           image {
+            description
             gatsbyImageData(quality: 100)
             file {
               url
