@@ -71,6 +71,99 @@
 .article .article-content--bibliography h2.title {
   color: #0a2243;
 }
+.article .article-content--brief {
+  margin-top: 40px;
+  padding: 12px 16px !important;
+  border-radius: 16px;
+  background: var(--Navy, #144487);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  flex-direction: row;
+}
+.article .article-content--brief .h3-style {
+  color: var(--Light-blue, #e9f2fb) !important;
+  width: calc(100% - 72px);
+}
+.article .article-content--brief a {
+  border-radius: 10px;
+  border: 1px solid #d3e2f8;
+  background: var(--Whiteness, #fbfcfe);
+  color: var(--Navy, #144487);
+  font-family: REM;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal; /* 27px */
+  display: flex;
+  padding: 8px 16px;
+  width: max-content;
+  height: 35px;
+  align-items: center;
+  text-decoration: none;
+}
+.article .article-content--brief img {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+}
+.article .article-content--brief h3,
+.article .article-content--brief p {
+  margin-bottom: 0 !important;
+}
+.article .article-content--brief p:has(a) {
+  flex: 1 1 100%;
+}
+
+@media (min-width: 500px) {
+  .article .article-content--brief .h3-style {
+    width: calc(100% - 72px);
+  }
+
+  .article .article-content--brief p:has(a) {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .article .article-content--brief {
+    padding: 16px !important;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 569px) {
+  .article .article-content--brief .h3-style {
+    width: calc(100% - 104px);
+    font-size: 30px;
+  }
+  .article .article-content--brief img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 768px) {
+  .article .article-content--brief {
+    padding: 24px 32px !important;
+    gap: 24px;
+  }
+  .article .article-content--brief .h3-style {
+    width: 100%;
+    font-size: 32px;
+  }
+  .article .article-content--brief p:has(a) {
+    flex: 0;
+  }
+  .article .article-content--brief a {
+    font-size: 18px;
+    line-height: 150%; /* 27px */
+    height: 43px;
+  }
+}
+
 @media (min-width: 1024px) {
   .article .article-content {
     max-width: 752px;

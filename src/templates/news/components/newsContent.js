@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react"
+import React, { useMemo, useRef, useEffect } from "react"
 import { useTranslation, Link } from "gatsby-plugin-react-i18next"
 import "../styles/newsContent.css"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
@@ -21,6 +21,37 @@ const NewsContent = ({ article }) => {
   tocRef.current = []
 
   const renderOptions = useMemo(() => articleTextRenderOptions(tocRef), [])
+
+  useEffect(() => {
+    const handleScroll = e => {
+      const link = e.target.closest('.article-content a[href^="#"]')
+      if (!link) return
+
+      const targetId = link.getAttribute("href")
+      if (targetId === "#" || targetId === "") return
+
+      const targetEl = document.querySelector(targetId)
+      if (!targetEl) return
+
+      e.preventDefault()
+      e.stopImmediatePropagation()
+
+      const elementTop = targetEl.getBoundingClientRect().top + window.scrollY
+      const offset =
+        window.innerWidth < 1024 ? (window.innerWidth < 768 ? 80 : 70) : 120
+
+      window.scrollTo({
+        top: elementTop - offset,
+        behavior: "smooth",
+      })
+    }
+
+    document.addEventListener("click", handleScroll)
+
+    return () => {
+      document.removeEventListener("click", handleScroll)
+    }
+  }, [])
 
   return (
     <div className="article">
@@ -66,6 +97,19 @@ const NewsContent = ({ article }) => {
               <div className="article-content article-content--bibliography">
                 <h2 className="h2-style title">{t`news.article.bibliography`}</h2>
                 {renderRichText(article.node.bibliography, renderOptions)}
+              </div>
+            )}
+
+            {article?.node?.brief?.raw && (
+              <div
+                className="article-content article-content--brief"
+                id="brief"
+              >
+                <img
+                  src={article?.node?.brief?.references[0]?.file?.url}
+                  alt="Icon brief download"
+                />
+                {renderRichText(article.node.brief, renderOptions)}
               </div>
             )}
           </div>
