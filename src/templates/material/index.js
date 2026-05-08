@@ -530,7 +530,21 @@ const MaterialPage = ({ data, pageContext }) => {
       manufacturer: {
         "@id": `${baseUrl}/#organization`,
       },
-      additionalProperty: additionalProperty.length ? additionalProperty : undefined,
+      additionalProperty: additionalProperty.length
+        ? additionalProperty
+        : undefined,
+
+      offers: {
+        "@type": "Offer",
+        url: materialUrl || undefined,
+        priceCurrency: "PLN",
+        price: "0",
+        availability: "https://schema.org/InStock",
+        seller: {
+          "@type": "Organization",
+          name: "Medicos Sp. z o.o.",
+        },
+      },
     }
   }, [
     baseUrl,
@@ -555,7 +569,9 @@ const MaterialPage = ({ data, pageContext }) => {
     const materialUrl = materialPath
       ? /^https?:\/\//i.test(materialPath)
         ? materialPath
-        : `${baseUrl}${materialPath.startsWith("/") ? materialPath : `/${materialPath}`}`
+        : `${baseUrl}${
+            materialPath.startsWith("/") ? materialPath : `/${materialPath}`
+          }`
       : ""
 
     const homeName = language === "pl" ? "Strona g\u0142\u00f3wna" : "Home"
@@ -748,7 +764,9 @@ const MaterialPage = ({ data, pageContext }) => {
     <Layout>
       <Seo
         title={
-          material.node.metaTitle || material.node.title || t`seo.materials.title`
+          material.node.metaTitle ||
+          material.node.title ||
+          t`seo.materials.title`
         }
         description={
           material.node.metaDescription ||
@@ -1069,4 +1087,3 @@ export const query = graphql`
     }
   }
 `
-
