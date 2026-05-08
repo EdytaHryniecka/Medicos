@@ -123,7 +123,8 @@ const NewsPage = ({ data, pageContext }) => {
   }, [article, language, pageContext, plSlugById])
 
   const articlePathsByLanguage = useMemo(() => {
-    const articleId = article?.node?.contentful_id || pageContext.article?.contentful_id
+    const articleId =
+      article?.node?.contentful_id || pageContext.article?.contentful_id
     if (!articleId) {
       return null
     }
@@ -155,7 +156,13 @@ const NewsPage = ({ data, pageContext }) => {
     })
 
     return Object.keys(paths).length ? paths : null
-  }, [article, data?.allContentfulArticle?.edges, languages, pageContext, plSlugById])
+  }, [
+    article,
+    data?.allContentfulArticle?.edges,
+    languages,
+    pageContext,
+    plSlugById,
+  ])
 
   const hreflangOverrides = useMemo(() => {
     if (!articlePathsByLanguage) {
@@ -261,7 +268,9 @@ const NewsPage = ({ data, pageContext }) => {
     const articleUrl = articlePath
       ? /^https?:\/\//i.test(articlePath)
         ? articlePath
-        : `${baseUrl}${articlePath.startsWith("/") ? articlePath : `/${articlePath}`}`
+        : `${baseUrl}${
+            articlePath.startsWith("/") ? articlePath : `/${articlePath}`
+          }`
       : ""
 
     const homeName = language === "pl" ? "Strona g\u0142\u00f3wna" : "Home"
@@ -297,7 +306,9 @@ const NewsPage = ({ data, pageContext }) => {
     <Layout>
       <Seo
         title={
-          article?.node?.metaTitle || article?.node?.title || t`seo.news-page.title`
+          article?.node?.metaTitle ||
+          article?.node?.title ||
+          t`seo.news-page.title`
         }
         description={
           article?.node?.metaDescription ||
@@ -322,7 +333,9 @@ const NewsPage = ({ data, pageContext }) => {
         </Helmet>
       )}
       {article && <NewsContent article={article} />}
-      {readMoreArticles?.length > 0 && <NewsReadMore articles={readMoreArticles} />}
+      {readMoreArticles?.length > 0 && (
+        <NewsReadMore articles={readMoreArticles} />
+      )}
     </Layout>
   )
 }
@@ -375,6 +388,15 @@ export const query = graphql`
           bibliography {
             raw
           }
+          brief {
+            raw
+            references {
+              file {
+                url
+                fileName
+              }
+            }
+          }
           image {
             gatsbyImageData(quality: 100)
             file {
@@ -391,4 +413,3 @@ export const query = graphql`
     }
   }
 `
-
