@@ -388,6 +388,9 @@ export const query = graphql`
           bibliography {
             raw
           }
+          buttonCta {
+            raw
+          }
           brief {
             raw
             references {
