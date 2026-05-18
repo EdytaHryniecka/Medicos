@@ -515,36 +515,55 @@ const MaterialPage = ({ data, pageContext }) => {
       })
     }
 
-    return {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "@id": materialUrl ? `${materialUrl}#product` : undefined,
-      url: materialUrl || undefined,
+    const defaultParameterRows = [
+      { key: "INCI", value: material?.node?.inci },
+      { key: "CAS", value: material?.node?.cas },
+      { key: "Form", value: material?.node?.form },
+      { key: "Color", value: material?.node?.color },
+      { key: "pH", value: material?.node?.pH },
+    ]
+
+    const basicParameters = Array.isArray(material?.node?.basicParameters)
+      ? material.node.basicParameters.filter(p => p?.key || p?.value)
+      : []
+
+    const parameterRows =
+      basicParameters.length > 0 ? basicParameters : defaultParameterRows
+
+    const chemicalSubstance = {
+      "@type": "ChemicalSubstance",
+      "@id": materialUrl ? `${materialUrl}#chemical` : undefined,
       name: material.node.title || undefined,
       description: material.node.metaDescription || undefined,
-      image: heroImageUrl ? [heroImageUrl] : undefined,
-      category: material.node.category || undefined,
-      brand: {
-        "@id": `${baseUrl}/#organization`,
-      },
-      manufacturer: {
-        "@id": `${baseUrl}/#organization`,
-      },
-      additionalProperty: additionalProperty.length
-        ? additionalProperty
-        : undefined,
+    }
 
-      offers: {
-        "@type": "Offer",
-        url: materialUrl || undefined,
-        priceCurrency: "PLN",
-        price: "0",
-        availability: "https://schema.org/InStock",
-        seller: {
-          "@type": "Organization",
-          name: "Medicos Sp. z o.o.",
-        },
-      },
+    const molecularFormulaVal = basicParameters[2]?.value
+    const iupacNameVal = basicParameters[1]?.value
+
+    if (molecularFormulaVal)
+      chemicalSubstance.molecularFormula = molecularFormulaVal
+    if (iupacNameVal) chemicalSubstance.iupacName = iupacNameVal
+
+    parameterRows.forEach(p => {
+      if (!molecularFormulaVal && !iupacNameVal) {
+        if (p.key && p.value) {
+          const cleanKey = p.key
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+
+          if (!chemicalSubstance[cleanKey]) {
+            chemicalSubstance[cleanKey] = p.value
+          }
+        }
+      }
+    })
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "ItemPage",
+      name: material.node.title || undefined,
+      url: materialUrl || undefined,
+      mainEntity: chemicalSubstance,
     }
   }, [
     baseUrl,
