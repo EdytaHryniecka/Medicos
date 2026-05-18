@@ -93,6 +93,13 @@ const NewsContent = ({ article }) => {
           <div className="article-content">
             {article?.node?.description?.raw &&
               renderRichText(article.node.description, renderOptions)}
+
+            {article?.node?.buttonCta?.raw && (
+              <div className="article-content article-content--button-cta">
+                {renderRichText(article.node.buttonCta, renderOptions)}
+              </div>
+            )}
+
             {article?.node?.bibliography?.raw && (
               <div className="article-content article-content--bibliography">
                 <h2 className="h2-style title">{t`news.article.bibliography`}</h2>
