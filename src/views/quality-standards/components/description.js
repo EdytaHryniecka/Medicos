@@ -17,7 +17,7 @@ const Description = () => {
             <StaticImage
               className="description-image"
               src="../../../images/quality-standards/description/qs-description.webp"
-              alt="Flag"
+              alt="Kobieta w białym fartuchu i okularach trzymająca kolbę laboratoryjną"
               placeholder="Flag"
               loading="lazy"
             />

@@ -96,7 +96,7 @@ const OtherIndustries = () => {
     <StaticImage
       className="right-image"
       src="../../images/other-industries/application/material-oi-application.webp"
-      alt="Right image"
+      alt="Brązowe butelki laboratoryjne z etykietami i niebieskimi nakrętkami ustawione na półce"
       placeholder="Right image"
       loading="lazy"
     />

@@ -33,7 +33,7 @@ const ServicesOurServices = () => {
               <StaticImage
                 className="service-image"
                 src="../../../images/services/our-services/service-image-1.webp"
-                alt="Service image"
+                alt="Dwie osoby przy białym biurku obsługujące tablet za pomocą rysika"
                 placeholder="Service image"
                 loading="lazy"
               />
@@ -50,7 +50,7 @@ const ServicesOurServices = () => {
               <StaticImage
                 className="service-image"
                 src="../../../images/services/our-services/service-image-2.webp"
-                alt="Service image"
+                alt="Dłonie w białych rękawiczkach trzymające kolbę z różowym płynem obok aparatury laboratoryjnej"
                 placeholder="Service image"
                 loading="lazy"
               />
@@ -67,7 +67,7 @@ const ServicesOurServices = () => {
               <StaticImage
                 className="service-image"
                 src="../../../images/services/our-services/service-image-3.webp"
-                alt="Service image"
+                alt="Osoba analizująca dokumenty z wykresami przy biurku z laptopem, kalkulatorem i kubkiem kawy"
                 placeholder="Service image"
                 loading="lazy"
               />

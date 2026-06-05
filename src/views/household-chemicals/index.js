@@ -96,7 +96,7 @@ const HouseholdChemicals = () => {
     <StaticImage
       className="right-image"
       src="../../images/household-chemicals/application/material-hc-application.webp"
-      alt="Right image"
+      alt="Różowa butelka płynu do prania obok stosu czystych, białych ręczników z różowym kwiatem"
       placeholder="Right image"
       loading="lazy"
     />

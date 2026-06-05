@@ -96,7 +96,7 @@ const Pharmacy = () => {
     <StaticImage
       className="right-image"
       src="../../images/pharmacy/application/material-p-application.webp"
-      alt="Right image"
+      alt="Pracownica apteki z notatnikiem przy półkach z lekami"
       placeholder="Right image"
       loading="lazy"
     />

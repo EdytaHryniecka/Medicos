@@ -96,7 +96,7 @@ const Food = () => {
     <StaticImage
       className="right-image"
       src="../../images/food/application/material-f-application.webp"
-      alt="Right image"
+      alt="Szklane kolby z kolorowymi płynami, miseczki z ziołami i proszkiem, kapsułki na białym blacie"
       placeholder="Right image"
       loading="lazy"
     />
