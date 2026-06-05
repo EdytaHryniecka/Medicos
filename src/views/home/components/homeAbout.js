@@ -22,7 +22,7 @@ const HomeAbout = () => {
             <StaticImage
               className="about-image"
               src="../../../images/home/about/home-about-image.webp"
-              alt="About image"
+              alt="Szklana aparatura laboratoryjna z kolorowymi odczynnikami chemicznymi"
               placeholder="About image"
               loading="lazy"
             />

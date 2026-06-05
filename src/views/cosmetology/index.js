@@ -96,7 +96,7 @@ const Cosmetology = () => {
     <StaticImage
       className="right-image"
       src="../../images/cosmetology/application/material-c-application.webp"
-      alt="Right image"
+      alt="Otwarty słoiczek z białym kremem na białej podstawce w otoczeniu zielonych liści paproci"
       placeholder="Right image"
       loading="lazy"
     />

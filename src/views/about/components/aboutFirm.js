@@ -46,7 +46,7 @@ const AboutFirm = ({ textData }) => {
               <StaticImage
                 className="right-image"
                 src="../../../images/about/firm/right-image.webp"
-                alt="Right image"
+                alt="Cyfrowa grafika kuli ziemskiej z zaznaczoną siecią połączeń na niebieskim tle"
                 placeholder="Right image"
                 loading="lazy"
               />
