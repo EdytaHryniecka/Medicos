@@ -1,5 +1,5 @@
 [build]
-command = "gatsby build --no-cache"
+command = "gatsby build"
 publish = "public"
 
 [dev]
