@@ -39,10 +39,16 @@ const DocumentDocuments = ({ texttitle, textSee }) => {
   }, [data.allContentfulQualityPolicyFiles, language])
 
   const renderFiles = value => {
-    return value.map((val, index) => (
-      <a
+    return value.map((val, index) => {
+      const fileUrl = val?.node?.file?.file?.url
+
+      if (!fileUrl) {
+        return null
+      }
+
+      ;<a
         key={index}
-        href={withPrefix(`${val.node.file.file.url}`)}
+        href={withPrefix(fileUrl)}
         target="_blank"
         className="policy"
       >
@@ -85,7 +91,7 @@ const DocumentDocuments = ({ texttitle, textSee }) => {
         </div>
         <a>{textSee}</a>
       </a>
-    ))
+    })
   }
 
   return (
