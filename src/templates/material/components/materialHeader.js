@@ -4,7 +4,13 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import Breadcrumbs from "../../../components/breadcrumbs/breadcrumbs"
 import "./styles/materialHeader.css"
 
-const MaterialHeader = ({ material, heroImageData, renderCategory, t }) => {
+const MaterialHeader = ({
+  material,
+  heroImageData,
+  altHero,
+  renderCategory,
+  t,
+}) => {
   return (
     <div className="material-page-header">
       <div className="container">
@@ -36,7 +42,7 @@ const MaterialHeader = ({ material, heroImageData, renderCategory, t }) => {
         </div>
         {heroImageData && (
           <GatsbyImage
-            alt={material.node.title}
+            alt={altHero}
             className="material-image"
             image={heroImageData}
           />

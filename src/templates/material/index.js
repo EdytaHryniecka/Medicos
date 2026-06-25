@@ -626,6 +626,8 @@ const MaterialPage = ({ data, pageContext }) => {
   }
 
   const heroImageData = getImage(material?.node?.heroImage?.gatsbyImageData)
+  const heroImagealt = material?.node?.heroImage?.description
+
   const defaultParameterRows = [
     { key: t`material-modal.inci`, value: material?.node?.inci },
     { key: t`material-modal.cas`, value: material?.node?.cas },
@@ -824,6 +826,7 @@ const MaterialPage = ({ data, pageContext }) => {
         <MaterialHeader
           material={material}
           heroImageData={heroImageData}
+          altHero={heroImagealt}
           renderCategory={renderCategory}
           t={t}
         />
@@ -1039,6 +1042,7 @@ export const query = graphql`
             raw
           }
           heroImage {
+            description
             gatsbyImageData(quality: 100)
             file {
               url
