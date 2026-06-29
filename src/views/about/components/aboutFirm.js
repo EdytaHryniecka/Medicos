@@ -3,8 +3,15 @@ import "../styles/aboutFirm.css"
 import { StaticImage } from "gatsby-plugin-image"
 import { articleTextRenderOptions } from "../../../utils/articleRenderOption"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { useI18next } from "gatsby-plugin-react-i18next"
 
 const AboutFirm = ({ textData }) => {
+  const { language } = useI18next()
+  let alt =
+    language === "pl"
+      ? "Cyfrowa grafika kuli ziemskiej z zaznaczoną siecią połączeń na niebieskim tle"
+      : "Digital illustration of the Earth with a network of interconnected nodes on a blue background"
+
   return (
     <>
       <div className="about-f-container">
@@ -46,7 +53,7 @@ const AboutFirm = ({ textData }) => {
               <StaticImage
                 className="right-image"
                 src="../../../images/about/firm/right-image.webp"
-                alt="Cyfrowa grafika kuli ziemskiej z zaznaczoną siecią połączeń na niebieskim tle"
+                alt={alt}
                 placeholder="Right image"
                 loading="lazy"
               />

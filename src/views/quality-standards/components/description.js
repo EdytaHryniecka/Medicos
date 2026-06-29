@@ -1,9 +1,14 @@
 import React from "react"
-import { useTranslation } from "gatsby-plugin-react-i18next"
+import { useTranslation, useI18next } from "gatsby-plugin-react-i18next"
 import "../styles/description.css"
 import { StaticImage } from "gatsby-plugin-image"
 const Description = () => {
   const { t } = useTranslation()
+  const { language } = useI18next()
+  let alt =
+    language === "pl"
+      ? "Kobieta w białym fartuchu i okularach trzymająca kolbę laboratoryjną"
+      : "Woman in a white lab coat and safety glasses holding a laboratory flask"
 
   return (
     <>
@@ -17,7 +22,7 @@ const Description = () => {
             <StaticImage
               className="description-image"
               src="../../../images/quality-standards/description/qs-description.webp"
-              alt="Kobieta w białym fartuchu i okularach trzymająca kolbę laboratoryjną"
+              alt={alt}
               placeholder="Flag"
               loading="lazy"
             />
