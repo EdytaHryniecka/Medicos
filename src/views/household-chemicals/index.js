@@ -58,6 +58,10 @@ const HouseholdChemicals = () => {
   `)
   const [materials, setMaterials] = useState()
   const [textData, setTextData] = useState()
+  let alt =
+    language === "pl"
+      ? "Różowa butelka płynu do prania obok stosu czystych, białych ręczników z różowym kwiatem"
+      : "Pink laundry detergent bottle beside a stack of clean white towels with a pink flower"
 
   useEffect(() => {
     const getData = () => {
@@ -96,7 +100,7 @@ const HouseholdChemicals = () => {
     <StaticImage
       className="right-image"
       src="../../images/household-chemicals/application/material-hc-application.webp"
-      alt="Różowa butelka płynu do prania obok stosu czystych, białych ręczników z różowym kwiatem"
+      alt={alt}
       placeholder="Right image"
       loading="lazy"
     />

@@ -11,6 +11,20 @@ import QueryNavigate from "../../../hooks/queryNavigate"
 const ServicesOurServices = () => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
+  let alt =
+    language === "pl"
+      ? "Dwie osoby przy białym biurku obsługujące tablet za pomocą rysika"
+      : "Two people at a white desk using a tablet with a stylus"
+
+  let alt2 =
+    language === "pl"
+      ? "Dłonie w białych rękawiczkach trzymające kolbę z różowym płynem obok aparatury laboratoryjnej"
+      : "Hands wearing white gloves holding a flask containing pink liquid beside laboratory apparatus"
+
+  let alt3 =
+    language === "pl"
+      ? "Osoba analizująca dokumenty z wykresami przy biurku z laptopem, kalkulatorem i kubkiem kawy"
+      : "Person analysing documents with charts at a desk with a laptop, calculator and coffee mug"
 
   const goToContactTech = () => {
     QueryNavigate("Chcę zamówić doradztwo techniczne", "contact", language)
@@ -33,7 +47,7 @@ const ServicesOurServices = () => {
               <StaticImage
                 className="service-image"
                 src="../../../images/services/our-services/service-image-1.webp"
-                alt="Dwie osoby przy białym biurku obsługujące tablet za pomocą rysika"
+                alt={alt}
                 placeholder="Service image"
                 loading="lazy"
               />
@@ -50,7 +64,7 @@ const ServicesOurServices = () => {
               <StaticImage
                 className="service-image"
                 src="../../../images/services/our-services/service-image-2.webp"
-                alt="Dłonie w białych rękawiczkach trzymające kolbę z różowym płynem obok aparatury laboratoryjnej"
+                alt={alt2}
                 placeholder="Service image"
                 loading="lazy"
               />
@@ -67,7 +81,7 @@ const ServicesOurServices = () => {
               <StaticImage
                 className="service-image"
                 src="../../../images/services/our-services/service-image-3.webp"
-                alt="Osoba analizująca dokumenty z wykresami przy biurku z laptopem, kalkulatorem i kubkiem kawy"
+                alt={alt3}
                 placeholder="Service image"
                 loading="lazy"
               />
