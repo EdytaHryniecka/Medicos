@@ -92,11 +92,17 @@ const Cosmetology = () => {
     { label: t`menu.raw-material-offer`, to: "/materials" },
     { label: t`materials-filter.cosmetology` },
   ]
+
+  let alt =
+    language === "pl"
+      ? "Otwarty słoiczek z białym kremem na białej podstawce w otoczeniu zielonych liści paproci"
+      : "Open jar of white cream on a white pedestal surrounded by green fern leaves"
+
   const imageApplication = () => (
     <StaticImage
       className="right-image"
       src="../../images/cosmetology/application/material-c-application.webp"
-      alt="Otwarty słoiczek z białym kremem na białej podstawce w otoczeniu zielonych liści paproci"
+      alt={alt}
       placeholder="Right image"
       loading="lazy"
     />

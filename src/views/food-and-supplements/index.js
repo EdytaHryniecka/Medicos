@@ -92,11 +92,16 @@ const Food = () => {
     { label: t`menu.raw-material-offer`, to: "/materials" },
     { label: t`materials-filter.food` },
   ]
+  let alt =
+    language === "pl"
+      ? "Szklane kolby z kolorowymi płynami, miseczki z ziołami i proszkiem, kapsułki na białym blacie"
+      : "Glass flasks containing coloured liquids, bowls with herbs and powder, and capsules on a white laboratory bench"
+
   const imageApplication = () => (
     <StaticImage
       className="right-image"
       src="../../images/food/application/material-f-application.webp"
-      alt="Szklane kolby z kolorowymi płynami, miseczki z ziołami i proszkiem, kapsułki na białym blacie"
+      alt={alt}
       placeholder="Right image"
       loading="lazy"
     />

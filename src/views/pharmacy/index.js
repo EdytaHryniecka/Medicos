@@ -92,11 +92,16 @@ const Pharmacy = () => {
     { label: t`menu.raw-material-offer`, to: "/materials" },
     { label: t`materials-filter.pharmacy` },
   ]
+  let alt =
+    language === "pl"
+      ? "Pracownica apteki z notatnikiem przy półkach z lekami"
+      : "Pharmacy employee with a notebook standing beside shelves stocked with medicines"
+
   const imageApplication = () => (
     <StaticImage
       className="right-image"
       src="../../images/pharmacy/application/material-p-application.webp"
-      alt="Pracownica apteki z notatnikiem przy półkach z lekami"
+      alt={alt}
       placeholder="Right image"
       loading="lazy"
     />
