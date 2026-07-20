@@ -105,6 +105,58 @@ const Menu = () => {
     return Object.keys(paths).length ? paths : null
   }, [data, languages, location?.pathname])
 
+  const newsPathsByLanguage = useMemo(() => {
+    const rawPath = originalPath || location?.pathname || ""
+    const withoutLang = rawPath.replace(/^\/(pl|en)(?=\/|$)/, "")
+    const normalized = (withoutLang || "/").startsWith("/")
+      ? (withoutLang || "/").slice(1)
+      : withoutLang || "/"
+
+    const trimmedNormalized = normalized.replace(/\/+$/, "")
+
+    if (!trimmedNormalized.startsWith("news/")) {
+      return null
+    }
+
+    const currentSlug = trimmedNormalized.replace("news/", "")
+    if (!currentSlug) {
+      return null
+    }
+
+    const edges = data?.allContentfulArticle?.edges || []
+    if (!edges.length) {
+      return null
+    }
+
+    const currentEntry =
+      edges.find(edge => edge.node.slug === currentSlug) || null
+
+    if (!currentEntry) {
+      return null
+    }
+
+    const articleId = currentEntry.node.contentful_id
+    const localeFromLang = lang => (lang === "pl" ? "pl-PL" : lang)
+
+    const paths = {}
+    languages.forEach(lang => {
+      const targetLocale = localeFromLang(lang)
+      const targetEntry = edges.find(
+        edge =>
+          edge.node.contentful_id === articleId &&
+          edge.node.node_locale === targetLocale
+      )
+
+      if (!targetEntry || !targetEntry.node.slug) {
+        return
+      }
+
+      paths[lang] = `/news/${targetEntry.node.slug}`
+    })
+
+    return Object.keys(paths).length ? paths : null
+  }, [data, languages, location?.pathname, originalPath])
+
   const hasEnglishNews = useMemo(() => {
     const edges = data?.allContentfulArticle?.edges || []
     if (!edges.length) {
@@ -574,7 +626,9 @@ const Menu = () => {
                         ) : (
                           <Link
                             to={
-                              materialPathsByLanguage?.[lang] || originalPath
+                              newsPathsByLanguage?.[lang] ||
+                              materialPathsByLanguage?.[lang] ||
+                              originalPath
                             }
                             language={lang}
                           >
@@ -811,7 +865,11 @@ const Menu = () => {
                   ) : (
                     <Link
                       style={language === lang ? { color: "#FBFCFE" } : null}
-                      to={materialPathsByLanguage?.[lang] || originalPath}
+                      to={
+                        newsPathsByLanguage?.[lang] ||
+                        materialPathsByLanguage?.[lang] ||
+                        originalPath
+                      }
                       language={lang}
                     >
                       {lang === "pl" ? (
