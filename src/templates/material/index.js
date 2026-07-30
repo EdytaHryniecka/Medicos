@@ -979,7 +979,11 @@ const MaterialPage = ({ data, pageContext }) => {
         <MaterialDiscover
           materialDiscover={relatedMaterialsRows}
           titleDiscover={t`materials.post.discover-title`}
-          descriptionDiscover={t`materials.post.discover-description`}
+          descriptionDiscover={
+            pageContext.slug === "tbab-tetrabutylammonium-bromide"
+              ? t`materials.post.discover-description-f`
+              : t`materials.post.discover-description`
+          }
           materialQuery="cosmetology"
           t={t}
         />
