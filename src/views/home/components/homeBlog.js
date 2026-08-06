@@ -24,7 +24,15 @@ const HomeBlog = () => {
             description {
               raw
               references {
-                id
+                ... on ContentfulAsset {
+                  __typename
+                  contentful_id
+                  title
+                  description
+                  file {
+                    url
+                  }
+                }
               }
             }
             image {
