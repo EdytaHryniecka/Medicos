@@ -383,6 +383,21 @@ export const query = graphql`
                   url
                 }
               }
+              ... on ContentfulNoteBox {
+                __typename
+                contentful_id
+                titleNote
+                listNote {
+                  raw
+                }
+              }
+              ... on ContentfulMiniTable {
+                __typename
+                contentful_id
+                listAdvantages {
+                  raw
+                }
+              }
             }
           }
           bibliography {

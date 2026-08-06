@@ -1,6 +1,8 @@
 import React from "react"
 import { BLOCKS } from "@contentful/rich-text-types"
 import { slugify } from "./slugify"
+import NoteBox from "../components/noteBox/noteBox"
+import MiniTable from "../components/miniTable/miniTable"
 
 const getAssetFromTarget = (target, assetMap) => {
   if (!target) return null
@@ -44,6 +46,21 @@ export const articleTextRenderOptions = (tocRef, assetMap = {}) => {
             )}
           </div>
         )
+      },
+
+      [BLOCKS.EMBEDDED_ENTRY]: node => {
+        const target = node.data?.target
+        if (!target) return null
+
+        if (target.__typename === "ContentfulNoteBox") {
+          return <NoteBox title={target.titleNote} listNote={target.listNote} />
+        }
+
+        if (target.__typename === "ContentfulMiniTable") {
+          return <MiniTable listAdvantages={target.listAdvantages} />
+        }
+
+        return null
       },
 
       [BLOCKS.HEADING_1]: renderHeading(1, "h1-style"),
