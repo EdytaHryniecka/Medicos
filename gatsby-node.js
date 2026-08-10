@@ -41,47 +41,154 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  const articleEdges = data.allContentfulArticle.edges || []
-  const plSlugById = articleEdges.reduce((acc, { node }) => {
-    if (node.node_locale === "pl-PL" && node.contentful_id) {
-      acc[node.contentful_id] = node.slug
-    }
-    return acc
-  }, {})
+  const articleLanguages = ["pl", "en"]
+  const articleDefaultLanguage = "pl"
 
-  articleEdges.forEach(({ node }) => {
-    const localizedSlug = node.slug
-    const plSlug = plSlugById[node.contentful_id]
+  const articleGroupsById = (data.allContentfulArticle.edges || []).reduce(
+    (acc, { node }) => {
+      if (!acc[node.contentful_id]) {
+        acc[node.contentful_id] = {}
+      }
+      acc[node.contentful_id][node.node_locale] = node
+      return acc
+    },
+    {}
+  )
 
-    if (
-      !localizedSlug ||
-      !localizedSlug.trim() ||
-      (node.node_locale === "en" && plSlug && localizedSlug === plSlug)
-    ) {
-      return
-    }
+  Object.values(articleGroupsById).forEach(nodesByLocale => {
+    const plNode = nodesByLocale["pl-PL"]
+    const enNode = nodesByLocale["en"]
+    const plSlug = plNode?.slug?.trim()
+    const enSlug = enNode?.slug?.trim()
 
-    createPage({
-      path: `news/${localizedSlug.trim()}`,
-      component: path.resolve(`./src/templates/news/index.js`),
-      context: {
-        article: {
-          ...node,
-          slug: localizedSlug.trim(),
+    if (plSlug && enSlug) {
+      const plPath = `/news/${plSlug}/`
+      const enPath = `/en/news/${enSlug}/`
+
+      createPage({
+        path: `news/${plSlug}`,
+        component: path.resolve(`./src/templates/news/index.js`),
+        context: {
+          article: { ...plNode, slug: plSlug },
+          language: "pl",
+          i18n: {
+            language: "pl",
+            languages: articleLanguages,
+            defaultLanguage: articleDefaultLanguage,
+            generateDefaultLanguagePage: false,
+            routed: false,
+            originalPath: plPath,
+            path: plPath,
+          },
         },
-      },
-    })
+      })
+
+      createPage({
+        path: `en/news/${enSlug}`,
+        component: path.resolve(`./src/templates/news/index.js`),
+        context: {
+          article: { ...enNode, slug: enSlug },
+          language: "en",
+          i18n: {
+            language: "en",
+            languages: articleLanguages,
+            defaultLanguage: articleDefaultLanguage,
+            generateDefaultLanguagePage: false,
+            routed: true,
+            originalPath: plPath,
+            path: enPath,
+          },
+        },
+      })
+    } else {
+      const soloNode = plSlug ? plNode : enNode
+      const soloSlug = plSlug || enSlug
+      if (!soloSlug) {
+        return
+      }
+
+      createPage({
+        path: `news/${soloSlug}`,
+        component: path.resolve(`./src/templates/news/index.js`),
+        context: {
+          article: { ...soloNode, slug: soloSlug },
+        },
+      })
+    }
   })
 
-  data.allContentfulMaterials.edges.forEach(({ node }) => {
-    createPage({
-      path: `materials/${slugify(node.title)}`,
-      component: path.resolve(`./src/templates/material/index.js`),
-      context: {
-        slug: slugify(node.title),
-        materialId: node.contentful_id,
-      },
-    })
+  const materialLanguages = ["pl", "en"]
+  const materialDefaultLanguage = "pl"
+
+  const materialGroupsById = data.allContentfulMaterials.edges.reduce(
+    (acc, { node }) => {
+      if (!acc[node.contentful_id]) {
+        acc[node.contentful_id] = {}
+      }
+      acc[node.contentful_id][node.node_locale] = node
+      return acc
+    },
+    {}
+  )
+
+  Object.values(materialGroupsById).forEach(nodesByLocale => {
+    const plNode = nodesByLocale["pl-PL"]
+    const enNode = nodesByLocale["en"]
+
+    if (plNode && enNode) {
+      const plSlug = slugify(plNode.title)
+      const enSlug = slugify(enNode.title)
+      const plPath = `/materials/${plSlug}/`
+      const enPath = `/en/materials/${enSlug}/`
+
+      createPage({
+        path: `materials/${plSlug}`,
+        component: path.resolve(`./src/templates/material/index.js`),
+        context: {
+          slug: plSlug,
+          materialId: plNode.contentful_id,
+          language: "pl",
+          i18n: {
+            language: "pl",
+            languages: materialLanguages,
+            defaultLanguage: materialDefaultLanguage,
+            generateDefaultLanguagePage: false,
+            routed: false,
+            originalPath: plPath,
+            path: plPath,
+          },
+        },
+      })
+
+      createPage({
+        path: `en/materials/${enSlug}`,
+        component: path.resolve(`./src/templates/material/index.js`),
+        context: {
+          slug: enSlug,
+          materialId: enNode.contentful_id,
+          language: "en",
+          i18n: {
+            language: "en",
+            languages: materialLanguages,
+            defaultLanguage: materialDefaultLanguage,
+            generateDefaultLanguagePage: false,
+            routed: true,
+            originalPath: plPath,
+            path: enPath,
+          },
+        },
+      })
+    } else {
+      const soloNode = plNode || enNode
+      createPage({
+        path: `materials/${slugify(soloNode.title)}`,
+        component: path.resolve(`./src/templates/material/index.js`),
+        context: {
+          slug: slugify(soloNode.title),
+          materialId: soloNode.contentful_id,
+        },
+      })
+    }
   })
 }
 

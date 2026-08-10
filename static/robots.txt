@@ -11,6 +11,20 @@ Disallow: /*?sort=
 Disallow: /thank-you-for-your-message/
 Disallow: /en/thank-you-for-your-message/
 
+# strony techniczne (search)
+Disallow: /search/
+Disallow: /en/search/
+
+# strony techniczne (404)
+Disallow: /404/
+Disallow: /en/404/
+Disallow: /404.html
+Disallow: /en/404.html
+
+# strony techniczne (privacy plicy)
+Disallow: /en/quality-standards/
+Disallow: /en/privacy-policy/
+
 # sitemap
 Sitemap: https://medicos.com.pl/sitemap-0.xml
 

@@ -56,6 +56,11 @@ from = "/en/materials/chlorek-benzylotrietyloamoniowy/"
 to = "/en/materials/bteac-benzyl-triethylammonium-chloride/"
 status = 301
 
+[[redirects]]
+from = "/materials/benzyl-triethylammonium-chloride/"
+to = "/materials/bteac-benzyltriethylammonium-chloride/"
+status = 301
+
 [[plugins]]
 package = "@netlify/plugin-gatsby"
 

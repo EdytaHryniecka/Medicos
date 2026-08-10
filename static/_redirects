@@ -1,52 +1,54 @@
 
-/oferta/*                                          /services
-/kontakt/*                                         /contact
-/kosmetyka/*                                       /cosmetology
-/o-nas/*                                           /about
-/regulamin-strony/*                                /website-regulations
-/page-regulations/*                                /en/website-regulations
-/pozostale-branze/*                                /other-industries
-/regulamin-newslettera/*                           /website-regulations
-/kwas-azotowy-dostepny-od-wrzesnia/*               /materials
-/%20privacy-policy/*                               /privacy-policy
-/en/%20privacy-policy/*                            /en/privacy-policy
+/oferta/*                                          /services/
+/kontakt/*                                         /contact/
+/kosmetyka/*                                       /cosmetology/
+/o-nas/*                                           /about/
+/regulamin-strony/*                                /
+/
+/page-regulations/*                                /en/website-regulations/
+/pozostale-branze/*                                /other-industries/
+/regulamin-newslettera/*                           /website-regulations/
+/kwas-azotowy-dostepny-od-wrzesnia/*               /materials/
+/%20privacy-policy/*                               /privacy-policy/
+/en/%20privacy-policy/*                            /en/privacy-policy/
 /wonton-nowy-pierwiastek-w-tablicy-mendelejewa/*   /
 /aktualnosci/*                                     /
 
-/surowce/*                                         /materials
-/en/surowce/*                                      /en/materials
+/surowce/*                                         /materials/
+/en/surowce/*                                      /en/materials/
 
 /siliutin-nowy-produkt-w-naszej-bazie/*            /
 /siliutin-nowy-produkt-w-naszej-bazie-*/*            /
-/?s=search_term_string/*                           /search
-/?s={search_term_string}/*                         /search
-/search/search_term_string/feed/rss2               /search
+/?s=search_term_string/*                           /search/
+/?s={search_term_string}/*                         /search/
+/search/search_term_string/feed/rss2               /search/
 
-/kategoria/*                                       /materials        
-/en/kategoria/*                                    /en/materials
+/kategoria/*                                       /materials/
+/en/kategoria/*                                    /en/materials/
 
 /alfabet/*                                         /
-/polityka-prywatnosci/*                            /privacy-policy
+/polityka-prywatnosci/*                            /privacy-policy/
 
-/en/industries/*                                  /en/materials
-/industries/*                                     /materials
-/category/*                                       /materials
+/en/industries/*                                  /en/materials/
+/industries/*                                     /materials/
+/category/*                                       /materials/
 /wp-json/*                                        /
-/zywnosc-i-suplementy/*                           /food-and-supplements
-/uslugi/*                                         /services
+/zywnosc-i-suplementy/*                           /food-and-supplements/
+/uslugi/*                                         /services/
 
-/nowosc-w-naszej-ofercie-to-diwodorek-molibdenu-dostepny-juz-od-jutra/*   /materials
+/nowosc-w-naszej-ofercie-to-diwodorek-molibdenu-dostepny-juz-od-jutra/*   /materials/
+/nowosc-w-naszej-ofercie-to-diwodorek-molibdenu-dostepny-juz-od-jutra-2/*   /materials/
 
 /author/*                                         /
-/food/*                                           /food-and-supplements
-/en/strona-glowna-english/*                       /en
-/en/terms-of-webpage/*                            /en/website-regulations
+/food/*                                           /food-and-supplements/
+/en/strona-glowna-english/*                       /en/
+/en/terms-of-webpage/*                            /en/website-regulations/
 
-/en/pharmacology/*                                /en/pharmacy
-/pharmacology/*                                   /pharmacy
+/en/pharmacology/*                                /en/pharmacy/
+/pharmacology/*                                   /pharmacy/
 
-/en/contact-us/*                                   /en/contact
-/contact-us/*                                   /contact
+/en/contact-us/*                                   /en/contact/
+/contact-us/*                                   /contact/
 
 
 http://medicos.com.pl/                          https://medicos.com.pl/:splat 301!

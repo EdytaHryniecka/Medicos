@@ -2,6 +2,15 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+const slugify = text =>
+  text
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
@@ -105,6 +114,108 @@ module.exports = {
         icon: `src/images/medicos-icon.png`,
       },
     },
-    "gatsby-plugin-sitemap",
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        excludes: [
+          `/404/`,
+          `/en/404/`,
+          `/404.html`,
+          `/en/404.html`,
+          `/search/`,
+          `/en/search/`,
+          `/thank-you-for-your-message/`,
+          `/en/thank-you-for-your-message/`,
+          `/en/quality-standards/`,
+          `/en/privacy-policy/`,
+        ],
+        query: `{
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+          allContentfulMaterials {
+            nodes {
+              contentful_id
+              title
+              node_locale
+              updatedAt
+            }
+          }
+          allContentfulArticle {
+            nodes {
+              contentful_id
+              slug
+              node_locale
+              updatedAt
+            }
+          }
+        }`,
+        resolveSiteUrl: () => `https://medicos.com.pl`,
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allContentfulMaterials: { nodes: materials },
+          allContentfulArticle: { nodes: articles },
+        }) => {
+          const lastmodByPath = {}
+          const materialGroups = materials.reduce((acc, node) => {
+            if (!acc[node.contentful_id]) acc[node.contentful_id] = {}
+            acc[node.contentful_id][node.node_locale] = node
+            return acc
+          }, {})
+
+          Object.values(materialGroups).forEach(
+            ({ "pl-PL": plNode, en: enNode }) => {
+              if (plNode && enNode) {
+                lastmodByPath[`/materials/${slugify(plNode.title)}/`] =
+                  plNode.updatedAt
+                lastmodByPath[`/en/materials/${slugify(enNode.title)}/`] =
+                  enNode.updatedAt
+              } else {
+                const soloNode = plNode || enNode
+                const soloSlug = slugify(soloNode.title)
+                lastmodByPath[`/materials/${soloSlug}/`] = soloNode.updatedAt
+                lastmodByPath[`/en/materials/${soloSlug}/`] = soloNode.updatedAt
+              }
+            }
+          )
+
+          const articleGroups = articles.reduce((acc, node) => {
+            if (!acc[node.contentful_id]) acc[node.contentful_id] = {}
+            acc[node.contentful_id][node.node_locale] = node
+            return acc
+          }, {})
+
+          Object.values(articleGroups).forEach(
+            ({ "pl-PL": plNode, en: enNode }) => {
+              const plSlug = plNode?.slug?.trim()
+              const enSlug = enNode?.slug?.trim()
+
+              if (plSlug) {
+                lastmodByPath[`/news/${plSlug}/`] = plNode.updatedAt
+              }
+
+              if (enSlug && enSlug !== plSlug) {
+                lastmodByPath[`/en/news/${enSlug}/`] = enNode.updatedAt
+              } else if (plSlug) {
+                lastmodByPath[`/en/news/${plSlug}/`] = enNode
+                  ? enNode.updatedAt
+                  : plNode.updatedAt
+              }
+            }
+          )
+
+          return allPages.map(page => ({
+            ...page,
+            lastmod: lastmodByPath[page.path],
+          }))
+        },
+        serialize: ({ path: pagePath, lastmod }) => ({
+          url: pagePath,
+          ...(lastmod ? { lastmod } : {}),
+        }),
+      },
+    },
   ],
 }
