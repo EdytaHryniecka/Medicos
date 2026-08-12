@@ -1,0 +1,117 @@
+.cta-product-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(
+      90deg,
+      rgba(20, 68, 135, 0.9) 29.891%,
+      rgba(35, 111, 166, 0.9) 100%
+    ),
+    #144487;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+}
+
+.cta-product-link:has(+ *) {
+  margin-bottom: 24px;
+}
+
+.cta-product-link-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 100%;
+}
+
+.cta-product-link-title,
+.cta-product-link-description {
+  margin: 0 !important;
+}
+
+.cta-product-link-title {
+  color: #e9f2fb;
+}
+
+.cta-product-link-description {
+  color: #fbfcfe;
+}
+
+.cta-product-link-button p {
+  margin: 0 !important;
+}
+
+.cta-product-link-button a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid #d3e2f8;
+  background: #fbfcfe;
+  color: #144487;
+  font-family: REM;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease-out;
+}
+
+.cta-product-link-button a:hover {
+  background: #e9f2fb;
+  color: #4d8ce5;
+}
+
+.cta-product-link-image {
+  position: absolute;
+  right: -13px;
+  bottom: -20px;
+  width: calc(100% + 22px);
+  height: calc(100% + 6px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media only screen and (min-width: 500px) {
+  .cta-product-link-image {
+    width: 220px;
+    height: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .cta-product-link {
+    padding: 32px;
+    gap: 24px;
+  }
+
+  .cta-product-link-content {
+    gap: 16px;
+    max-width: 528px;
+  }
+
+  .cta-product-link-button a {
+    font-size: 18px;
+  }
+
+  .cta-product-link-image {
+    right: -13px;
+    bottom: -20px;
+    width: 334px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .cta-product-link-content {
+    gap: 24px;
+  }
+}

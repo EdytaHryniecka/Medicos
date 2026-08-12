@@ -398,6 +398,23 @@ export const query = graphql`
                   raw
                 }
               }
+              ... on ContentfulCtaWithProductLink {
+                __typename
+                contentful_id
+                titleOptional
+                ctaDescription: description {
+                  description
+                }
+                buttonWithUrl {
+                  raw
+                }
+                backgroundImage {
+                  gatsbyImageData(quality: 100)
+                  file {
+                    url
+                  }
+                }
+              }
             }
           }
           bibliography {

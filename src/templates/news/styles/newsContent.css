@@ -240,7 +240,7 @@
     flex-direction: row;
   }
 }
-.article .article-content p,
+.article .article-content p:not(.cta-product-link p),
 .article .article-content ul,
 .article .article-content ol,
 .article .article-content blockquote {
@@ -255,7 +255,7 @@
   margin-bottom: 0;
 }
 .article .article-content .h2-style,
-.article .article-content .h3-style {
+.article .article-content .h3-style:not(.cta-product-link-title) {
   color: #0a2243;
 }
 .article .article-content .h1-style,
@@ -272,7 +272,7 @@
 .article .article-content .h2-style:first-child {
   margin-top: 0;
 }
-.article .article-content .h3-style,
+.article .article-content .h3-style:not(.cta-product-link-title),
 .article .article-content .h4-style {
   margin-bottom: 16px;
   scroll-margin-top: 80px;

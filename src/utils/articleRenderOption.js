@@ -3,6 +3,7 @@ import { BLOCKS } from "@contentful/rich-text-types"
 import { slugify } from "./slugify"
 import NoteBox from "../components/noteBox/noteBox"
 import MiniTable from "../components/miniTable/miniTable"
+import CtaWithProductLink from "../components/ctaWithProductLink/ctaWithProductLink"
 
 const getAssetFromTarget = (target, assetMap) => {
   if (!target) return null
@@ -58,6 +59,17 @@ export const articleTextRenderOptions = (tocRef, assetMap = {}) => {
 
         if (target.__typename === "ContentfulMiniTable") {
           return <MiniTable listAdvantages={target.listAdvantages} />
+        }
+
+        if (target.__typename === "ContentfulCtaWithProductLink") {
+          return (
+            <CtaWithProductLink
+              titleOptional={target.titleOptional}
+              description={target.ctaDescription?.description}
+              buttonWithUrl={target.buttonWithUrl}
+              backgroundImage={target.backgroundImage}
+            />
+          )
         }
 
         return null
