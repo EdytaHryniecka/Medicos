@@ -7,7 +7,6 @@ import QueryNavigate from "../../hooks/queryNavigate"
 import getCurrentTranslations from "../contentful-translator"
 import { slugify } from "../../utils/slugify"
 import "./styles/ctaWithProductLink.css"
-import defaultBackground from "../../images/article/cta-product-link-background.png"
 
 const hasHyperlinkContent = raw => {
   if (typeof raw !== "string" || !raw.trim()) return false
@@ -109,15 +108,8 @@ const CtaWithProductLink = ({
           </div>
         )}
       </div>
-      {image ? (
+      {image && (
         <GatsbyImage className="cta-product-link-image" image={image} alt="" />
-      ) : (
-        <img
-          className="cta-product-link-image"
-          src={defaultBackground}
-          alt=""
-          loading="lazy"
-        />
       )}
     </div>
   )
