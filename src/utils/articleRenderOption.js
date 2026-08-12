@@ -75,6 +75,12 @@ export const articleTextRenderOptions = (tocRef, assetMap = {}) => {
         return null
       },
 
+      [BLOCKS.TABLE]: (node, children) => (
+        <div className="article-table-wrapper">
+          <table>{children}</table>
+        </div>
+      ),
+
       [BLOCKS.HEADING_1]: renderHeading(1, "h1-style"),
       [BLOCKS.HEADING_2]: renderHeading(2, "h2-style"),
       [BLOCKS.HEADING_3]: renderHeading(3, "h3-style"),
