@@ -38,7 +38,7 @@ const ArticleTile = ({ article, t }) => {
         {/* <p className="p-style tile-description">{truncatedDescription}</p> */}
         <div className="tile-text-down">
           <p className="p-style date">
-            {moment(article.node.createdAt).format("DD/MM/YYYY HH:MM")}
+            {moment.utc(article.node.createdAt).format("DD/MM/YYYY HH:mm")}
           </p>
           <p className="p-style read-more">{t`news-read-more.title`}</p>
         </div>

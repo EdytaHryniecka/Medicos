@@ -69,7 +69,7 @@ const NewsContent = ({ article }) => {
             <div className="down-left-text">
               <div className="date-and-name">
                 <p className="p-style">
-                  {moment(article.node.createdAt).format("DD/MM/YYYY HH:mm")}
+                  {moment.utc(article.node.createdAt).format("DD/MM/YYYY HH:mm")}
                 </p>
                 {author?.authorName && (
                   <p className="p-style">{author.authorName}</p>
