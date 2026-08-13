@@ -408,6 +408,7 @@ export const query = graphql`
                 buttonWithUrl {
                   raw
                 }
+                urlForLogic
                 backgroundImage {
                   gatsbyImageData(quality: 100)
                   file {

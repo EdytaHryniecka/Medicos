@@ -67,6 +67,7 @@ export const articleTextRenderOptions = (tocRef, assetMap = {}) => {
               titleOptional={target.titleOptional}
               description={target.ctaDescription?.description}
               buttonWithUrl={target.buttonWithUrl}
+              urlForLogic={target.urlForLogic}
               backgroundImage={target.backgroundImage}
             />
           )

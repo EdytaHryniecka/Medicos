@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, navigate } from "gatsby"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { I18nextContext } from "gatsby-plugin-react-i18next"
@@ -37,6 +37,7 @@ const CtaWithProductLink = ({
   titleOptional,
   description,
   buttonWithUrl,
+  urlForLogic,
   backgroundImage,
 }) => {
   const { language } = useContext(I18nextContext)
@@ -75,9 +76,15 @@ const CtaWithProductLink = ({
     if (!link) return
 
     const href = link.getAttribute("href") || ""
-    if (href.includes("/contact")) return
+    const targetUrl = (urlForLogic || "").trim() || href
+    const isContactPage = targetUrl.includes("/contact")
 
     event.preventDefault()
+
+    if (!isContactPage) {
+      if (targetUrl) navigate(targetUrl)
+      return
+    }
 
     const slug = href.replace(/\/+$/, "").split("/").pop()
     const material = slug ? findMaterialBySlug(slug) : null
