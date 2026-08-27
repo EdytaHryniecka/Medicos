@@ -8,6 +8,7 @@ const MaterialComponent = ({
   titleHeader,
   descriptionHeader,
   breadcrumbsItems,
+  hideHeader,
   imageApplication,
   titleApplication,
   descriptionApplication,
@@ -19,12 +20,14 @@ const MaterialComponent = ({
 }) => {
   return (
     <>
-      <MaterialHeader
-        backgroundHeader={backgroundHeader}
-        titleHeader={titleHeader}
-        descriptionHeader={descriptionHeader}
-        breadcrumbsItems={breadcrumbsItems}
-      />
+      {!hideHeader && (
+        <MaterialHeader
+          backgroundHeader={backgroundHeader}
+          titleHeader={titleHeader}
+          descriptionHeader={descriptionHeader}
+          breadcrumbsItems={breadcrumbsItems}
+        />
+      )}
       <MaterialApplication
         imageApplication={imageApplication}
         titleApplication={titleApplication}

@@ -1,0 +1,310 @@
+.cosmetology-form-container {
+  background: var(--Whiteness, #fbfcfe);
+  overflow: hidden;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.cosmetology-form-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.cosmetology-form-intro {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  position: relative;
+  z-index: 1;
+}
+
+.cosmetology-form-intro-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 640px;
+}
+
+.cosmetology-form-title {
+  color: var(--UX-grey-10, #393939);
+  margin: 0;
+}
+
+.cosmetology-form-intro .p--p1 {
+  color: var(--UX-grey-10, #393939);
+  margin: 0;
+}
+
+.cosmetology-form-panel {
+  position: relative;
+  z-index: 0;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+}
+
+.cosmetology-form-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--Light-blue, #e9f2fb);
+  border-radius: 16px;
+  z-index: -1;
+}
+
+.cosmetology-form-tabs,
+.cosmetology-form {
+  max-width: 640px;
+  align-self: center;
+}
+
+.cosmetology-form-tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.cosmetology-form-tab {
+  flex: 1;
+  padding: 8px 16px;
+  font-family: REM;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  cursor: pointer;
+  background: transparent;
+  color: var(--Navy, #144487);
+  border: 1px solid var(--Blue, #4d8ce5);
+  transition: all 0.2s ease-out;
+}
+
+.cosmetology-form-tab:first-child {
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-right: 1px solid var(--Blue, #4d8ce5);
+  border-bottom: none;
+}
+
+.cosmetology-form-tab:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 8px;
+}
+
+.cosmetology-form-tab--active {
+  background: var(--Navy, #144487);
+  color: var(--Whiteness, #fbfcfe);
+  border-color: var(--Navy, #144487);
+}
+
+.cosmetology-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+}
+
+.cosmetology-form-fields-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.cosmetology-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.cosmetology-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.cosmetology-form-field label {
+  font-family: REM;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--Dark, #0a2243);
+}
+
+.cosmetology-form-input {
+  height: 40px;
+  width: 100%;
+  padding: 10px 40px 10px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--Button-secondary-border, #d3e2f8);
+  background: var(--Whiteness, #fbfcfe);
+  color: var(--Dark, #0a2243);
+  font-family: REM;
+  font-size: 16px;
+}
+
+.cosmetology-form-input::placeholder {
+  color: var(--Input-Placeholder, #b0c7e8);
+}
+
+.cosmetology-form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.cosmetology-form-consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  border: 1px solid var(--Blue, #4d8ce5);
+  border-radius: 3px;
+  cursor: pointer;
+  accent-color: var(--Navy, #144487);
+}
+
+.cosmetology-form-consent label {
+  flex: 1;
+  font-family: REM;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--Dark, #0a2243);
+}
+
+.cosmetology-form-consent label a {
+  color: var(--Dark, #0a2243);
+  transition: color 0.2s ease-out;
+}
+
+.cosmetology-form-consent label a:hover {
+  color: var(--Blue, #4d8ce5);
+}
+
+.cosmetology-form-container .p-error {
+  color: var(--Functional-Error, #b21a1a);
+  font-size: 14px;
+  line-height: normal;
+}
+
+.cosmetology-form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--Navy, #144487);
+  color: var(--Whiteness, #fbfcfe);
+  font-family: REM;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background 0.2s ease-out;
+  width: 100%;
+}
+
+.cosmetology-form-submit:hover {
+  background: var(--Button-primary-hover-bg, #0d2d59);
+}
+
+.cosmetology-form-submit--sent {
+  pointer-events: none;
+}
+
+.cosmetology-form-btn-arrow {
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+
+@keyframes cosmetology-form-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cosmetology-form-btn-spinner {
+  animation: cosmetology-form-rotate 2s linear infinite;
+}
+
+@media screen and (min-width: 768px) {
+  .cosmetology-form-panel {
+    padding: 32px 24px;
+  }
+
+  .cosmetology-form-tabs {
+    flex-direction: row;
+  }
+
+  .cosmetology-form-tab:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-right: none;
+    border-bottom: 1px solid var(--Blue, #4d8ce5);
+  }
+
+  .cosmetology-form-tab:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .cosmetology-form-submit {
+    width: auto;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .cosmetology-form-inner {
+    flex-direction: row;
+    gap: 144px;
+  }
+
+  .cosmetology-form-intro {
+    flex: 0 1 416px;
+    width: 416px;
+  }
+
+  .cosmetology-form-intro-inner {
+    max-width: none;
+  }
+
+  .cosmetology-form-panel {
+    flex: 0 1 640px;
+    width: 640px;
+    padding: 80px 0;
+  }
+
+  .cosmetology-form-panel::before {
+    left: -112px;
+    width: calc(165% + 112px);
+  }
+
+  .cosmetology-form-tabs,
+  .cosmetology-form {
+    max-width: none;
+    align-self: stretch;
+  }
+}

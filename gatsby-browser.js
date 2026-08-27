@@ -12,6 +12,7 @@ import "@fontsource/rem/500.css"
 import "@fontsource/rem/600.css"
 import "@fontsource/rem/700.css"
 import "@fontsource/rem/800.css"
+import "@fontsource/inter/700.css"
 
 export const shouldUpdateScroll = ({ prevRouterProps, routerProps }) => {
   if (!prevRouterProps) {

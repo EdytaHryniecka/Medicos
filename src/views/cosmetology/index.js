@@ -1,112 +1,35 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState } from "react"
 import Seo from "../../components/seo"
-import { useTranslation, I18nextContext } from "gatsby-plugin-react-i18next"
+import { useTranslation } from "gatsby-plugin-react-i18next"
 import Layout from "../../components/layout"
-import MaterialComponent from "../../components/materialComponent/materialComponent"
-import { StaticImage } from "gatsby-plugin-image"
-import { graphql, useStaticQuery } from "gatsby"
-import getCurrentTranslations from "../../components/contentful-translator"
-import { renderRichText } from "gatsby-source-contentful/rich-text"
-import { articleTextRenderOptions } from "../../utils/articleRenderOption"
 import BreadcrumbSchema from "../../components/breadcrumbs/breadcrumbSchema"
+import CosmetologyHero from "./components/cosmetologyHero"
+import CosmetologyStats from "./components/cosmetologyStats"
+import CosmetologyChallenges from "./components/cosmetologyChallenges"
+import CosmetologyFormulationGuide from "./components/cosmetologyFormulationGuide"
+import CosmetologyProcessSteps from "./components/cosmetologyProcessSteps"
+import CosmetologyWhyMedicos from "./components/cosmetologyWhyMedicos"
+import CosmetologySampleForm from "./components/cosmetologySampleForm"
+
+const SAMPLE_FORM_ID = "cosmetology-sample-form"
 
 const Cosmetology = () => {
   const { t } = useTranslation()
-  const { language } = useContext(I18nextContext)
-  const data = useStaticQuery(graphql`
-    query {
-      allContentfulMaterials(
-        filter: { category: { eq: "Kosmetyka" } }
-        sort: { createdAt: ASC }
-        limit: 6
-      ) {
-        edges {
-          node {
-            category
-            color
-            node_locale
-            pH
-            title
-            inci
-            cas
-            form
-            generalInformation {
-              raw
-            }
-            application {
-              raw
-            }
-          }
-        }
-      }
-      allContentfulTextOnTheRawMaterialsPages {
-        edges {
-          node {
-            node_locale
-            cosmetologyTytu1
-            cosmetologyOpis1 {
-              raw
-            }
-            cosmetologyTytu2
-            cosmetologyOpis2 {
-              raw
-            }
-          }
-        }
-      }
-    }
-  `)
-  const [materials, setMaterials] = useState()
-  const [textData, setTextData] = useState()
+  const [formTab, setFormTab] = useState("sample")
 
-  useEffect(() => {
-    const getData = () => {
-      const getMaterials = getCurrentTranslations(
-        data.allContentfulMaterials.edges,
-        language
-      )
-
-      setMaterials(getMaterials)
-    }
-    getData()
-  }, [data.allContentfulMaterials, language])
-
-  useEffect(() => {
-    const getData = () => {
-      const getTextData = getCurrentTranslations(
-        data.allContentfulTextOnTheRawMaterialsPages.edges,
-        language
-      )
-      setTextData(getTextData[0])
-    }
-    getData()
-  }, [data.allContentfulTextOnTheRawMaterialsPages, language])
-
-  const titleDiscover = `${t`cosmetology.discover.title`}`
-  const descriptionDiscover = `${t`cosmetology.discover.description`}`
-  const materialQuery = "cosmetology"
-
-  const backgroundHeader = "c-background"
   const breadcrumbItems = [
     { label: t`search-content.home`, to: "/" },
     { label: t`menu.raw-material-offer`, to: "/materials" },
     { label: t`materials-filter.cosmetology` },
   ]
 
-  let alt =
-    language === "pl"
-      ? "Otwarty słoiczek z białym kremem na białej podstawce w otoczeniu zielonych liści paproci"
-      : "Open jar of white cream on a white pedestal surrounded by green fern leaves"
-
-  const imageApplication = () => (
-    <StaticImage
-      className="right-image"
-      src="../../images/cosmetology/application/material-c-application.webp"
-      alt={alt}
-      placeholder="Right image"
-      loading="lazy"
-    />
-  )
+  const goToForm = tab => {
+    setFormTab(tab)
+    const el = document.getElementById(SAMPLE_FORM_ID)
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }
 
   return (
     <Layout>
@@ -115,36 +38,17 @@ const Cosmetology = () => {
         description={t`seo.cosmetology.description`}
       />
       <BreadcrumbSchema items={breadcrumbItems} />
-      {textData && (
-        <MaterialComponent
-          backgroundHeader={backgroundHeader}
-          breadcrumbsItems={breadcrumbItems}
-          titleHeader={textData.node.cosmetologyTytu1}
-          descriptionHeader={
-            <div className="render-content">
-              {renderRichText(
-                textData.node.cosmetologyOpis1,
-                articleTextRenderOptions
-              )}
-            </div>
-          }
-          imageApplication={imageApplication}
-          titleApplication={textData.node.cosmetologyTytu2}
-          descriptionApplication={
-            <div className="render-content">
-              {renderRichText(
-                textData.node.cosmetologyOpis2,
-                articleTextRenderOptions
-              )}
-            </div>
-          }
-          materialDiscover={materials}
-          titleDiscover={titleDiscover}
-          descriptionDiscover={descriptionDiscover}
-          t={t}
-          materialQuery={materialQuery}
-        />
-      )}
+      <CosmetologyHero breadcrumbsItems={breadcrumbItems} onCtaClick={goToForm} />
+      <CosmetologyStats />
+      <CosmetologyChallenges />
+      <CosmetologyFormulationGuide onCtaClick={goToForm} />
+      <CosmetologyProcessSteps />
+      <CosmetologyWhyMedicos />
+      <CosmetologySampleForm
+        id={SAMPLE_FORM_ID}
+        activeTab={formTab}
+        onTabChange={setFormTab}
+      />
     </Layout>
   )
 }
