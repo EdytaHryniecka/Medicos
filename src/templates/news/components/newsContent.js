@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useEffect } from "react"
-import { useTranslation, Link } from "gatsby-plugin-react-i18next"
+import React, { useContext, useMemo, useRef, useEffect } from "react"
+import { useTranslation, I18nextContext, Link } from "gatsby-plugin-react-i18next"
 import "../styles/newsContent.css"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
@@ -8,9 +8,23 @@ import Toc from "../../../components/toc/toc"
 import Breadcrumbs from "../../../components/breadcrumbs/breadcrumbs"
 import moment from "moment"
 
+// The author bio comes from a Contentful entry that isn't translated per
+// locale, so the English description is kept here until it is localized in Contentful.
+const AUTHOR_DESCRIPTION_EN = {
+  "Paweł Hryniecki":
+    "He passionately combines technological knowledge of chemical raw materials with sales strategy, helping clients choose solutions that build product quality and business value.",
+  "Edyta Hryniecka":
+    "A business development strategist who, for over 25 years, has combined technology development with market and financial decisions aimed at building enterprise value.",
+}
+
 const NewsContent = ({ article }) => {
   const { t } = useTranslation()
+  const { language } = useContext(I18nextContext)
   const author = article?.node?.authorRep
+  const authorDescription =
+    language === "en" && author?.authorName
+      ? AUTHOR_DESCRIPTION_EN[author.authorName] || author.authorDescription
+      : author?.authorDescription
   const heroImage = article?.node?.image?.gatsbyImageData
   const authorImage = author?.authorImg?.gatsbyImageData
 
@@ -147,9 +161,9 @@ const NewsContent = ({ article }) => {
                     {author.authorPosition}
                   </p>
                 )}
-                {author.authorDescription && (
+                {authorDescription && (
                   <p className="article-author-description">
-                    {author.authorDescription}
+                    {authorDescription}
                   </p>
                 )}
               </div>
