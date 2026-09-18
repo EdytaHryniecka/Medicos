@@ -1,0 +1,104 @@
+.cosmetology-hero-container {
+  padding-top: 125px;
+  padding-bottom: 32px;
+  background: url(../../../images/cosmetology/header/material-c-header-background.webp)
+    no-repeat 50% 0;
+  background-position: 80% 50%;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.cosmetology-hero-title {
+  display: flex;
+  flex-direction: column;
+  color: var(--Light-blue, #e9f2fb);
+  margin-top: 24px;
+}
+
+.cosmetology-hero-title .h2-style {
+  margin-top: 4px;
+}
+
+.cosmetology-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 32px;
+  max-width: 100%;
+}
+
+.cosmetology-hero-content .p-style {
+  color: var(--Whiteness, #fbfcfe);
+  margin: 0;
+}
+
+.cosmetology-hero-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cosmetology-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+  width: 100%;
+}
+
+.cosmetology-hero-btn--outline {
+  color: var(--Light-blue, #e9f2fb);
+  background: transparent;
+  border: 1px solid var(--Button-secondary-border, #d3e2f8);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-family: REM;
+  line-height: 1.5;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+  width: 100%;
+  justify-content: center;
+}
+
+.cosmetology-hero-btn--outline:hover {
+  background: rgba(251, 252, 254, 0.1);
+}
+
+.cosmetology-hero-arrow {
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .cosmetology-hero-container {
+    padding-bottom: 45px;
+  }
+
+  .cosmetology-hero-buttons {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .cosmetology-hero-btn,
+  .cosmetology-hero-btn--outline {
+    width: auto;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .cosmetology-hero-container {
+    padding-top: 158px;
+    padding-bottom: 80px;
+  }
+
+  .cosmetology-hero-content {
+    max-width: 768px;
+  }
+}

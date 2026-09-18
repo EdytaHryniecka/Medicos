@@ -1,0 +1,175 @@
+.cosmetology-process-container {
+  background: var(--Light-blue, #e9f2fb);
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.cosmetology-process-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cosmetology-process-main {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.cosmetology-process-title {
+  color: var(--Dark, #0a2243);
+  max-width: 640px;
+  margin: 0;
+}
+
+.cosmetology-process-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.cosmetology-process-step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cosmetology-process-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--Navy, #144487);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cosmetology-process-badge span {
+  font-family: REM;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.cosmetology-process-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  border: 1px solid var(--Button-secondary-border, #d3e2f8);
+  border-radius: 16px;
+  background: rgba(251, 252, 254, 0.25);
+}
+
+.cosmetology-process-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cosmetology-process-card-title {
+  color: var(--Navy, #144487);
+  margin: 0;
+}
+
+.cosmetology-process-card-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.cosmetology-process-toggle-icon {
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.cosmetology-process-card-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.cosmetology-process-card-panel--open {
+  grid-template-rows: 1fr;
+}
+
+.cosmetology-process-card-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding-top: 0;
+}
+
+.cosmetology-process-card-panel--open .cosmetology-process-card-panel-inner {
+  padding-top: 12px;
+}
+
+.cosmetology-process-card-description {
+  color: var(--Dark, #0a2243);
+  margin: 0;
+}
+
+.cosmetology-process-callout {
+  background: rgba(251, 252, 254, 0.5);
+  border: 1px solid var(--Blue, #4d8ce5);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.cosmetology-process-callout .title {
+  color: var(--Dark, #0a2243);
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .cosmetology-process-container {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .cosmetology-process-row {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 0;
+  }
+
+  .cosmetology-process-card-header {
+    cursor: default;
+  }
+
+  .cosmetology-process-card-toggle {
+    display: none;
+  }
+
+  .cosmetology-process-card-panel {
+    display: block;
+  }
+
+  .cosmetology-process-card-panel-inner {
+    overflow: visible;
+    min-height: auto;
+    padding-top: 12px;
+  }
+
+  .cosmetology-process-callout {
+    padding: 16px 32px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .cosmetology-process-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

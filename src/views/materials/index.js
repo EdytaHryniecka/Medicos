@@ -13,6 +13,14 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { useLocation } from "@reach/router"
 import { slugify } from "../../utils/slugify"
 
+const CATEGORY_QUERY_KEYWORDS = [
+  "household-chemicals",
+  "cosmetology",
+  "pharmacy",
+  "food-and-supplements",
+  "other-industries",
+]
+
 const Materials = () => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
@@ -46,7 +54,16 @@ const Materials = () => {
       }
     }
   `)
-  const [searchMaterial, setSearchMaterial] = useState("")
+  // seeds the free-text filter from ?query= so a deep link that doesn't
+  // exactly match a material's title (see the effect below) still lands on
+  // a filtered list instead of the entire unfiltered catalog — but skip the
+  // industry-keyword values (?query=cosmetology etc., used by the other
+  // industry pages) since those only select a category, not search text
+  const [searchMaterial, setSearchMaterial] = useState(
+    searchQuery && !CATEGORY_QUERY_KEYWORDS.includes(searchQuery)
+      ? searchQuery
+      : ""
+  )
   const [selectedIndustry, setSelectedIndustry] = useState([
     "Chemia gospodarcza",
     "Kosmetyka",

@@ -244,25 +244,26 @@ th {
 @media only screen and (min-width: 568px) and (max-width: 1123px) {
   .container {
     margin: 0 5%;
-    max-width: 100%;
+    max-width: 100% !important;
   }
 }
 
 @media only screen and (min-width: 1124px) {
   .container {
-    max-width: 1064px;
+    max-width: 1064px !important;
+    padding: 0 !important;
   }
 }
 
 @media only screen and (min-width: 1324px) {
   .container {
-    max-width: 1180px;
+    max-width: 1312px !important;
   }
 }
 
 @media only screen and (min-width: 1824px) {
   .container {
-    max-width: 1180px;
+    max-width: 1312px !important;
   }
 }
 /* Studionext - normalize */

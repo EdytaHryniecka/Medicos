@@ -1,0 +1,77 @@
+.cosmetology-challenges-container {
+  background: #e9f2fb;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.cosmetology-challenges-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.cosmetology-challenges-title {
+  color: var(--Dark, #0a2243);
+  margin: 0;
+}
+
+.cosmetology-challenges-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 32px;
+  row-gap: 40px;
+}
+
+.cosmetology-challenge-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cosmetology-challenge-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cosmetology-challenge-heading {
+  color: var(--Navy, #144487);
+  margin: 0;
+}
+
+.cosmetology-challenge-item .p--p1 {
+  margin: 0;
+}
+
+.cosmetology-challenges-callout {
+  background: rgba(251, 252, 254, 0.5);
+  border: 1px solid var(--Blue, #4d8ce5);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.cosmetology-challenges-callout .title {
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .cosmetology-challenges-container {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .cosmetology-challenges-inner {
+    gap: 48px;
+  }
+
+  .cosmetology-challenges-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cosmetology-challenges-callout {
+    padding: 24px 40px;
+  }
+}
