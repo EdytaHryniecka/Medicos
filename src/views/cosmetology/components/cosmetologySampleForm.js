@@ -120,6 +120,7 @@ const CosmetologySampleForm = ({ id, activeTab, onTabChange }) => {
     material: "",
     application: "",
     personalData: false,
+    marketingConsent: false,
   })
 
   const [sending, setSending] = useState(false)
@@ -136,6 +137,11 @@ const CosmetologySampleForm = ({ id, activeTab, onTabChange }) => {
   const handlePersonalDataChange = event => {
     const value = event.target.checked
     setForm(prev => ({ ...prev, personalData: value }))
+  }
+
+  const handleMarketingConsentChange = event => {
+    const value = event.target.checked
+    setForm(prev => ({ ...prev, marketingConsent: value }))
   }
 
   const handleTabChange = tab => {
@@ -190,6 +196,7 @@ const CosmetologySampleForm = ({ id, activeTab, onTabChange }) => {
       email: form.email,
       subject,
       message,
+      marketingConsent: form.marketingConsent,
     }
 
     try {
@@ -212,6 +219,7 @@ const CosmetologySampleForm = ({ id, activeTab, onTabChange }) => {
           material: "",
           application: "",
           personalData: false,
+          marketingConsent: false,
         })
         return
       }
@@ -364,6 +372,18 @@ const CosmetologySampleForm = ({ id, activeTab, onTabChange }) => {
               <Link to="/privacy-policy">{t`contact-component.personalData-c`}</Link>{" "}
               <Link to="/website-regulations">{t`contact-component.personalData-d`}</Link>{" "}
               {t`contact-component.personalData-e`}
+            </label>
+          </div>
+          <div className="cosmetology-form-consent">
+            <input
+              type="checkbox"
+              id="cosmetology-form-marketing-consent"
+              name="marketingConsent"
+              checked={form.marketingConsent === true}
+              onChange={handleMarketingConsentChange}
+            />
+            <label htmlFor="cosmetology-form-marketing-consent">
+              {t`contact-component.marketingConsent`}
             </label>
           </div>
           </div>
