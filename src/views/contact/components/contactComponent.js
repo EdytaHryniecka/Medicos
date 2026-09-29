@@ -77,6 +77,7 @@ const ContactComponent = ({ searchQuery, searchMessage }) => {
     phoneNumber: "",
     message: "",
     personalData: false,
+    marketingConsent: false,
   })
 
   const handleChange = event => {
@@ -114,6 +115,15 @@ const ContactComponent = ({ searchQuery, searchMessage }) => {
     ) {
       setIsRequiredFieldsError(false)
     }
+  }
+
+  const handleMarketingConsentChange = event => {
+    const value = event.target.checked
+
+    setMessage(prevMessage => ({
+      ...prevMessage,
+      marketingConsent: value,
+    }))
   }
 
   const handleSubjectChange = value => {
@@ -195,6 +205,7 @@ const ContactComponent = ({ searchQuery, searchMessage }) => {
       email: message.email,
       subject: message.subject,
       message: message.message,
+      marketingConsent: message.marketingConsent,
     }
     //https://medicos-site.netlify.app/
     //http://localhost:8888/
@@ -234,6 +245,7 @@ const ContactComponent = ({ searchQuery, searchMessage }) => {
           phoneNumber: "",
           message: "",
           personalData: false,
+          marketingConsent: false,
         })
         navigate("/thank-you-for-your-message")
         return
@@ -747,6 +759,18 @@ const ContactComponent = ({ searchQuery, searchMessage }) => {
                     </label>
                   </div>
                 )}
+                <div className="personal-data-div marketing-consent-div">
+                  <input
+                    type="checkbox"
+                    id="marketingConsent"
+                    name="marketingConsent"
+                    checked={message.marketingConsent === true}
+                    onChange={handleMarketingConsentChange}
+                  />
+                  <label htmlFor="marketingConsent">
+                    {t`contact-component.marketingConsent`}
+                  </label>
+                </div>
               </div>
               <div className="button-container">
                 {!sending && !sent && (

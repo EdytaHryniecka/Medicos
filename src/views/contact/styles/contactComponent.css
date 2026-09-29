@@ -343,6 +343,14 @@
   .contact-con
   .right-con
   .form-con
+  .marketing-consent-div {
+  margin-top: 12px;
+}
+
+.contact-c-container
+  .contact-con
+  .right-con
+  .form-con
   .personal-data-div
   input[type="checkbox"] {
   width: 16px;

@@ -3,7 +3,8 @@ sgMail.setApiKey(process.env.NETLIFY_EMAILS_PROVIDER_API_KEY)
 
 exports.handler = async (event, context, callback) => {
   const data = JSON.parse(event.body)
-  const { name, firmName, phoneNumber, email, subject, message } = data
+  const { name, firmName, phoneNumber, email, subject, message, marketingConsent } =
+    data
 
   if (name === "" || subject === "" || email === "" || message === "") {
     return {
@@ -18,6 +19,11 @@ exports.handler = async (event, context, callback) => {
       <h4>Numer telefonu: ${phoneNumber !== "" ? phoneNumber : "Nie podano"}<h4>
       <h4>Temat: ${subject}<h4>
       <h4>Wiadomość: ${message}<h4>
+      ${
+        marketingConsent !== undefined
+          ? `<h4>Zgoda marketingowa: ${marketingConsent ? "Tak" : "Nie"}<h4>`
+          : ""
+      }
   `
 
   const mail_to_send = {
