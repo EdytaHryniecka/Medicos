@@ -21,10 +21,11 @@ const NewsContent = ({ article }) => {
   const { t } = useTranslation()
   const { language } = useContext(I18nextContext)
   const author = article?.node?.authorRep
-  const authorDescription =
-    language === "en" && author?.authorName
-      ? AUTHOR_DESCRIPTION_EN[author.authorName] || author.authorDescription
-      : author?.authorDescription
+  // English fallback is plain text; the Contentful bio is Markdown rendered by remark.
+  const authorDescriptionEn =
+    language === "en" ? AUTHOR_DESCRIPTION_EN[author?.authorName] : null
+  const authorDescriptionHtml =
+    author?.authorDescription?.childMarkdownRemark?.html
   const heroImage = article?.node?.image?.gatsbyImageData
   const authorImage = author?.authorImg?.gatsbyImageData
 
@@ -161,10 +162,17 @@ const NewsContent = ({ article }) => {
                     {author.authorPosition}
                   </p>
                 )}
-                {authorDescription && (
+                {authorDescriptionEn ? (
                   <p className="article-author-description">
-                    {authorDescription}
+                    {authorDescriptionEn}
                   </p>
+                ) : (
+                  authorDescriptionHtml && (
+                    <div
+                      className="article-author-description"
+                      dangerouslySetInnerHTML={{ __html: authorDescriptionHtml }}
+                    />
+                  )
                 )}
               </div>
             </div>
