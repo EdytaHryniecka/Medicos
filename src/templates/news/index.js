@@ -365,7 +365,9 @@ export const query = graphql`
           authorRep {
             authorName
             authorPosition
-            authorDescription
+            authorDescription {
+              authorDescription
+            }
             authorImg {
               gatsbyImageData(quality: 100)
             }
