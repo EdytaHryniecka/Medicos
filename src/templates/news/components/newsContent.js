@@ -97,7 +97,11 @@ const NewsContent = ({ article }) => {
 
           {heroImage && (
             <GatsbyImage
-              alt={article?.node?.image?.description || article?.node?.title}
+              alt={
+                article?.node?.image?.description ||
+                article?.node?.image?.title ||
+                article?.node?.title
+              }
               className="article-image"
               image={getImage(heroImage)}
             />
@@ -148,7 +152,7 @@ const NewsContent = ({ article }) => {
               <p className="article-author-box-title">{t`news.article.about`}</p>
               {authorImage && (
                 <GatsbyImage
-                  alt={article.title}
+                  alt={author.authorImg?.title || author.authorName || ""}
                   className="article-author-image"
                   image={getImage(authorImage)}
                 />

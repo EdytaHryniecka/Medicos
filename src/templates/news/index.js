@@ -371,6 +371,7 @@ export const query = graphql`
               }
             }
             authorImg {
+              title
               gatsbyImageData(quality: 100)
             }
           }
@@ -438,6 +439,7 @@ export const query = graphql`
             }
           }
           image {
+            title
             description
             gatsbyImageData(quality: 100)
             file {
