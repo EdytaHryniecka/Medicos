@@ -10,8 +10,12 @@ const MaterialTile = ({ material, goToDetails, t }) => {
         <span className="p-style">{material.node.inci}</span>
       </div>
       <div className="down-text">
-        <p className="p-style">{t`materials-tile.cas`}</p>
-        <span className="p-style">{material.node.cas}</span>
+        {material.node.cas && (
+          <>
+            <p className="p-style">{t`materials-tile.cas`}</p>
+            <span className="p-style">{material.node.cas}</span>
+          </>
+        )}
       </div>
       <div className="categories">
         {material.node.category.map((cat, index) => (
