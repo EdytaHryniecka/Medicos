@@ -6,12 +6,16 @@ const MaterialSticky = ({ material, renderCategory, t }) => {
     <div className="material-sticky">
       <p className="title">{material.node.title}</p>
       <div className="material-sticky-content">
-        <p className="p--p2">
-          {t`material-modal.inci`}: <span>{material.node.inci}</span>
-        </p>
-        <p className="p--p2">
-          {t`material-modal.cas`}: <span>{material.node.cas}</span>
-        </p>
+        {material.node.inci && (
+          <p className="p--p2">
+            {t`material-modal.inci`}: <span>{material.node.inci}</span>
+          </p>
+        )}
+        {material.node.cas && (
+          <p className="p--p2">
+            {t`material-modal.cas`}: <span>{material.node.cas}</span>
+          </p>
+        )}
         <div className="categories">
           {material.node.category.map((category, index) =>
             renderCategory(category, index)

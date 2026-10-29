@@ -137,10 +137,10 @@ const Materials = () => {
           .toLowerCase()
           .includes(searchMaterial.toLowerCase())
         const inciMatches = material.node.inci
-          .toLowerCase()
+          ?.toLowerCase()
           .includes(searchMaterial.toLowerCase())
         const casMatches = material.node.cas
-          .toLowerCase()
+          ?.toLowerCase()
           .includes(searchMaterial.toLowerCase())
         const categoryMatches = material.node.category.some(category =>
           selectedIndustry.some(industry =>
