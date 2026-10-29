@@ -22,11 +22,13 @@ const MaterialHeader = ({
               { label: material.node.title },
             ]}
           />
-          <div className="cas">
-            <p className="p--emphasis">
-              {t`material-modal.cas`}: {material.node.cas}
-            </p>
-          </div>
+          {material.node.cas && (
+            <div className="cas">
+              <p className="p--emphasis">
+                {t`material-modal.cas`}: {material.node.cas}
+              </p>
+            </div>
+          )}
           <h1 className="h1-style">{material.node.title}</h1>
           <div className="left-header">
             <div className="categories">
