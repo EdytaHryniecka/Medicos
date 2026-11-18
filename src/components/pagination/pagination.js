@@ -94,27 +94,27 @@ const CustomPagination = ({
               viewBox="0 0 25 25"
               fill="none"
             >
-              <g clip-path="url(#clip0_579_1225)">
+              <g clipPath="url(#clip0_579_1225)">
                 <path
                   d="M5.5 12.5H19.5"
                   stroke="#144487"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M5.5 12.5L11.5 18.5"
                   stroke="#144487"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M5.5 12.5L11.5 6.5"
                   stroke="#144487"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </g>
               <defs>
@@ -142,27 +142,27 @@ const CustomPagination = ({
               viewBox="0 0 25 25"
               fill="none"
             >
-              <g clip-path="url(#clip0_579_4084)">
+              <g clipPath="url(#clip0_579_4084)">
                 <path
                   d="M19.5 12.5L5.5 12.5"
                   stroke="#144487"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M19.5 12.5L13.5 6.5"
                   stroke="#144487"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M19.5 12.5L13.5 18.5"
                   stroke="#144487"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </g>
               <defs>

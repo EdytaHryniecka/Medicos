@@ -24,6 +24,9 @@
   "seo.household-chemicals.description": "Dostarczamy stabilne i skuteczne surowce dla branży chemii gospodarczej. Wspieramy produkcję wysokiej jakości detergentów i środków czystości.",
 
   "seo.cosmetology.title": "Półprodukty kosmetyczne | Medicos",
+  "seo.formulations.title": "Inspiracje formulacyjne – przykładowe receptury kosmetyków | Medicos",
+  "seo.formulations.description": "Poznaj przykładowe formulacje kosmetyków z surowcami MEDICOS. Sprawdź rolę składników, zaznacz surowce i zapytaj o próbki, dokumentację lub pełną recepturę PDF.",
+
   "seo.cosmetology.description": "Oferujemy specjalistyczne surowce chemiczne dla przemysłu kosmetycznego. Sprawdzone i jakościowe składniki aktywne i pomocnicze do różnorodnych produktów.",
 
   "seo.pharmacy.title": "Surowce chemiczne w farmacji | Medicos",
@@ -66,5 +69,6 @@
   "seo.privacy-policy.canonical": "",
   "seo.website-regulations.canonical": "",
   "seo.quality-standards.canonical": "",
-  "seo.search.canonical": ""
+  "seo.search.canonical": "",
+  "seo.formulations.canonical": ""
 }

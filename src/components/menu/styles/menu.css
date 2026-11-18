@@ -245,6 +245,25 @@
   padding: 0;
 }
 
+/* Language switcher items: same box as on medicos.com.pl (item became a div) */
+.menu-container .language-dropdown .dropdown-item a {
+  display: flex;
+  padding: 10px 8px;
+}
+
+.menu-container .language-dropdown .dropdown-item:focus,
+.menu-container .language-dropdown .dropdown-item:focus-visible,
+.menu-container .language-dropdown .dropdown-item a:focus,
+.menu-container .language-dropdown .dropdown-item a:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.menu-container .language-dropdown .dropdown-item.active,
+.menu-container .language-dropdown .dropdown-item:active {
+  background-color: transparent;
+}
+
 .menu-container .language-dropdown {
   padding: 6px 16px 3px 16px;
   transition: all 0.2s ease-out;
@@ -409,7 +428,7 @@
   margin-left: 24px;
 }
 
-@media screen and (max-width: 1271px) {
+@media screen and (max-width: 1323px) {
   .menu-container .dropdown {
     margin-right: 24px;
   }
@@ -424,5 +443,114 @@
   }
   .hide-menu .up-hide-menu .linkedIn-a:hover {
     background: var(--light-bg, #fbfcfe);
+  }
+}
+
+@media screen and (max-width: 1323px) {
+  .menu-container a.medicos-icon {
+    margin-left: 12px;
+  }
+  .menu-container .menu-inside-container .menu-button {
+    margin-right: 12px;
+  }
+}
+
+@media screen and (max-width: 567px) {
+  .menu-container a.medicos-icon {
+    margin-left: 20px;
+  }
+  .menu-container .menu-inside-container .menu-button {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (min-width: 1124px) and (max-width: 1323px) {
+  .menu-container {
+    padding-left: calc((100% - 1064px) / 2);
+    padding-right: calc((100% - 1064px) / 2);
+  }
+  .menu-container a.medicos-icon {
+    margin-left: 0;
+  }
+  .menu-container .menu-inside-container .menu-button {
+    margin-right: 0;
+  }
+}
+
+/* Desktop header up to 1600px: tighter links, search icon without left margin */
+@media screen and (min-width: 1324px) {
+  .menu-container .menu-inside-container .menu-link {
+    padding: 8px 10px;
+    margin-right: 8px;
+  }
+  .menu-container .search-icon {
+    margin-left: 0;
+  }
+}
+
+/* Desktop: links, dropdown links and the language switcher share one height */
+@media screen and (min-width: 1324px) {
+  .menu-container .menu-inside-container .menu-link,
+  .menu-container .language-dropdown {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    box-sizing: border-box;
+  }
+}
+
+/* Desktop 1324-1366px: keep every header link on one line */
+@media screen and (min-width: 1324px) {
+  .menu-container .menu-inside-container .menu-link {
+    white-space: nowrap;
+  }
+  .menu-container a.medicos-icon {
+    margin-left: 60px;
+  }
+  .menu-container .menu-inside-container .menu-button-link {
+    margin-right: 60px;
+  }
+}
+
+@media screen and (min-width: 1367px) {
+  .menu-container a.medicos-icon {
+    margin-left: 100px;
+  }
+  .menu-container .menu-inside-container .menu-button-link {
+    margin-right: 100px;
+  }
+}
+
+/* Desktop up to 1440px: all header links 17px */
+@media screen and (min-width: 1324px) {
+  .menu-container .menu-inside-container .menu-link,
+  .menu-container .rmo-dropdown button,
+  .menu-container .language-dropdown button,
+  .menu-container .dropdown-item {
+    font-size: 17px;
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .menu-container .menu-inside-container .menu-link,
+  .menu-container .rmo-dropdown button,
+  .menu-container .language-dropdown button,
+  .menu-container .dropdown-item {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .menu-container .menu-inside-container .menu-link {
+    padding: 8px 16px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .menu-container .menu-inside-container .menu-link {
+    margin-right: 16px;
+  }
+  .menu-container .search-icon {
+    margin-left: 44px;
   }
 }

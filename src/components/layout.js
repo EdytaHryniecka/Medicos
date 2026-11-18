@@ -4,6 +4,8 @@ import Footer from "./footer/footer"
 import { useLayoutEffect } from "react"
 import { useLocation } from "@reach/router"
 
+export const SCROLL_RESET_DELAY = 100
+
 const Layout = ({ children }) => {
   const location = useLocation()
 
@@ -26,7 +28,7 @@ const Layout = ({ children }) => {
       if (window.scrollY > 0) {
         window.scrollTo(0, 0)
       }
-    }, 100)
+    }, SCROLL_RESET_DELAY)
 
     return () => {
       clearTimeout(timeoutId)

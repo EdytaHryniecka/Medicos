@@ -1,0 +1,97 @@
+.formulations-page {
+  background: var(--Whiteness, #fbfcfe);
+}
+
+.formulations-page p {
+  margin: 0;
+}
+
+.formulations-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 15px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: REM;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease-out, color 0.2s ease-out,
+    border-color 0.2s ease-out;
+}
+
+.formulations-button--light {
+  background: var(--Whiteness, #fbfcfe);
+  border-color: var(--Button-secondary-border, #d3e2f8);
+  color: var(--Navy, #144487);
+}
+
+.formulations-button--light:hover {
+  background: var(--Light-blue, #e9f2fb);
+  color: var(--Blue, #4d8ce5);
+}
+
+.formulations-button--primary {
+  background: var(--Navy, #144487);
+  border-color: var(--Navy, #144487);
+  color: var(--Whiteness, #fbfcfe);
+}
+
+.formulations-button--primary:hover {
+  background: var(--Button-primary-hover-bg, #0d2d59);
+  border-color: var(--Button-primary-hover-bg, #0d2d59);
+}
+
+.formulations-button:focus-visible,
+.formulations-focus:focus-visible {
+  outline: 2px solid var(--Blue, #4d8ce5);
+  outline-offset: 2px;
+}
+
+.formulations-arrow-right {
+  flex-shrink: 0;
+  transform: rotate(-90deg);
+}
+
+.formulations-checkbox {
+  -webkit-appearance: none;
+  appearance: none;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 1px solid var(--Blue, #4d8ce5);
+  border-radius: 3px;
+  background: var(--Whiteness, #fbfcfe) no-repeat center / 100% 100%;
+  cursor: pointer;
+  transition: background-color 0.15s ease-out;
+}
+
+.formulations-checkbox:checked {
+  border-color: var(--Navy, #144487);
+  background-color: var(--Navy, #144487);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8.2L6.8 11L12 5' stroke='%23FBFCFE' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.formulations-checkbox:focus-visible {
+  outline: 2px solid var(--Blue, #4d8ce5);
+  outline-offset: 2px;
+}
+
+.formulations-checkbox--error {
+  border-color: var(--Functional-Error, #b21a1a);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .formulations-page *,
+  .formulations-page *::before,
+  .formulations-page *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

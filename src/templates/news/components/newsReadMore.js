@@ -27,27 +27,27 @@ const NewsReadMore = ({ articles }) => {
               viewBox="0 0 16 17"
               fill="none"
             >
-              <g clip-path="url(#clip0_868_5377)">
+              <g clipPath="url(#clip0_868_5377)">
                 <path
                   d="M12.666 8.5L3.33268 8.5"
                   stroke="#4D8CE5"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M12.666 8.5L8.66602 4.5"
                   stroke="#4D8CE5"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M12.666 8.5L8.66602 12.5"
                   stroke="#4D8CE5"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </g>
               <defs>

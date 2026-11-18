@@ -27,6 +27,7 @@ import MaterialParametersSection from "./components/materialParametersSection"
 import MaterialCertificatesSection from "./components/materialCertificatesSection"
 import MaterialGeneralInformationSection from "./components/materialGeneralInformationSection"
 import MaterialApplicationSection from "./components/materialApplicationSection"
+import MaterialFormulationsSection from "./components/materialFormulationsSection"
 import MaterialAvailablePackagingSection from "./components/materialAvailablePackagingSection"
 import MaterialDownloadableMaterialsSection from "./components/materialDownloadableMaterialsSection"
 import MaterialTechnicalSupportSection from "./components/materialTechnicalSupportSection"
@@ -640,8 +641,34 @@ const MaterialPage = ({ data, pageContext }) => {
         parameter => parameter?.key || parameter?.value
       )
     : []
-  const parameterRows =
+  const baseParameterRows =
     basicParameters.length > 0 ? basicParameters : defaultParameterRows
+  const rawMaterialGroups = Array.isArray(pageContext.rawMaterialGroups)
+    ? pageContext.rawMaterialGroups.map(name =>
+        language === "pl"
+          ? name
+          : t(`formulations.group.${name}`, { defaultValue: name })
+      )
+    : []
+  const casRowIndex = baseParameterRows.findIndex(row =>
+    /\bcas\b/i.test(row?.key || "")
+  )
+  const groupsRowIndex =
+    casRowIndex === -1 ? baseParameterRows.length : casRowIndex + 1
+  const parameterRows =
+    rawMaterialGroups.length > 0
+      ? [
+          ...baseParameterRows.slice(0, groupsRowIndex),
+          {
+            key: t`material-modal.groups`,
+            value: rawMaterialGroups.join(", "),
+          },
+          ...baseParameterRows.slice(groupsRowIndex),
+        ]
+      : baseParameterRows
+  const materialFormulations = Array.isArray(pageContext.formulations)
+    ? pageContext.formulations
+    : []
   const certificateItems = Array.isArray(material?.node?.certificateGraphics)
     ? material.node.certificateGraphics
         .map(item => {
@@ -882,6 +909,12 @@ const MaterialPage = ({ data, pageContext }) => {
                     applicationTableRows={applicationTableRows}
                   />
                 )}
+                {materialFormulations.length > 0 && (
+                  <MaterialFormulationsSection
+                    t={t}
+                    formulations={materialFormulations}
+                  />
+                )}
                 <MaterialDownloadableMaterialsSection t={t} />
                 {hasTechnicalSupportDescription && (
                   <MaterialTechnicalSupportSection
@@ -934,6 +967,12 @@ const MaterialPage = ({ data, pageContext }) => {
                     renderOptions={renderOptions}
                     hasApplicationDescription={hasApplicationDescription}
                     applicationTableRows={applicationTableRows}
+                  />
+                )}
+                {materialFormulations.length > 0 && (
+                  <MaterialFormulationsSection
+                    t={t}
+                    formulations={materialFormulations}
                   />
                 )}
                 {packagingRows.length > 0 && (

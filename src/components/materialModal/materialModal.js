@@ -65,20 +65,20 @@ const MaterialModal = ({ currentMaterial, showModal, closeModal, t }) => {
           viewBox="0 0 25 25"
           fill="none"
         >
-          <g clip-path="url(#clip0_594_2629)">
+          <g clipPath="url(#clip0_594_2629)">
             <path
               d="M18.5 6.5L6.5 18.5"
               stroke="#144487"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M6.5 6.5L18.5 18.5"
               stroke="#144487"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </g>
           <defs>
