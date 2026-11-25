@@ -245,11 +245,6 @@
   padding: 0;
 }
 
-/* Language switcher items: same box as on medicos.com.pl (item became a div) */
-.menu-container .language-dropdown .dropdown-item a {
-  display: flex;
-  padding: 10px 8px;
-}
 
 .menu-container .language-dropdown .dropdown-item:focus,
 .menu-container .language-dropdown .dropdown-item:focus-visible,
@@ -315,7 +310,8 @@
   transition: all 0.2s ease-out;
 }
 
-.menu-container .dropdown-menu a a {
+.menu-container .dropdown-menu a a,
+.menu-container .dropdown-menu div.dropdown-item > a {
   display: flex;
   width: 100%;
   height: 100%;
